@@ -1,9 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
+
+  useEffect(() => {
+    const handlePrepopulate = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const { service, message } = customEvent.detail;
+      setForm((prev) => ({
+        ...prev,
+        service: service || prev.service,
+        message: message || prev.message,
+      }));
+      // Wait for modal exit animations before scrolling
+      setTimeout(() => {
+        document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    };
+    window.addEventListener('prepopulate-inquiry', handlePrepopulate);
+    return () => window.removeEventListener('prepopulate-inquiry', handlePrepopulate);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -11,6 +29,7 @@ export default function Contact() {
     setTimeout(() => setSent(false), 4000);
     setForm({ name: '', email: '', phone: '', service: '', message: '' });
   };
+
 
   return (
     <section id="contact" className="py-24 bg-slate-800 text-white">
