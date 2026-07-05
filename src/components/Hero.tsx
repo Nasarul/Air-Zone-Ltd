@@ -10,7 +10,7 @@ const slides = [
     tagline: 'YOUR GATEWAY TO ADVENTURE',
   },
   {
-    image: 'https://images.pexels.com/photos/1188083/pexels-photo-1188083.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    image: 'https://images.pexels.com/photos/46148/pexels-photo-46148.jpeg?auto=compress&cs=tinysrgb&w=1600',
     title: 'Best Flight Deals',
     subtitle: 'Domestic & International',
     desc: 'Fly to your dream destination with premium airlines. Quick booking, flexible dates, and 24/7 ticketing support.',

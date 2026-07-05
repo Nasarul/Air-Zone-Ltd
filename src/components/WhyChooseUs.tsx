@@ -61,13 +61,9 @@ export default function WhyChooseUs() {
           {/* Right image */}
           <div className="relative">
             <img
-              src="https://images.pexels.com/photos/1488085061387-422e29b40080/pexels-photo-1488085061387.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Why Choose Us"
               className="rounded-2xl w-full h-[480px] object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=800';
-              }}
             />
             {/* Floating card */}
             <div className="absolute bottom-6 left-6 bg-white text-slate-800 rounded-2xl p-5 shadow-2xl max-w-xs">
