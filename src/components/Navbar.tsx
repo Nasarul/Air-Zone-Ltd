@@ -5,7 +5,7 @@ const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Tour Packages', href: '#tours' },
-  { label: 'Hajj & Umrah', href: '#hajj' },
+  { label: 'Air Tickets', href: '#flights' },
   { label: 'Visa Services', href: '#visa' },
   { label: 'Contact', href: '#contact' },
 ];

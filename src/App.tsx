@@ -3,7 +3,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
 import TourPackages from './components/TourPackages';
-import HajjUmrah from './components/HajjUmrah';
+import AirTicketing from './components/AirTicketing';
 import WhyChooseUs from './components/WhyChooseUs';
 import VisaServices from './components/VisaServices';
 import Team from './components/Team';
@@ -20,7 +20,7 @@ export default function App() {
         <Services />
         <About />
         <TourPackages />
-        <HajjUmrah />
+        <AirTicketing />
         <WhyChooseUs />
         <VisaServices />
         <Team />
@@ -31,3 +31,4 @@ export default function App() {
     </div>
   );
 }
+

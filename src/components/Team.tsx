@@ -13,9 +13,9 @@ const team = [
   },
   {
     name: 'Imran Chowdhury',
-    role: 'Hajj & Umrah Specialist',
+    role: 'Air Ticketing Specialist',
     image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400',
-    desc: 'Guides pilgrims through complete package planning and on-ground support.',
+    desc: 'Specializes in complex international flight itineraries and corporate group flight bookings.',
   },
   {
     name: 'Sadia Islam',

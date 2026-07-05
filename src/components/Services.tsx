@@ -1,19 +1,19 @@
-import { Globe, Plane, BookOpen } from 'lucide-react';
+import { Globe, Plane, Compass } from 'lucide-react';
 
 const services = [
   {
-    icon: Plane,
+    icon: Compass,
     title: 'Tour Packages',
     desc: 'Curated domestic and international tour packages with flights, hotels, and guided experiences tailored to every budget.',
     color: 'bg-sky-50 text-sky-600',
     border: 'hover:border-sky-200',
   },
   {
-    icon: BookOpen,
-    title: 'Hajj & Umrah',
-    desc: 'Complete pilgrimage solutions with premium accommodation near Haram, visa processing, and dedicated on-ground support.',
-    color: 'bg-emerald-50 text-emerald-600',
-    border: 'hover:border-emerald-200',
+    icon: Plane,
+    title: 'Air Ticketing',
+    desc: 'Domestic & international flight reservations on 100+ airlines. Corporate travel management and instant group bookings.',
+    color: 'bg-sky-50 text-sky-600',
+    border: 'hover:border-sky-200',
   },
   {
     icon: Globe,

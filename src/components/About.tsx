@@ -5,7 +5,7 @@ const points = [
   'IATA Accredited Travel Agency',
   'Over 15 years of trusted travel experience',
   'Partnerships with 200+ global hotels & airlines',
-  'Dedicated Hajj & Umrah division',
+  'Dedicated Air Ticketing & Support division',
   'Transparent pricing with zero hidden charges',
 ];
 
@@ -34,7 +34,7 @@ export default function About() {
               Your Trusted Travel Partner Since 2009
             </h2>
             <p className="text-slate-500 leading-relaxed mb-4">
-              Air Zone Ltd. is a leading travel agency based in Dhaka, Bangladesh, specializing in international and domestic tour packages, Hajj & Umrah pilgrimages, and comprehensive visa assistance services.
+              Air Zone Ltd. is a leading travel agency based in Dhaka, Bangladesh, specializing in international and domestic tour packages, air ticketing, and comprehensive visa assistance services.
             </p>
             <p className="text-slate-500 leading-relaxed mb-8">
               We are committed to delivering exceptional travel experiences with personalized service, competitive pricing, and round-the-clock support — ensuring every journey is smooth, memorable, and stress-free.

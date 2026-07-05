@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Send, Phone, Mail, MapPin, Facebook, Youtube, Instagram } from 'lucide-react';
 
-const quickLinks = ['Home', 'About Us', 'Tour Packages', 'Hajj & Umrah', 'Visa Services', 'Contact'];
-const services = ['International Tours', 'Domestic Tours', 'Hajj Packages', 'Umrah Packages', 'Visa Processing', 'Air Ticketing'];
+const quickLinks = ['Home', 'About Us', 'Tour Packages', 'Air Tickets', 'Visa Services', 'Contact'];
+const services = ['International Tours', 'Domestic Tours', 'Domestic Flights', 'International Flights', 'Visa Processing', 'Air Ticketing'];
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -42,7 +42,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-5">
-              Your trusted travel partner for tours, Hajj & Umrah pilgrimages, and visa services — delivering memorable journeys since 2009.
+              Your trusted travel partner for tours, flight tickets, and visa services — delivering memorable journeys since 2009.
             </p>
             <div className="flex gap-3">
               <a href="#" className="w-9 h-9 bg-slate-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors">
@@ -64,7 +64,7 @@ export default function Footer() {
               {quickLinks.map((l) => (
                 <li key={l}>
                   <button
-                    onClick={() => scrollTo(`#${l.toLowerCase().replace(/\s+/g, '').replace('packages', 'tours').replace('aboutus', 'about').replace('hajj&umrah', 'hajj').replace('visaservices', 'visa')}`)}
+                    onClick={() => scrollTo(`#${l.toLowerCase().replace(/\s+/g, '').replace('packages', 'tours').replace('aboutus', 'about').replace('airtickets', 'flights').replace('visaservices', 'visa')}`)}
                     className="text-slate-400 hover:text-sky-400 text-sm transition-colors"
                   >
                     {l}

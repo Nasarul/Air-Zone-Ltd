@@ -81,7 +81,7 @@ export default function Contact() {
                 <div className="font-bold text-white mb-1">Email</div>
                 <div className="text-slate-400 text-sm space-y-1">
                   <div>info@airzoneltd.com</div>
-                  <div>hajj@airzoneltd.com</div>
+                  <div>ticketing@airzoneltd.com</div>
                 </div>
               </div>
             </div>
@@ -157,10 +157,8 @@ export default function Contact() {
                     >
                       <option value="">Select a service</option>
                       <option>Tour Package</option>
-                      <option>Hajj Package</option>
-                      <option>Umrah Package</option>
-                      <option>Visa Assistance</option>
                       <option>Air Ticket</option>
+                      <option>Visa Assistance</option>
                       <option>Other</option>
                     </select>
                   </div>

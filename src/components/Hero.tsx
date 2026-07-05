@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Search, MapPin, Plane, ShieldCheck, Globe, Calendar, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, MapPin, Plane, Globe, Calendar, ArrowRight } from 'lucide-react';
 
 const slides = [
   {
     image: 'https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1600',
     title: 'Explore the World',
     subtitle: 'with Air Zone Ltd.',
-    desc: 'Premium tour packages, Hajj & Umrah services, and seamless visa assistance — all in one place.',
+    desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',
     tagline: 'YOUR GATEWAY TO ADVENTURE',
   },
   {
-    image: 'https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    title: 'Sacred Journeys',
-    subtitle: 'Hajj & Umrah',
-    desc: 'Spiritually enriching pilgrimages with comprehensive packages including flights, visa, and accommodation.',
-    tagline: 'SACRED & PEACEFUL PILGRIMAGES',
+    image: 'https://images.pexels.com/photos/1188083/pexels-photo-1188083.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    title: 'Best Flight Deals',
+    subtitle: 'Domestic & International',
+    desc: 'Fly to your dream destination with premium airlines. Quick booking, flexible dates, and 24/7 ticketing support.',
+    tagline: 'ACCUMULATED MILES & BEST FARES',
   },
   {
     image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1600',
@@ -35,13 +35,15 @@ const stats = [
 export default function Hero() {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [activeTab, setActiveTab] = useState<'tours' | 'hajj' | 'visa'>('tours');
+  const [activeTab, setActiveTab] = useState<'tours' | 'flights' | 'visa'>('tours');
 
   // Search form states
   const [tourDest, setTourDest] = useState('');
   const [tourDuration, setTourDuration] = useState('');
-  const [hajjType, setHajjType] = useState('hajj');
-  const [hajjPkg, setHajjPkg] = useState('');
+  const [flightFrom, setFlightFrom] = useState('DAC');
+  const [flightTo, setFlightTo] = useState('');
+  const [flightDate, setFlightDate] = useState('');
+  const flightCabin = 'Economy';
   const [visaCountry, setVisaCountry] = useState('');
   const [visaType, setVisaType] = useState('');
 
@@ -63,9 +65,9 @@ export default function Hero() {
     if (activeTab === 'tours') {
       window.dispatchEvent(new CustomEvent('filter-tours', { detail: { dest: tourDest, duration: tourDuration } }));
       document.querySelector('#tours')?.scrollIntoView({ behavior: 'smooth' });
-    } else if (activeTab === 'hajj') {
-      window.dispatchEvent(new CustomEvent('filter-hajj', { detail: { type: hajjType, pkg: hajjPkg } }));
-      document.querySelector('#hajj')?.scrollIntoView({ behavior: 'smooth' });
+    } else if (activeTab === 'flights') {
+      window.dispatchEvent(new CustomEvent('filter-flights', { detail: { from: flightFrom, to: flightTo, date: flightDate, cabin: flightCabin } }));
+      document.querySelector('#flights')?.scrollIntoView({ behavior: 'smooth' });
     } else if (activeTab === 'visa') {
       window.dispatchEvent(new CustomEvent('filter-visa', { detail: { country: visaCountry, type: visaType } }));
       document.querySelector('#visa')?.scrollIntoView({ behavior: 'smooth' });
@@ -166,19 +168,19 @@ export default function Hero() {
                   : 'text-slate-500 hover:text-sky-700 hover:bg-slate-50'
               }`}
             >
-              <Plane size={16} />
+              <Calendar size={16} />
               Tour Packages
             </button>
             <button
-              onClick={() => setActiveTab('hajj')}
+              onClick={() => setActiveTab('flights')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                activeTab === 'hajj'
-                  ? 'bg-emerald-50 text-emerald-700 shadow-sm'
-                  : 'text-slate-500 hover:text-emerald-700 hover:bg-slate-50'
+                activeTab === 'flights'
+                  ? 'bg-sky-50 text-sky-700 shadow-sm'
+                  : 'text-slate-500 hover:text-sky-700 hover:bg-slate-50'
               }`}
             >
-              <ShieldCheck size={16} />
-              Hajj & Umrah
+              <Plane size={16} />
+              Air Tickets
             </button>
             <button
               onClick={() => setActiveTab('visa')}
@@ -252,48 +254,59 @@ export default function Hero() {
               </>
             )}
 
-            {activeTab === 'hajj' && (
+            {activeTab === 'flights' && (
               <>
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Service Category</label>
-                  <select
-                    value={hajjType}
-                    onChange={(e) => setHajjType(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 cursor-pointer"
-                  >
-                    <option value="hajj">Hajj Packages</option>
-                    <option value="umrah">Umrah Packages</option>
-                  </select>
+                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">From (Origin)</label>
+                  <div className="relative">
+                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <select
+                      value={flightFrom}
+                      onChange={(e) => setFlightFrom(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                    >
+                      <option value="DAC">Dhaka (DAC)</option>
+                      <option value="CGP">Chittagong (CGP)</option>
+                      <option value="ZYL">Sylhet (ZYL)</option>
+                      <option value="CXB">Cox's Bazar (CXB)</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Package Standard</label>
-                  <select
-                    value={hajjPkg}
-                    onChange={(e) => setHajjPkg(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 cursor-pointer"
-                  >
-                    <option value="">Any Class</option>
-                    <option value="VIP">VIP Packages</option>
-                    <option value="Premium">Premium Standard</option>
-                    <option value="Economy">Economy / Group</option>
-                  </select>
+                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">To (Destination)</label>
+                  <div className="relative">
+                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <select
+                      value={flightTo}
+                      onChange={(e) => setFlightTo(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                    >
+                      <option value="">Select Destination</option>
+                      <option value="Cox's Bazar">Cox's Bazar (CXB)</option>
+                      <option value="Dubai">Dubai (DXB)</option>
+                      <option value="Singapore">Singapore (SIN)</option>
+                      <option value="London">London (LHR)</option>
+                      <option value="Kuala Lumpur">Kuala Lumpur (KUL)</option>
+                      <option value="Bangkok">Bangkok (BKK)</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="space-y-2 md:col-span-2 flex flex-col md:flex-row gap-4 items-stretch md:items-end">
                   <div className="flex-1 space-y-2">
-                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Pilgrim Count</label>
+                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Departure Date</label>
                     <input
-                      type="number"
-                      min="1"
-                      placeholder="Number of pilgrims"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      type="date"
+                      value={flightDate}
+                      onChange={(e) => setFlightDate(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap animate-pulse-subtle"
+                    className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
                   >
                     <Search size={16} />
-                    Search Packages
+                    Search Flights
                   </button>
                 </div>
               </>
@@ -364,7 +377,6 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
           {stats.map((s) => (
             <div key={s.label} className="text-center group">
-
               <div className="text-3xl md:text-4.5xl font-black text-sky-400 group-hover:scale-105 transition-transform duration-300 inline-block">{s.value}</div>
               <div className="text-xs md:text-sm text-slate-400 mt-2 font-bold uppercase tracking-wider">{s.label}</div>
             </div>
@@ -375,4 +387,5 @@ export default function Hero() {
     </section>
   );
 }
+
 

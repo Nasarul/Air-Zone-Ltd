@@ -22,7 +22,7 @@ const visas = [
     country: 'Saudi Arabia',
     flag: 'https://flagcdn.com/w80/sa.png',
     days: '5–8 working days',
-    category: 'Visit / Umrah',
+    category: 'Tourist / Visit',
     price: '৳14,500 (E-Visa)',
     documents: [
       'Passport scanned copy (clear color copy of bio page)',

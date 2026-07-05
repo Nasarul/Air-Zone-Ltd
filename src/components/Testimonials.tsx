@@ -12,7 +12,7 @@ const testimonials = [
     name: 'Fatima Begum',
     role: 'Homemaker',
     image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=200',
-    text: 'We performed Hajj through Air Zone and the entire experience was spiritually fulfilling and well-organized. Their team was with us every step of the way.',
+    text: 'Air Zone booked our family flight tickets to Canada at an unbeatable rate. Their support staff helped us manage all baggage requests and seat arrangements smoothly.',
     rating: 5,
   },
   {
