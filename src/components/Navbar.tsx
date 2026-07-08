@@ -49,12 +49,13 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           {/* Logo */}
-          <button onClick={() => handleLink('#home')} className="flex items-center gap-3.5 group">
+          <button onClick={() => handleLink('#home')} className="flex items-center gap-2 group">
             <div className="relative w-16 h-16 flex-shrink-0">
               <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
             </div>
-            <div className="text-sky-700 font-black text-2xl tracking-tight whitespace-nowrap">
-              Air Zone Ltd.
+            <div className="font-black text-2xl tracking-tight whitespace-nowrap select-none">
+              <span className="text-[#064368] dark:text-[#E0EEF7]">Air Zone</span>{' '}
+              <span className="text-[#901A1D]">Ltd.</span>
             </div>
           </button>
 

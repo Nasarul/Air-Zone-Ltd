@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Page, SubPage, User, ToastMessage, SystemLog } from '../../types/dashboard';
+import { 
+  Page, SubPage, User, ToastMessage, SystemLog,
+  HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings
+} from '../../types/dashboard';
 
 interface DashboardContextType {
   page: Page;
@@ -31,6 +34,18 @@ interface DashboardContextType {
   addSystemLog: (level: SystemLog['level'], category: SystemLog['category'], message: string) => void;
   maintenanceMode: boolean;
   setMaintenanceMode: (val: boolean) => void;
+
+  // CMS Section Settings
+  heroSettings: HeroSettings;
+  updateHeroSettings: (settings: Partial<HeroSettings>) => void;
+  aboutSettings: AboutSettings;
+  updateAboutSettings: (settings: Partial<AboutSettings>) => void;
+  packagesSettings: PackagesSettings;
+  updatePackagesSettings: (settings: Partial<PackagesSettings>) => void;
+  visaSettings: VisaSettings;
+  updateVisaSettings: (settings: Partial<VisaSettings>) => void;
+  teamSettings: TeamSettings;
+  updateTeamSettings: (settings: Partial<TeamSettings>) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
