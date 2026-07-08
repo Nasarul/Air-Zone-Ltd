@@ -1,15 +1,12 @@
 import { CheckCircle } from 'lucide-react';
-
-const points = [
-  'Licensed by Civil Aviation Authority, Bangladesh',
-  'IATA Accredited Travel Agency',
-  'Over 15 years of trusted travel experience',
-  'Partnerships with 200+ global hotels & airlines',
-  'Dedicated Air Ticketing & Support division',
-  'Transparent pricing with zero hidden charges',
-];
+import { useDashboard } from './dashboard/DashboardContext';
 
 export default function About() {
+  const { aboutSettings } = useDashboard();
+  
+  if (!aboutSettings.isEnabled) return null;
+  const { badge, title, desc1, desc2, points, image, yearsExperience, yearsLabel } = aboutSettings;
+
   return (
     <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -17,27 +14,27 @@ export default function About() {
           {/* Image */}
           <div className="relative">
             <img
-              src="https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src={image}
               alt="About Air Zone Ltd"
               className="rounded-2xl object-cover w-full h-[480px] shadow-xl"
             />
             <div className="absolute -bottom-6 -right-6 bg-sky-600 text-white rounded-2xl px-8 py-6 shadow-xl hidden md:block">
-              <div className="text-4xl font-extrabold">15+</div>
-              <div className="text-sky-200 text-sm font-medium mt-1">Years of Excellence</div>
+              <div className="text-4xl font-extrabold">{yearsExperience}</div>
+              <div className="text-sky-200 text-sm font-medium mt-1">{yearsLabel}</div>
             </div>
           </div>
 
           {/* Content */}
           <div>
-            <span className="text-sky-600 font-semibold text-sm uppercase tracking-widest">Who We Are</span>
+            <span className="text-sky-600 font-semibold text-sm uppercase tracking-widest">{badge}</span>
             <h2 className="text-4xl font-extrabold text-slate-800 mt-2 mb-5 leading-tight">
-              Your Trusted Travel Partner Since 2009
+              {title}
             </h2>
             <p className="text-slate-500 leading-relaxed mb-4">
-              Air Zone Ltd. is a leading travel agency based in Dhaka, Bangladesh, specializing in international and domestic tour packages, air ticketing, and comprehensive visa assistance services.
+              {desc1}
             </p>
             <p className="text-slate-500 leading-relaxed mb-8">
-              We are committed to delivering exceptional travel experiences with personalized service, competitive pricing, and round-the-clock support — ensuring every journey is smooth, memorable, and stress-free.
+              {desc2}
             </p>
             <ul className="space-y-3">
               {points.map((p) => (

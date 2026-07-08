@@ -1,187 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Clock, ArrowRight, Search, X, Check, FileText, FileCheck2, Send } from 'lucide-react';
+import { useDashboard } from './dashboard/DashboardContext';
+import { VisaServiceItem } from '../types/dashboard';
 
-
-const visas = [
-  {
-    country: 'United Kingdom',
-    flag: 'https://flagcdn.com/w80/gb.png',
-    days: '12–18 working days',
-    category: 'Tourist / Business',
-    price: '৳18,500 (Service Fee)',
-    documents: [
-      'Current passport with at least 6 months validity & previous passports',
-      'Two recent photographs (35mm x 45mm, white background)',
-      'Bank statement (last 6 months) with bank solvency certificate (Min. ৳3-4 Lakhs)',
-      'No Objection Certificate (NOC) for service / Trade License copy for businessmen',
-      'TIN certificate and last 3 years Tax return slip',
-      'Property asset valuation, marriage certificate (if family travel)'
-    ]
-  },
-  {
-    country: 'Saudi Arabia',
-    flag: 'https://flagcdn.com/w80/sa.png',
-    days: '5–8 working days',
-    category: 'Tourist / Visit',
-    price: '৳14,500 (E-Visa)',
-    documents: [
-      'Passport scanned copy (clear color copy of bio page)',
-      'One recent passport size photo with white background',
-      'National ID card (NID) copy',
-      'No bank statement required for standard e-visa (dependent on nationality)'
-    ]
-  },
-  {
-    country: 'Japan',
-    flag: 'https://flagcdn.com/w80/jp.png',
-    days: '8–12 working days',
-    category: 'Tourist / Business',
-    price: '৳7,500 (Visa & Service Fee)',
-    documents: [
-      'Original Passport with minimum 6 months validity',
-      'Visa application form duly filled and signed',
-      'Two recent photos (2 inches x 2 inches, matte finish)',
-      'Bank statement (last 6 months) and bank solvency certificate',
-      'Company cover letter / NOC from employer',
-      'Detailed day-by-day travel itinerary in Japan'
-    ]
-  },
-  {
-    country: 'Singapore',
-    flag: 'https://flagcdn.com/w80/sg.png',
-    days: '5–7 working days',
-    category: 'Tourist / Business',
-    price: '৳6,500 (Visa & Service Fee)',
-    documents: [
-      'Passport with 6 months validity',
-      'Visa Application Form 14A',
-      'Two recent passport-sized color photos (35mm x 45mm, matte finish)',
-      'Singapore local sponsor invitation letter (Form V39A) if applicable',
-      'Bank statement (last 6 months) with sufficient balance',
-      'NOC / Leave letter / Trade license copy'
-    ]
-  },
-  {
-    country: 'United Arab Emirates',
-    flag: 'https://flagcdn.com/w80/ae.png',
-    days: '4–6 working days',
-    category: 'Visit / Transit',
-    price: '৳15,500 (30 Days Single Entry)',
-    documents: [
-      'Scanned copy of passport front and back pages (clear color)',
-      'One clear passport-sized photo with white background',
-      'National ID card copy',
-      'Confirmed return flight tickets (not required for application, but recommended)'
-    ]
-  },
-  {
-    country: 'Malaysia',
-    flag: 'https://flagcdn.com/w80/my.png',
-    days: '6–7 working days',
-    category: 'Tourist / Business',
-    price: '৳6,000 (E-Visa & Processing)',
-    documents: [
-      'Passport copy (scanned color, first page + exit stamps)',
-      'Two passport size photos (35mm x 50mm, white background)',
-      'Bank statement (last 3 months) showing transactions and solvency',
-      'NOC for employees / Trade license copy for business owners',
-      'Confirmed hotel reservation and flight itinerary'
-    ]
-  },
-  {
-    country: 'Canada',
-    flag: 'https://flagcdn.com/w80/ca.png',
-    days: '15–25 working days',
-    category: 'Tourist / Student',
-    price: '৳22,000 (Service Fee)',
-    documents: [
-      'Original passports & all previous passport logs',
-      'Digital photo (35mm x 45mm, white background, matte finish)',
-      'Highly detailed 6 months bank statement with bank certificate',
-      'Detailed job profile description & NOC, or Trade license copy',
-      'Income Tax returns and asset valuation documentation',
-      'Family explanation letter & detailed travel history log'
-    ]
-  },
-  {
-    country: 'Australia',
-    flag: 'https://flagcdn.com/w80/au.png',
-    days: '10–20 working days',
-    category: 'Tourist / Business',
-    price: '৳20,000 (Service Fee)',
-    documents: [
-      'Complete biometric record & passport copy scans',
-      'Photo specs (35mm x 45mm, white background)',
-      'Detailed bank statement of past 6 months showing saving records',
-      'Salary payslips (last 3 months) & NOC for service holders',
-      'Company incorporation / trade license for business owners',
-      'Travel plans, family ties details, and cover letter explanation'
-    ]
-  },
-  {
-    country: 'USA',
-    flag: 'https://flagcdn.com/w80/us.png',
-    days: '20–30 working days',
-    category: 'Tourist / Business',
-    price: '৳25,000 (DS-160 & Appointment Support)',
-    documents: [
-      'Passport valid for at least 6 months beyond travel dates',
-      'US Visa photo (50mm x 50mm, square, white background)',
-      'DS-160 visa application form submission confirmation page',
-      'Visa Fee payment receipt copy',
-      'Visa Interview appointment confirmation letter',
-      'Comprehensive supporting documentation advice from our advisors'
-    ]
-  },
-  {
-    country: 'Schengen (Europe)',
-    flag: 'https://flagcdn.com/w80/eu.png',
-    days: '10–15 working days',
-    category: 'Tourist / Business',
-    price: '৳22,500 (VFS Appointment + Support)',
-    documents: [
-      'Schengen Application form filled in English',
-      'Passport containing at least 2 blank pages, valid for 3+ months',
-      'Two biometric photos (35mm x 45mm, white background)',
-      'Schengen Travel Health Insurance (coverage min €30,000)',
-      'Round-trip flight booking and hotel reservations',
-      '6 months bank statement and salary slip records (past 3 months)'
-    ]
-  },
-  {
-    country: 'Thailand',
-    flag: 'https://flagcdn.com/w80/th.png',
-    days: '3–5 working days',
-    category: 'Tourist',
-    price: '৳5,000 (Visa & Service Fee)',
-    documents: [
-      'Passport valid for at least 6 months',
-      'Two recent photos (3.5cm x 4.5cm, white background)',
-      'Bank statement (last 6 months) showing min. balance ৳60,000 per person',
-      'NOC / Job Certificate (on official letterhead) or Trade License',
-      'Student ID card copy (if student)'
-    ]
-  },
-  {
-    country: 'Turkey',
-    flag: 'https://flagcdn.com/w80/tr.png',
-    days: '5–8 working days',
-    category: 'Tourist / Business',
-    price: '৳12,000 (Visa & Service Fee)',
-    documents: [
-      'Original Passport with 6 months validity',
-      'Two biometric photos (5cm x 5cm, white background)',
-      'Bank statement (last 6 months) and bank solvency certificate (attested)',
-      'NOC from employer / Trade License with translation & notarization',
-      'Police clearance certificate (valid for 6 months)',
-      'Travel health insurance covering Turkey (min €30,000)'
-    ]
-  },
+const defaultDocuments = [
+  'Current passport with at least 6 months validity & previous passports',
+  'Two recent photographs (35mm x 45mm, white background)',
+  'Bank statement (last 6 months) with bank solvency certificate (Min. ৳3-4 Lakhs)',
+  'No Objection Certificate (NOC) for service / Trade License copy for businessmen',
+  'TIN certificate and last 3 years Tax return slip',
+  'Property asset valuation, marriage certificate (if family travel)'
 ];
 
 export default function VisaServices() {
+  const { visaSettings } = useDashboard();
+  if (!visaSettings.isEnabled) return null;
+  const visas = visaSettings.items;
+  const title = visaSettings.title;
+  const subtitle = visaSettings.subtitle;
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedVisa, setSelectedVisa] = useState<typeof visas[0] | null>(null);
+  const [selectedVisa, setSelectedVisa] = useState<any | null>(null);
   const [sentInquiry, setSentInquiry] = useState(false);
   const [inquiryName, setInquiryName] = useState('');
   const [inquiryPhone, setInquiryPhone] = useState('');
@@ -234,9 +73,9 @@ export default function VisaServices() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
             <span className="text-sky-600 font-extrabold text-xs uppercase tracking-widest block mb-2">Hassle-Free Processing</span>
-            <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">Visa Services</h2>
+            <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">{title}</h2>
             <p className="text-slate-500 text-sm md:text-base mt-2 max-w-xl">
-              Professional visa processing for 50+ countries with custom checklists, document preparation support, and high approval rates.
+              {subtitle}
             </p>
           </div>
 
@@ -379,7 +218,7 @@ export default function VisaServices() {
                       Required Documents Checklist
                     </h4>
                     <ul className="space-y-3.5">
-                      {selectedVisa.documents.map((doc, idx) => (
+                      {(selectedVisa.documents || defaultDocuments).map((doc, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-slate-600 text-xs md:text-sm leading-relaxed">
                           <div className="w-5 h-5 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold">
                             {idx + 1}

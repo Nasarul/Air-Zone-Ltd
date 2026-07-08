@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useDashboard } from './dashboard/DashboardContext';
 
 const navLinks = [
@@ -30,17 +30,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top bar */}
-      <div className="bg-sky-700 text-white text-sm hidden md:block">
-        <div className="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
-          <span className="opacity-80">Licensed by Civil Aviation Authority — Air Zone Ltd.</span>
-          <div className="flex items-center gap-2 font-medium">
-            <Phone size={14} />
-            <span>+880 1700-000000</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main navbar */}
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -80,12 +69,6 @@ export default function Navbar() {
               Admin Portal
             </button>
             <button
-              onClick={() => handleLink('#contact')}
-              className="hidden md:inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-4.5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"
-            >
-              Get a Quote
-            </button>
-            <button
               className="lg:hidden p-2 text-slate-600 hover:text-sky-700"
               onClick={() => setOpen(!open)}
             >
@@ -118,12 +101,6 @@ export default function Navbar() {
               className="mt-2 text-center text-xs font-bold text-sky-700 hover:bg-sky-50 border border-sky-600 py-2.5 rounded-full"
             >
               Admin Portal
-            </button>
-            <button
-              onClick={() => handleLink('#contact')}
-              className="mt-2 bg-sky-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full"
-            >
-              Get a Quote
             </button>
           </nav>
         </div>

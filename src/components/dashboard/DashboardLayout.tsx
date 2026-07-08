@@ -4,7 +4,7 @@ import { SubPage } from '../../types/dashboard';
 import { 
   LayoutDashboard, Users, User, FileSpreadsheet, TrendingUp, Settings, 
   Bell, Lock, HelpCircle, LogOut, Menu, X, Search, Sun, Moon, 
-  Globe, ChevronDown, AlertTriangle, Mail, Calendar 
+  Globe, ChevronDown, AlertTriangle, Mail, Calendar, Sliders 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,6 +17,10 @@ import AnalyticsView from './pages/AnalyticsView';
 import SettingsView from './pages/SettingsView';
 import SecurityView from './pages/SecurityView';
 import NotificationsView from './pages/NotificationsView';
+import { 
+  HeroSectionSettings, AboutSectionSettings, PackagesSectionSettings, 
+  VisaSectionSettings, TeamSectionSettings, FooterSectionSettings
+} from './pages/SectionSettingsPages';
 
 export default function DashboardLayout() {
   const { 
@@ -26,6 +30,7 @@ export default function DashboardLayout() {
 
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sectionsExpanded, setSectionsExpanded] = useState(false);
 
   // Dropdown States
   const [activeDropdown, setActiveDropdown] = useState<'profile' | 'notifications' | 'messages' | 'lang' | 'calendar' | null>(null);
@@ -115,6 +120,57 @@ export default function DashboardLayout() {
               </button>
             );
           })}
+
+          {/* Section Settings Accordion */}
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/60">
+            <button
+              onClick={() => setSectionsExpanded(!sectionsExpanded)}
+              className={`w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group relative ${
+                subPage.startsWith('sections-')
+                  ? 'text-primary dark:text-sky-400 font-bold bg-slate-50 dark:bg-slate-800/30'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Sliders className="w-5 h-5 text-slate-400 group-hover:text-primary transition-colors flex-shrink-0" />
+                {!sidebarCollapsed && (
+                  <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs">
+                    Section Settings
+                  </motion.span>
+                )}
+              </div>
+              {!sidebarCollapsed && (
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-450 transition-transform duration-200 ${sectionsExpanded ? 'rotate-180' : ''}`} />
+              )}
+            </button>
+            {sectionsExpanded && !sidebarCollapsed && (
+              <div className="pl-4 space-y-1 mt-1.5 border-l border-slate-100 dark:border-slate-800 ml-5">
+                {[
+                  { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
+                  { id: 'sections-about' as SubPage, label: 'About Us' },
+                  { id: 'sections-packages' as SubPage, label: 'Tour Packages' },
+                  { id: 'sections-visa' as SubPage, label: 'Visa Services' },
+                  { id: 'sections-team' as SubPage, label: 'Team Members' },
+                  { id: 'sections-footer' as SubPage, label: 'Footer' },
+                ].map(subItem => {
+                  const isSubActive = subPage === subItem.id;
+                  return (
+                    <button
+                      key={subItem.id}
+                      onClick={() => setSubPage(subItem.id)}
+                      className={`w-full text-left px-3 py-1.5 rounded-lg text-[11px] transition-colors ${
+                        isSubActive
+                          ? 'text-primary dark:text-sky-400 bg-primary/5 dark:bg-sky-400/5 font-bold'
+                          : 'text-slate-450 hover:text-slate-700 dark:hover:text-slate-200 font-medium'
+                      }`}
+                    >
+                      {subItem.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Sidebar Footer Support / Logout */}
@@ -435,6 +491,12 @@ export default function DashboardLayout() {
               {subPage === 'settings' && <SettingsView />}
               {subPage === 'security' && <SecurityView />}
               {subPage === 'notifications' && <NotificationsView />}
+              {subPage === 'sections-hero' && <HeroSectionSettings />}
+              {subPage === 'sections-about' && <AboutSectionSettings />}
+              {subPage === 'sections-packages' && <PackagesSectionSettings />}
+              {subPage === 'sections-visa' && <VisaSectionSettings />}
+              {subPage === 'sections-team' && <TeamSectionSettings />}
+              {subPage === 'sections-footer' && <FooterSectionSettings />}
             </motion.div>
           </AnimatePresence>
         </main>
@@ -500,6 +562,52 @@ export default function DashboardLayout() {
                     );
                   })}
                 </nav>
+
+                {/* Mobile Section Settings Accordion */}
+                <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <button
+                    onClick={() => setSectionsExpanded(!sectionsExpanded)}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold ${
+                      subPage.startsWith('sections-') ? 'text-primary' : 'text-slate-500'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Sliders className="w-5 h-5" />
+                      <span>Section Settings</span>
+                    </div>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-205 ${sectionsExpanded ? 'rotate-180' : ''}`} />
+                  </button>
+                  {sectionsExpanded && (
+                    <div className="pl-6 space-y-1 mt-1 border-l border-slate-100 dark:border-slate-800 ml-5 animate-fadeIn">
+                      {[
+                        { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
+                        { id: 'sections-about' as SubPage, label: 'About Us' },
+                        { id: 'sections-packages' as SubPage, label: 'Tour Packages' },
+                        { id: 'sections-visa' as SubPage, label: 'Visa Services' },
+                        { id: 'sections-team' as SubPage, label: 'Team Members' },
+                        { id: 'sections-footer' as SubPage, label: 'Footer' },
+                      ].map(subItem => {
+                        const isSubActive = subPage === subItem.id;
+                        return (
+                          <button
+                            key={subItem.id}
+                            onClick={() => {
+                              setSubPage(subItem.id);
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`w-full text-left px-3 py-2 rounded-lg text-[10px] transition-colors font-bold ${
+                              isSubActive
+                                ? 'text-primary bg-primary/5 dark:bg-sky-400/5'
+                                : 'text-slate-450 hover:text-slate-700 dark:hover:text-slate-200'
+                            }`}
+                          >
+                            {subItem.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <button

@@ -42,7 +42,7 @@ export interface Announcement {
 export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500';
 export type SubPage = 
   | 'home' | 'users' | 'profile' | 'reports' | 'analytics' | 'settings' | 'security' | 'notifications'
-  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team';
+  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer';
 
 export interface HeroSlide {
   image: string;
@@ -118,6 +118,28 @@ export interface TeamSettings {
   title: string;
   subtitle: string;
   items: TeamMemberItem[];
+}
+
+export interface FooterSocialLink {
+  platform: 'facebook' | 'youtube' | 'instagram' | 'twitter' | 'linkedin';
+  url: string;
+}
+
+export interface FooterSettings {
+  isEnabled: boolean;
+  brandTagline: string;
+  address: string;
+  phone: string;
+  email: string;
+  facebookUrl: string;
+  youtubeUrl: string;
+  instagramUrl: string;
+  quickLinks: string[];
+  services: string[];
+  newsletterTitle: string;
+  newsletterDesc: string;
+  copyrightText: string;
+  licenseText: string;
 }
 
 export interface ToastMessage {

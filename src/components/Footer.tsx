@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Send, Phone, Mail, MapPin, Facebook, Youtube, Instagram } from 'lucide-react';
-
-const quickLinks = ['Home', 'About Us', 'Tour Packages', 'Air Tickets', 'Visa Services', 'Contact'];
-const services = ['International Tours', 'Domestic Tours', 'Domestic Flights', 'International Flights', 'Visa Processing', 'Air Ticketing'];
+import { useDashboard } from './dashboard/DashboardContext';
 
 export default function Footer() {
+  const { footerSettings } = useDashboard();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+
+  if (!footerSettings.isEnabled) return null;
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,24 +18,30 @@ export default function Footer() {
     }
   };
 
-  const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (label: string) => {
+    // Map link labels to anchor IDs
+    const map: Record<string, string> = {
+      'Home': '#home',
+      'About Us': '#about',
+      'Tour Packages': '#tours',
+      'Air Tickets': '#flights',
+      'Visa Services': '#visa',
+      'Contact': '#contact',
+    };
+    const anchor = map[label] || `#${label.toLowerCase().replace(/\s+/g, '')}`;
+    document.querySelector(anchor)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <footer className="bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10">
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <circle cx="20" cy="20" r="20" fill="#0369a1" />
-                  <path d="M8 22L20 10L32 22" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M14 30L20 10L26 30" stroke="#7dd3fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M10 22H30" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
+                <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="font-extrabold text-white text-lg leading-none">AIR ZONE</div>
@@ -42,16 +49,28 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-5">
-              Your trusted travel partner for tours, flight tickets, and visa services — delivering memorable journeys since 2009.
+              {footerSettings.brandTagline}
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-slate-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors">
+              <a
+                href={footerSettings.facebookUrl}
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-slate-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors"
+              >
                 <Facebook size={16} />
               </a>
-              <a href="#" className="w-9 h-9 bg-slate-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors">
+              <a
+                href={footerSettings.youtubeUrl}
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-slate-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
+              >
                 <Youtube size={16} />
               </a>
-              <a href="#" className="w-9 h-9 bg-slate-800 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors">
+              <a
+                href={footerSettings.instagramUrl}
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 bg-slate-800 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors"
+              >
                 <Instagram size={16} />
               </a>
             </div>
@@ -61,10 +80,10 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-white mb-5">Quick Links</h4>
             <ul className="space-y-2.5">
-              {quickLinks.map((l) => (
+              {footerSettings.quickLinks.map((l) => (
                 <li key={l}>
                   <button
-                    onClick={() => scrollTo(`#${l.toLowerCase().replace(/\s+/g, '').replace('packages', 'tours').replace('aboutus', 'about').replace('airtickets', 'flights').replace('visaservices', 'visa')}`)}
+                    onClick={() => scrollTo(l)}
                     className="text-slate-400 hover:text-sky-400 text-sm transition-colors"
                   >
                     {l}
@@ -78,7 +97,7 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-white mb-5">Our Services</h4>
             <ul className="space-y-2.5">
-              {services.map((s) => (
+              {footerSettings.services.map((s) => (
                 <li key={s} className="text-slate-400 text-sm hover:text-sky-400 transition-colors cursor-default">{s}</li>
               ))}
             </ul>
@@ -86,8 +105,8 @@ export default function Footer() {
 
           {/* Newsletter + Contact */}
           <div>
-            <h4 className="font-bold text-white mb-5">Newsletter</h4>
-            <p className="text-slate-400 text-sm mb-4">Get exclusive travel deals and updates.</p>
+            <h4 className="font-bold text-white mb-5">{footerSettings.newsletterTitle}</h4>
+            <p className="text-slate-400 text-sm mb-4">{footerSettings.newsletterDesc}</p>
             <form onSubmit={handleSubscribe} className="flex mb-6">
               <input
                 type="email"
@@ -108,23 +127,24 @@ export default function Footer() {
             <div className="space-y-2.5 text-sm text-slate-400">
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-sky-500 flex-shrink-0" />
-                Farmgate, Dhaka-1215
+                {footerSettings.address}
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={14} className="text-sky-500 flex-shrink-0" />
-                +880 1700-000001
+                {footerSettings.phone}
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-sky-500 flex-shrink-0" />
-                info@airzoneltd.com
+                {footerSettings.email}
               </div>
             </div>
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <span>&copy; {new Date().getFullYear()} Air Zone Ltd. All rights reserved.</span>
-          <span>Licensed Travel Agency — Bangladesh</span>
+          <span>&copy; {new Date().getFullYear()} {footerSettings.copyrightText}</span>
+          <span>{footerSettings.licenseText}</span>
         </div>
       </div>
     </footer>

@@ -1,130 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Clock, MapPin, Star, ArrowRight, Search, X, Check, Calendar, Users, Phone } from 'lucide-react';
-
-const tours = [
-  {
-    id: 'bali-honeymoon',
-    image: 'https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '4D/3N Bali Honeymoon Bliss',
-    duration: '4 Days 3 Nights',
-    durationDays: 4,
-    location: 'Bali, Indonesia',
-    price: '৳98,000',
-    rating: 4.9,
-    categories: ['international', 'honeymoon'],
-    desc: 'Unwind in a luxurious private pool villa. Enjoy romantic candlelit dinners on the beach, scenic temple tours, and private driver services in tropical paradise.',
-    itinerary: [
-      { day: 'Day 1', title: 'Arrival & Beach Dinner', desc: 'Arrive at Ngurah Rai Airport, private transfer to villa, sunset beach dinner in Jimbaran.' },
-      { day: 'Day 2', title: 'Ubud Cultural Tour', desc: 'Visit Monkey Forest, Tegallalang Rice Terraces, and local art markets.' },
-      { day: 'Day 3', title: 'Water Temple & Spa', desc: 'Visit Tanah Lot Temple, followed by a premium 2-hour couples spa treatment.' },
-      { day: 'Day 4', title: 'Departure', desc: 'Leisure time in the morning, private transfer to airport for departure.' }
-    ],
-    inclusions: ['4-Star Private Pool Villa', 'Daily Breakfast & 1 Romantic Dinner', 'Private Airport Transfers', 'Dedicated Driver Guide', 'All Entrance Tickets'],
-  },
-  {
-    id: 'dubai-highlights',
-    image: 'https://images.pexels.com/photos/2044434/pexels-photo-2044434.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '6D/5N Dubai City Highlights',
-    duration: '6 Days 5 Nights',
-    durationDays: 6,
-    location: 'Dubai, UAE',
-    price: '৳1,25,000',
-    rating: 4.8,
-    categories: ['international'],
-    desc: 'Experience the glitz and glamour of Dubai. Visit the iconic Burj Khalifa, go on a thrilling desert safari, and explore traditional gold souks.',
-    itinerary: [
-      { day: 'Day 1', title: 'Arrival & Dhow Cruise', desc: 'Meet & greet at airport, transfer to hotel. Evening Marina Dhow Cruise with buffet dinner.' },
-      { day: 'Day 2', title: 'Half-Day Dubai City Tour', desc: 'Visit Dubai Frame, Jumeirah Beach, and photo-stop at Burj Al Arab.' },
-      { day: 'Day 3', title: 'Desert Safari Adventure', desc: 'Afternoon dune bashing, camel riding, henna painting, belly dance show, and BBQ dinner.' },
-      { day: 'Day 4', title: 'Burj Khalifa & Mall', desc: 'Visit Burj Khalifa 124th floor, watch fountain show, shop at Dubai Mall.' },
-      { day: 'Day 5', title: 'Leisure / Shopping Day', desc: 'Free day for shopping or visiting Miracle Garden (optional).' },
-      { day: 'Day 6', title: 'Departure', desc: 'Free time until transfer to Dubai Airport for return flight.' }
-    ],
-    inclusions: ['4-Star Hotel Accommodation', 'Daily Breakfast & 2 Dinners', 'Desert Safari with BBQ', 'Burj Khalifa Entrance Ticket', 'All Transfers'],
-  },
-  {
-    id: 'coxs-bazar',
-    image: 'https://images.pexels.com/photos/6985003/pexels-photo-6985003.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '5D/4N Cox\'s Bazar Escape',
-    duration: '5 Days 4 Nights',
-    durationDays: 5,
-    location: "Cox's Bazar, BD",
-    price: '৳28,500',
-    rating: 4.7,
-    categories: ['domestic'],
-    desc: 'Relax on the world\'s longest natural sandy beach. Enjoy fresh seafood, tour Himchori waterfalls, and drive down the breathtaking Marine Drive road.',
-    itinerary: [
-      { day: 'Day 1', title: 'Dhaka to Cox\'s Bazar', desc: 'Arrive via flight/scenic coach. Check-in at beachside hotel. Evening beach stroll.' },
-      { day: 'Day 2', title: 'Marine Drive & Himchori', desc: 'Drive down Marine Drive. Visit Himchori Waterfall and climb Dariya Nagar hills.' },
-      { day: 'Day 3', title: 'Inani Beach Sunset', desc: 'Explore the coral stones at Inani Beach. Watch a beautiful sunset with beach snacks.' },
-      { day: 'Day 4', title: 'Moheshkhali Island Trip', desc: 'Speedboat ride to Moheshkhali. Visit Adinath Temple and Rakhine Buddhist temples.' },
-      { day: 'Day 5', title: 'Shopping & Return', desc: 'Local Burmese market shopping. Transfer to airport/station for departure.' }
-    ],
-    inclusions: ['Premium Beach Resort Stay', 'Daily Buffet Breakfast', 'Private sightseeing vehicle', 'Moheshkhali Boat Tickets', 'Tour Coordinator Support'],
-  },
-  {
-    id: 'maldives-villa',
-    image: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '4D/3N Maldives Water Villa',
-    duration: '4 Days 3 Nights',
-    durationDays: 4,
-    location: 'Maldives',
-    price: '৳1,25,000',
-    rating: 5.0,
-    categories: ['international', 'honeymoon'],
-    desc: 'Stay in a premium overwater villa with direct ocean access. Swim with sea turtles, indulge in gourmet meals, and experience ultimate luxury.',
-    itinerary: [
-      { day: 'Day 1', title: 'Speedboat Transfer', desc: 'Arrive at Male Airport, take scenic 30-min speedboat to resort. Welcome drinks and villa check-in.' },
-      { day: 'Day 2', title: 'Snorkeling Safari', desc: 'Guided snorkeling tour to explore the coral reef. Free afternoon for water sports.' },
-      { day: 'Day 3', title: 'Sunset Cruise', desc: 'Take a luxury catamaran cruise to spot dolphins at sunset.' },
-      { day: 'Day 4', title: 'Departure', desc: 'Leisurely breakfast, check-out, and speedboat transfer back to Male Airport.' }
-    ],
-    inclusions: ['Luxury Overwater Villa', 'Full Board (All Meals Included)', 'Round-trip Speedboat Transfers', 'Complimentary Snorkeling Gear', 'Sunset Dolphin Cruise'],
-  },
-  {
-    id: 'sylhet-retreat',
-    image: 'https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '3D/2N Sylhet Tea Garden Retreat',
-    duration: '3 Days 2 Nights',
-    durationDays: 3,
-    location: 'Sylhet, Bangladesh',
-    price: '৳18,500',
-    rating: 4.6,
-    categories: ['domestic'],
-    desc: 'Immerse yourself in green tea estates. Visit Ratargul Swamp Forest, Jaflong river beds, and stay in a beautiful eco-resort.',
-    itinerary: [
-      { day: 'Day 1', title: 'Tea Estates & Check-in', desc: 'Arrive in Sylhet. Visit Sreemangal tea gardens and taste the famous 7-layer tea.' },
-      { day: 'Day 2', title: 'Jaflong & Ratargul', desc: 'Take a boat ride in Jaflong crystal-clear river. Visit Ratargul freshwater swamp forest.' },
-      { day: 'Day 3', title: 'Return to Dhaka', desc: 'Visit Hazrat Shah Jalal Shrine, buy local spices, and head back to Dhaka.' }
-    ],
-    inclusions: ['Eco-Resort Stay', 'Daily Breakfast & Lunch', 'Boat Ride Fees', 'Private Sightseeing Car', 'Local English Speaking Guide'],
-  },
-  {
-    id: 'europe-tour',
-    image: 'https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&w=800',
-    title: '12D/11N Iconic Europe Tour',
-    duration: '12 Days 11 Nights',
-    durationDays: 12,
-    location: 'Central & Western Europe',
-    price: '৳3,60,000',
-    rating: 4.9,
-    categories: ['international'],
-    desc: 'Cover the highlights of France, Switzerland, and Italy. Visit Eiffel Tower in Paris, Mt. Titlis in Swiss Alps, and the Colosseum in Rome.',
-    itinerary: [
-      { day: 'Day 1-3', title: 'Romantic Paris', desc: 'Eiffel Tower 2nd Floor, Seine River Cruise, Louvre Museum tour.' },
-      { day: 'Day 4-6', title: 'Scenic Switzerland', desc: 'Stay in Engelberg/Lucerne. Ride Mount Titlis cable car, enjoy alpine views.' },
-      { day: 'Day 7-9', title: 'Historic Florence & Venice', desc: 'Grand Canal gondola ride in Venice, walking tour of Florence Cathedral.' },
-      { day: 'Day 10-12', title: 'Imperial Rome', desc: 'Guided Colosseum & Vatican Museum tours. Departure from Rome Airport.' }
-    ],
-    inclusions: ['3 & 4-Star Hotels with Breakfast', 'Schengen Visa Assistance', 'Paris to Switzerland High-Speed Train', 'Swiss Alps Cable Car Tickets', 'Rome Guided Entry Passes'],
-  },
-];
+import { useDashboard } from './dashboard/DashboardContext';
+import { TourPackageItem } from '../types/dashboard';
 
 export default function TourPackages() {
+  const { packagesSettings } = useDashboard();
+  if (!packagesSettings.isEnabled) return null;
+  const tours = packagesSettings.items;
+  const title = packagesSettings.title;
+  const subtitle = packagesSettings.subtitle;
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [durationFilter, setDurationFilter] = useState('');
-  const [selectedTour, setSelectedTour] = useState<typeof tours[0] | null>(null);
+  const [selectedTour, setSelectedTour] = useState<TourPackageItem | null>(null);
 
   // Booking form in modal
   const [bookingForm, setBookingForm] = useState({ name: '', phone: '', date: '', guests: 1 });
@@ -188,8 +77,8 @@ export default function TourPackages() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-sky-600 font-extrabold text-xs uppercase tracking-widest block mb-2">Handpicked Journeys</span>
-            <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">Featured Tours & Packages</h2>
+            <span className="text-sky-600 font-extrabold text-xs uppercase tracking-widest block mb-2">{subtitle}</span>
+            <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">{title}</h2>
           </div>
           
           {/* Real-time search inside section */}

@@ -1,29 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Search, MapPin, Plane, Globe, Calendar, ArrowRight } from 'lucide-react';
-
-const slides = [
-  {
-    image: 'https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    title: 'Explore the World',
-    subtitle: 'with Air Zone Ltd.',
-    desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',
-    tagline: 'YOUR GATEWAY TO ADVENTURE',
-  },
-  {
-    image: 'https://images.pexels.com/photos/46148/pexels-photo-46148.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    title: 'Best Flight Deals',
-    subtitle: 'Domestic & International',
-    desc: 'Fly to your dream destination with premium airlines. Quick booking, flexible dates, and 24/7 ticketing support.',
-    tagline: 'ACCUMULATED MILES & BEST FARES',
-  },
-  {
-    image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    title: 'Hassle-Free',
-    subtitle: 'Visa Processing',
-    desc: 'Fast, reliable visa processing for tourist, business, and student visas with expert documentation support.',
-    tagline: 'FAST & SECURE APPLICATION',
-  },
-];
+import { useDashboard } from './dashboard/DashboardContext';
 
 const stats = [
   { value: '15,000+', label: 'Happy Travelers' },
@@ -33,6 +10,10 @@ const stats = [
 ];
 
 export default function Hero() {
+  const { heroSettings } = useDashboard();
+  if (!heroSettings.isEnabled) return null;
+  const slides = heroSettings.slides;
+
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [activeTab, setActiveTab] = useState<'tours' | 'flights' | 'visa'>('tours');
