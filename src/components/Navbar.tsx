@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
+import { useDashboard } from './dashboard/DashboardContext';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { setPage } = useDashboard();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -47,18 +49,12 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           {/* Logo */}
-          <button onClick={() => handleLink('#home')} className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 flex-shrink-0">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <circle cx="20" cy="20" r="20" fill="#0369a1" />
-                <path d="M8 22L20 10L32 22" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M14 30L20 10L26 30" stroke="#7dd3fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M10 22H30" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+          <button onClick={() => handleLink('#home')} className="flex items-center gap-3.5 group">
+            <div className="relative w-16 h-16 flex-shrink-0">
+              <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
             </div>
-            <div className="leading-tight">
-              <div className="text-sky-700 font-extrabold text-lg tracking-tight leading-none">AIR ZONE</div>
-              <div className="text-slate-500 text-xs font-semibold tracking-widest uppercase">Ltd.</div>
+            <div className="text-sky-700 font-black text-2xl tracking-tight whitespace-nowrap">
+              Air Zone Ltd.
             </div>
           </button>
 
@@ -77,8 +73,14 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <button
+              onClick={() => setPage('login')}
+              className="hidden md:inline-flex items-center gap-1 border border-slate-200 hover:border-sky-600 hover:text-sky-700 text-slate-600 text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200"
+            >
+              Admin Portal
+            </button>
+            <button
               onClick={() => handleLink('#contact')}
-              className="hidden md:inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"
+              className="hidden md:inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold px-4.5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"
             >
               Get a Quote
             </button>
@@ -108,8 +110,17 @@ export default function Navbar() {
               </button>
             ))}
             <button
+              onClick={() => {
+                setOpen(false);
+                setPage('login');
+              }}
+              className="mt-2 text-center text-xs font-bold text-sky-700 hover:bg-sky-50 border border-sky-600 py-2.5 rounded-full"
+            >
+              Admin Portal
+            </button>
+            <button
               onClick={() => handleLink('#contact')}
-              className="mt-2 bg-sky-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full"
+              className="mt-2 bg-sky-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full"
             >
               Get a Quote
             </button>
