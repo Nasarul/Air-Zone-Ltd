@@ -4,7 +4,7 @@ import {
   HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings,
   ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings
 } from '../../types/dashboard';
-
+import { fetchAllAppwriteData, syncCmsSettingToAppwrite, syncArrayToCollection } from '../../lib/appwriteService';
 interface DashboardContextType {
   page: Page;
   setPage: (page: Page) => void;
@@ -651,11 +651,38 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return saved ? JSON.parse(saved) : defaultTestimonialsSettings;
   });
 
+  // Fetch data on mount
+  useEffect(() => {
+    fetchAllAppwriteData().then(data => {
+      if (data) {
+        if (data.packages.length > 0) setPackagesSettings(prev => ({ ...prev, items: data.packages }));
+        if (data.visas.length > 0) setVisaSettings(prev => ({ ...prev, items: data.visas }));
+        if (data.flights.length > 0) setFlightTicketingSettings(prev => ({ ...prev, deals: data.flights }));
+        if (data.team.length > 0) setTeamSettings(prev => ({ ...prev, items: data.team }));
+        if (data.testimonials.length > 0) setTestimonialsSettings(prev => ({ ...prev, items: data.testimonials }));
+        
+        if (data.cms.heroSettings) setHeroSettings(data.cms.heroSettings);
+        if (data.cms.aboutSettings) setAboutSettings(data.cms.aboutSettings);
+        if (data.cms.packagesSettings_meta) setPackagesSettings(prev => ({ ...prev, ...data.cms.packagesSettings_meta }));
+        if (data.cms.visaSettings_meta) setVisaSettings(prev => ({ ...prev, ...data.cms.visaSettings_meta }));
+        if (data.cms.flightSettings_meta) setFlightTicketingSettings(prev => ({ ...prev, ...data.cms.flightSettings_meta }));
+        if (data.cms.teamSettings_meta) setTeamSettings(prev => ({ ...prev, ...data.cms.teamSettings_meta }));
+        if (data.cms.testimonialsSettings_meta) setTestimonialsSettings(prev => ({ ...prev, ...data.cms.testimonialsSettings_meta }));
+        if (data.cms.footerSettings) setFooterSettings(data.cms.footerSettings);
+        if (data.cms.contactSettings) setContactSettings(data.cms.contactSettings);
+        if (data.cms.adSettings) setAdSettings(data.cms.adSettings);
+        if (data.cms.servicesSettings) setServicesSettings(data.cms.servicesSettings);
+        if (data.cms.whyChooseUsSettings) setWhyChooseUsSettings(data.cms.whyChooseUsSettings);
+      }
+    });
+  }, []);
+
   // Updaters
   const updateHeroSettings = (updates: Partial<HeroSettings>) => {
     setHeroSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('heroSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('heroSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Hero Section CMS settings updated');
@@ -665,6 +692,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setAboutSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('aboutSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('aboutSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'About Us Section CMS settings updated');
@@ -674,6 +702,15 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setPackagesSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('packagesSettings', JSON.stringify(next));
+      if (updates.items) {
+        syncArrayToCollection('tour_packages', next.items, item => ({
+           title: item.title, image: item.image, duration: item.duration, durationDays: Number(item.durationDays),
+           location: item.location, price: item.price, rating: Number(item.rating), categories: item.categories,
+           desc: item.desc, inclusions: item.inclusions
+        }));
+      } else {
+        syncCmsSettingToAppwrite('packagesSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });
+      }
       return next;
     });
     addSystemLog('info', 'system', 'Tour Packages Section CMS settings updated');
@@ -683,6 +720,13 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setVisaSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('visaSettings', JSON.stringify(next));
+      if (updates.items) {
+        syncArrayToCollection('visa_services', next.items, item => ({
+          country: item.country, flag: item.flag, days: item.processingTime, category: item.type, price: item.fee, iconName: item.iconName
+        }));
+      } else {
+        syncCmsSettingToAppwrite('visaSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });
+      }
       return next;
     });
     addSystemLog('info', 'system', 'Visa Services Section CMS settings updated');
@@ -692,6 +736,13 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setTeamSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('teamSettings', JSON.stringify(next));
+      if (updates.items) {
+        syncArrayToCollection('team_members', next.items, item => ({
+          name: item.name, role: item.role, avatar: item.avatar
+        }));
+      } else {
+        syncCmsSettingToAppwrite('teamSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });
+      }
       return next;
     });
     addSystemLog('info', 'system', 'Team Section CMS settings updated');
@@ -701,6 +752,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setFooterSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('footerSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('footerSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Footer Section CMS settings updated');
@@ -710,6 +762,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setContactSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('contactSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('contactSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Contact Section CMS settings updated');
@@ -719,6 +772,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setAdSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('adSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('adSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Advertising Section CMS settings updated');
@@ -728,6 +782,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setServicesSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('servicesSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('servicesSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Services Section CMS settings updated');
@@ -737,6 +792,15 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setFlightTicketingSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('flightTicketingSettings', JSON.stringify(next));
+      if (updates.deals) {
+        syncArrayToCollection('flight_deals', next.deals, item => ({
+          airline: item.airline, logo: item.logo, fromLocation: item.from, toLocation: item.to, price: item.price,
+          duration: item.duration, stops: item.stops, cabin: item.cabin, baggage: item.baggage, type: item.type,
+          details: item.details, schedule: item.schedule
+        }));
+      } else {
+        syncCmsSettingToAppwrite('flightSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });
+      }
       return next;
     });
     addSystemLog('info', 'system', 'Ticketing Section CMS settings updated');
@@ -746,6 +810,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setWhyChooseUsSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('whyChooseUsSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('whyChooseUsSettings', next);
       return next;
     });
     addSystemLog('info', 'system', 'Why Choose Us Section CMS settings updated');
@@ -755,6 +820,13 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setTestimonialsSettings(prev => {
       const next = { ...prev, ...updates };
       localStorage.setItem('testimonialsSettings', JSON.stringify(next));
+      if (updates.items) {
+        syncArrayToCollection('testimonials', next.items, item => ({
+          name: item.name, role: item.role, image: item.image, text: item.text, rating: Number(item.rating)
+        }));
+      } else {
+        syncCmsSettingToAppwrite('testimonialsSettings_meta', { isEnabled: next.isEnabled, badge: next.badge, title: next.title });
+      }
       return next;
     });
     addSystemLog('info', 'system', 'Testimonials Section CMS settings updated');
