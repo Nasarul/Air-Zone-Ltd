@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <button onClick={() => handleLink('#home')} className="flex items-center gap-2 group">
-            <div className="relative w-16 h-16 flex-shrink-0">
+            <div className="relative w-20 h-20 flex-shrink-0">
               <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
             </div>
             <div className="font-black text-2xl tracking-tight whitespace-nowrap select-none">

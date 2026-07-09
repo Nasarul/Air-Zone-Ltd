@@ -127,6 +127,8 @@ export interface FooterSocialLink {
 
 export interface FooterSettings {
   isEnabled: boolean;
+  companyName: string;
+  logo: string;
   brandTagline: string;
   address: string;
   phone: string;

@@ -39,13 +39,14 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10">
-                <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
-              </div>
-              <div>
-                <div className="font-extrabold text-white text-lg leading-none">AIR ZONE</div>
-                <div className="text-slate-400 text-xs tracking-widest uppercase">Ltd.</div>
+            <div className="flex items-center gap-1.5 mb-5">
+              {footerSettings.logo && (
+                <div className="w-20 h-20">
+                  <img src={footerSettings.logo} alt={`${footerSettings.companyName} Logo`} className="w-full h-full object-contain" />
+                </div>
+              )}
+              <div className="font-extrabold text-white text-lg leading-none tracking-tight">
+                {footerSettings.companyName}
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-5">

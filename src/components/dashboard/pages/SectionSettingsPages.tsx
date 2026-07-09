@@ -223,6 +223,9 @@ export const HeroSectionSettings: React.FC = () => {
                   />
                 </label>
               </div>
+              <p className="text-[9px] text-slate-400 dark:text-slate-500 mt-1 text-center">
+                Recommended Resolution: 1600x900px | Max Size: 2MB
+              </p>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
@@ -394,13 +397,18 @@ export const AboutSectionSettings: React.FC = () => {
         <div className="space-y-4">
           {/* Photo & Badge Preview */}
           <div className="grid grid-cols-3 gap-3">
-            <div className="col-span-2 relative group h-28 border border-slate-250 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-100">
-              <img src={image} className="w-full h-full object-cover" alt="About" />
-              <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 text-white text-[9px] font-bold cursor-pointer transition-all">
-                <Upload className="w-3.5 h-3.5" />
-                <span>Replace Photo</span>
-                <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-              </label>
+            <div className="col-span-2 space-y-1">
+              <div className="relative group h-28 border border-slate-250 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-100">
+                <img src={image} className="w-full h-full object-cover" alt="About" />
+                <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 text-white text-[9px] font-bold cursor-pointer transition-all">
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Replace Photo</span>
+                  <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                </label>
+              </div>
+              <p className="text-[8px] text-slate-400 dark:text-slate-500 text-center">
+                Recommended Resolution: 800x600px | Max Size: 2MB
+              </p>
             </div>
             
             <div className="col-span-1 border border-slate-205 dark:border-slate-800 rounded-xl p-3 bg-slate-50/50 dark:bg-slate-900/50 text-center flex flex-col justify-center">
@@ -725,6 +733,9 @@ const PackageItemForm: React.FC<PackageFormProps> = ({ item, isNew, onSave, onCa
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
             </label>
           </div>
+          <p className="text-[9px] text-slate-400 dark:text-slate-500 mt-1 text-center">
+            Recommended Resolution: 800x600px | Max Size: 2MB
+          </p>
         </div>
 
         <div className="space-y-3">
@@ -1050,6 +1061,9 @@ const VisaItemForm: React.FC<VisaFormProps> = ({ item, isNew, onSave, onCancel, 
               <input type="file" accept="image/*" className="hidden" onChange={handleFlagUpload} />
             </label>
           </div>
+          <p className="text-[8px] text-slate-400 dark:text-slate-500 mt-1 text-center leading-none">
+            Rec: 120x80px<br />Max: 500KB
+          </p>
         </div>
         <div className="flex-1 space-y-1">
           <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Country Name</label>
@@ -1338,6 +1352,9 @@ const TeamMemberForm: React.FC<TeamFormProps> = ({ item, isNew, onSave, onCancel
               <input type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </label>
           </div>
+          <p className="text-[8px] text-slate-400 dark:text-slate-500 mt-1 text-center leading-none">
+            Rec: 400x400px<br />Max: 1MB
+          </p>
         </div>
         <div className="flex-1 space-y-3">
           <div className="space-y-1">
@@ -1380,6 +1397,22 @@ export const FooterSectionSettings: React.FC = () => {
   const [quickLinksText, setQuickLinksText] = React.useState(footerSettings.quickLinks.join('\n'));
   const [servicesText, setServicesText] = React.useState(footerSettings.services.join('\n'));
 
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 1 * 1024 * 1024) {
+        showToast('error', 'File Too Large', 'Please select a logo under 1MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setDraft(prev => ({ ...prev, logo: event.target?.result as string }));
+        showToast('success', 'Logo Graphic Loaded', 'Press Save Footer Settings to publish.');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = () => {
     const parsed = {
       ...draft,
@@ -1419,14 +1452,42 @@ export const FooterSectionSettings: React.FC = () => {
           <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
           Brand Information
         </h4>
-        <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Brand Tagline</label>
-          <textarea
-            rows={3}
-            value={draft.brandTagline}
-            onChange={e => setDraft({ ...draft, brandTagline: e.target.value })}
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300 resize-none"
-          />
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Company Name</label>
+              <input
+                type="text"
+                value={draft.companyName}
+                onChange={e => setDraft({ ...draft, companyName: e.target.value })}
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Brand Tagline</label>
+              <textarea
+                rows={3}
+                value={draft.brandTagline}
+                onChange={e => setDraft({ ...draft, brandTagline: e.target.value })}
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300 resize-none"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Footer Logo</label>
+            <div className="relative group w-32 h-32 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
+              <img src={draft.logo} className="max-w-full max-h-full object-contain p-2" alt="Footer Logo preview" />
+              <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1 text-white text-[9px] font-bold cursor-pointer transition-opacity">
+                <Upload className="w-3.5 h-3.5" />
+                <span>Replace Photo</span>
+                <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+              </label>
+            </div>
+            <p className="text-[8px] text-slate-400 dark:text-slate-500">
+              Recommended Resolution: 120x120px (Square/Contain) | Max Size: 1MB
+            </p>
+          </div>
         </div>
       </div>
 

@@ -254,6 +254,8 @@ const defaultTeamSettings: TeamSettings = {
 
 const defaultFooterSettings: FooterSettings = {
   isEnabled: true,
+  companyName: 'Air Zone Ltd.',
+  logo: '/logo.png',
   brandTagline: 'Your trusted travel partner for tours, flight tickets, and visa services — delivering memorable journeys since 2009.',
   address: 'Farmgate, Dhaka-1215',
   phone: '+880 1700-000001',
@@ -324,7 +326,16 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const [footerSettings, setFooterSettings] = useState<FooterSettings>(() => {
     const saved = localStorage.getItem('footerSettings');
-    return saved ? JSON.parse(saved) : defaultFooterSettings;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.companyName === undefined || parsed.logo === undefined) {
+        parsed.companyName = parsed.companyName || defaultFooterSettings.companyName;
+        parsed.logo = parsed.logo || defaultFooterSettings.logo;
+        localStorage.setItem('footerSettings', JSON.stringify(parsed));
+      }
+      return parsed;
+    }
+    return defaultFooterSettings;
   });
 
   // Updaters
