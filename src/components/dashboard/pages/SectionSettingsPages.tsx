@@ -4,7 +4,7 @@ import {
   Save, Eye, EyeOff, ArrowUp, ArrowDown, Trash2, Plus, 
   Upload, CheckCircle, Image as ImageIcon, MapPin, DollarSign, Calendar
 } from 'lucide-react';
-import { TourPackageItem, VisaServiceItem, TeamMemberItem, HeroSlide } from '../../../types/dashboard';
+import { TourPackageItem, VisaServiceItem, TeamMemberItem, HeroSlide, ContactSettings, AdSettings } from '../../../types/dashboard';
 
 /* ==========================================================================
    SHARED UI SUB-COMPONENTS
@@ -1587,6 +1587,325 @@ export const FooterSectionSettings: React.FC = () => {
         >
           <Save className="w-3.5 h-3.5" />
           Save Footer Settings
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   7. CONTACT SECTION SETTINGS
+   ========================================================================== */
+
+export const ContactSectionSettings: React.FC = () => {
+  const { contactSettings, updateContactSettings, showToast } = useDashboard();
+
+  const [draft, setDraft] = React.useState({ ...contactSettings });
+
+  const handleSave = () => {
+    updateContactSettings(draft);
+    showToast('success', 'Contact Settings Saved', 'Contact section parameters have been updated.');
+  };
+
+  const field = (label: string, key: keyof typeof draft, type: string = 'text', placeholder = '') => (
+    <div className="space-y-1">
+      <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">{label}</label>
+      <input
+        type={type}
+        value={draft[key] as string}
+        onChange={e => setDraft({ ...draft, [key]: e.target.value })}
+        placeholder={placeholder}
+        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300"
+      />
+    </div>
+  );
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSSectionHeader
+        title="Contact Settings (Get In Touch)"
+        description="Manage address, hotline, telephone numbers, emails, and operating hours."
+        isEnabled={draft.isEnabled}
+        onToggle={val => setDraft({ ...draft, isEnabled: val })}
+      />
+
+      {/* Text Settings */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Header Content
+        </h4>
+        <div className="grid md:grid-cols-2 gap-4">
+          {field('Top Badge Text', 'badge', 'text', 'e.g. Reach Us')}
+          {field('Section Title', 'title', 'text', 'e.g. Get In Touch')}
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Subtitle Description</label>
+          <input
+            type="text"
+            value={draft.subtitle}
+            onChange={e => setDraft({ ...draft, subtitle: e.target.value })}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300"
+          />
+        </div>
+      </div>
+
+      {/* Contact Details */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Address &amp; Hotline
+        </h4>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Office Address</label>
+          <textarea
+            rows={3}
+            value={draft.address}
+            onChange={e => setDraft({ ...draft, address: e.target.value })}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary text-slate-700 dark:text-slate-300"
+          />
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {field('Phone 1', 'phone1')}
+          {field('Phone 2 (Optional)', 'phone2')}
+          {field('Hotline (Optional)', 'hotline')}
+        </div>
+      </div>
+
+      {/* Online details */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Emails &amp; Office Hours
+        </h4>
+        <div className="grid md:grid-cols-2 gap-4">
+          {field('Email 1', 'email1')}
+          {field('Email 2 (Optional)', 'email2')}
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {field('Hours (Saturday – Thursday)', 'hoursSaturdayThursday')}
+          {field('Hours (Friday / Weekend)', 'hoursFriday')}
+        </div>
+      </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md shadow-primary/20 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          Save Contact Settings
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   8. ADVERTISING SECTION SETTINGS
+   ========================================================================== */
+
+export const AdSectionSettings: React.FC = () => {
+  const { adSettings, updateAdSettings, showToast } = useDashboard();
+  const [slides, setSlides] = useState<AdSlide[]>(adSettings.slides || []);
+  const [activeSlideIdx, setActiveSlideIdx] = useState<number | null>(0);
+
+  const handleSave = () => {
+    updateAdSettings({ slides });
+    showToast('success', 'Ad Content Saved', 'Advertising slideshow modifications have been published.');
+  };
+
+  const handleUpdateSlideField = (index: number, field: keyof AdSlide, value: string) => {
+    const next = [...slides];
+    next[index] = { ...next[index], [field]: value };
+    setSlides(next);
+  };
+
+  const handleImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('error', 'File Too Large', 'Please select an image under 2MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const next = [...slides];
+        next[index] = { ...next[index], image: event.target?.result as string };
+        setSlides(next);
+        showToast('success', 'Ad Image Loaded', 'Press Save to publish the new image.');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleMove = (index: number, direction: 'up' | 'down') => {
+    if (direction === 'up' && index === 0) return;
+    if (direction === 'down' && index === slides.length - 1) return;
+    const targetIdx = direction === 'up' ? index - 1 : index + 1;
+    const next = [...slides];
+    const temp = next[index];
+    next[index] = next[targetIdx];
+    next[targetIdx] = temp;
+    setSlides(next);
+    if (activeSlideIdx === index) setActiveSlideIdx(targetIdx);
+    else if (activeSlideIdx === targetIdx) setActiveSlideIdx(index);
+  };
+
+  const handleDelete = (index: number) => {
+    if (slides.length <= 1) {
+      showToast('warning', 'Minimum Slides reached', 'You must keep at least one ad slide active.');
+      return;
+    }
+    const next = slides.filter((_, i) => i !== index);
+    setSlides(next);
+    setActiveSlideIdx(0);
+    showToast('info', 'Slide Removed', 'Ad slide item deleted from draft.');
+  };
+
+  const handleAddSlide = () => {
+    const newSlide: AdSlide = {
+      image: 'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      linkUrl: 'https://www.airzoneltd.com'
+    };
+    setSlides([...slides, newSlide]);
+    setActiveSlideIdx(slides.length);
+    showToast('success', 'New Ad Banner Added', 'Configured default mock data. Customize details below.');
+  };
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-xs max-w-4xl">
+      <CMSSectionHeader 
+        title="Advertising Settings" 
+        description="Edit background graphics and redirect URLs in the homepage advertising banner."
+        isEnabled={adSettings.isEnabled}
+        onToggle={(val) => updateAdSettings({ isEnabled: val })}
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Slides list */}
+        <div className="md:col-span-1 space-y-2 border-r border-slate-105 dark:border-slate-850 pr-4">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-[10px] uppercase font-black text-slate-455 tracking-wider">Ad Slides</span>
+            <button 
+              type="button" 
+              onClick={handleAddSlide}
+              className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add New</span>
+            </button>
+          </div>
+
+          {slides.map((slide, idx) => (
+            <div 
+              key={idx}
+              className={`p-3 rounded-xl border transition-all text-left flex justify-between items-center ${
+                activeSlideIdx === idx 
+                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-sky-400 font-bold' 
+                  : 'border-slate-205 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+              }`}
+            >
+              <button 
+                type="button"
+                onClick={() => setActiveSlideIdx(idx)}
+                className="flex-1 text-xs truncate text-left font-bold"
+              >
+                Slide {idx + 1}
+              </button>
+              <div className="flex items-center gap-1.5 ml-2">
+                <button 
+                  type="button" 
+                  disabled={idx === 0} 
+                  onClick={() => handleMove(idx, 'up')}
+                  className="p-1 text-slate-400 hover:text-slate-700 disabled:opacity-30"
+                >
+                  <ArrowUp className="w-3 h-3" />
+                </button>
+                <button 
+                  type="button" 
+                  disabled={idx === slides.length - 1} 
+                  onClick={() => handleMove(idx, 'down')}
+                  className="p-1 text-slate-400 hover:text-slate-700 disabled:opacity-30"
+                >
+                  <ArrowDown className="w-3 h-3" />
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => handleDelete(idx)}
+                  className="p-1 text-red-400 hover:text-red-650"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Slide Edit Form */}
+        <div className="md:col-span-2 space-y-4">
+          {activeSlideIdx !== null && slides[activeSlideIdx] ? (
+            <div className="space-y-4">
+              <div className="p-3 bg-slate-50 dark:bg-slate-850/50 rounded-xl flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-350">Editing Slide {activeSlideIdx + 1}</span>
+                <span className="text-[10px] text-slate-400 font-medium">Ad Banner instance</span>
+              </div>
+
+              {/* Graphic preview */}
+              <div className="relative group w-full h-36 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center">
+                {slides[activeSlideIdx].image ? (
+                  <img 
+                    src={slides[activeSlideIdx].image} 
+                    alt="Ad banner background" 
+                    className="w-full h-full object-cover" 
+                  />
+                ) : (
+                  <span className="text-xs text-slate-450">No image uploaded</span>
+                )}
+                <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 text-white text-[10px] font-bold cursor-pointer transition-opacity">
+                  <Upload className="w-4 h-4 animate-bounce" />
+                  <span>Replace Backdrop Image</span>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    onChange={(e) => handleImageUpload(activeSlideIdx, e)} 
+                  />
+                </label>
+              </div>
+              <p className="text-[9px] text-slate-400 dark:text-slate-500 mt-1 text-center">
+                Recommended Resolution: 1200x400px (Wide) | Max Size: 2MB
+              </p>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Redirect Target Link (Optional)</label>
+                <input 
+                  type="url" 
+                  value={slides[activeSlideIdx].linkUrl || ''}
+                  onChange={(e) => handleUpdateSlideField(activeSlideIdx, 'linkUrl', e.target.value)}
+                  placeholder="https://example.com/promo"
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+                />
+                <p className="text-[9px] text-slate-400 dark:text-slate-500">
+                  Pasting a URL here will make the banner clickable, redirecting clients when clicked.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center justify-center text-slate-400 text-xs">
+              Select or add a slide index from the left menu to customize contents.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="pt-5 mt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+        <button 
+          onClick={handleSave}
+          className="px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/15 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          <span>Save Ad Settings</span>
         </button>
       </div>
     </div>

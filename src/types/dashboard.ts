@@ -42,7 +42,32 @@ export interface Announcement {
 export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500';
 export type SubPage = 
   | 'home' | 'users' | 'profile' | 'reports' | 'analytics' | 'settings' | 'security' | 'notifications'
-  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer';
+  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad';
+
+export interface AdSlide {
+  image: string;
+  linkUrl: string;
+}
+
+export interface AdSettings {
+  isEnabled: boolean;
+  slides: AdSlide[];
+}
+
+export interface ContactSettings {
+  isEnabled: boolean;
+  badge: string;
+  title: string;
+  subtitle: string;
+  address: string;
+  phone1: string;
+  phone2: string;
+  hotline: string;
+  email1: string;
+  email2: string;
+  hoursSaturdayThursday: string;
+  hoursFriday: string;
+}
 
 export interface HeroSlide {
   image: string;

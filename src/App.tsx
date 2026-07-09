@@ -7,6 +7,7 @@ import AirTicketing from './components/AirTicketing';
 import WhyChooseUs from './components/WhyChooseUs';
 import VisaServices from './components/VisaServices';
 import Team from './components/Team';
+import Advertising from './components/Advertising';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -35,6 +36,7 @@ function AppContent() {
           <WhyChooseUs />
           <VisaServices />
           <Team />
+          <Advertising />
           <Testimonials />
           <Contact />
         </main>

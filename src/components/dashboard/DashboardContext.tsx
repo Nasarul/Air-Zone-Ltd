@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   Page, SubPage, User, ToastMessage, SystemLog,
-  HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings
+  HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings
 } from '../../types/dashboard';
 
 interface DashboardContextType {
@@ -48,6 +48,10 @@ interface DashboardContextType {
   updateTeamSettings: (settings: Partial<TeamSettings>) => void;
   footerSettings: FooterSettings;
   updateFooterSettings: (settings: Partial<FooterSettings>) => void;
+  contactSettings: ContactSettings;
+  updateContactSettings: (settings: Partial<ContactSettings>) => void;
+  adSettings: AdSettings;
+  updateAdSettings: (settings: Partial<AdSettings>) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -236,7 +240,9 @@ const defaultVisaSettings: VisaSettings = {
     { id: '3', country: 'Japan', flag: 'https://flagcdn.com/w80/jp.png', days: '8–12 working days', category: 'Tourist / Business', price: '৳7,500', iconName: 'Send' },
     { id: '4', country: 'Singapore', flag: 'https://flagcdn.com/w80/sg.png', days: '5–7 working days', category: 'Tourist / Business', price: '৳6,500', iconName: 'FileText' },
     { id: '5', country: 'United Arab Emirates', flag: 'https://flagcdn.com/w80/ae.png', days: '4–6 working days', category: 'Visit / Transit', price: '৳15,500', iconName: 'FileCheck2' },
-    { id: '6', country: 'Malaysia', flag: 'https://flagcdn.com/w80/my.png', days: '6–7 working days', category: 'Tourist / Social', price: '৳6,800', iconName: 'Send' }
+    { id: '6', country: 'Malaysia', flag: 'https://flagcdn.com/w80/my.png', days: '6–7 working days', category: 'Tourist / Social', price: '৳6,800', iconName: 'Send' },
+    { id: '7', country: 'Canada', flag: 'https://flagcdn.com/w80/ca.png', days: '20–30 working days', category: 'Tourist / Business', price: '৳22,500', iconName: 'FileText' },
+    { id: '8', country: 'Thailand', flag: 'https://flagcdn.com/w80/th.png', days: '5–8 working days', category: 'Tourist / Visit', price: '৳5,500', iconName: 'Send' }
   ]
 };
 
@@ -269,6 +275,39 @@ const defaultFooterSettings: FooterSettings = {
   newsletterDesc: 'Get exclusive travel deals and updates.',
   copyrightText: 'Air Zone Ltd. All rights reserved.',
   licenseText: 'Licensed Travel Agency — Bangladesh',
+};
+
+const defaultContactSettings: ContactSettings = {
+  isEnabled: true,
+  badge: 'Reach Us',
+  title: 'Get In Touch',
+  subtitle: 'Ready to plan your next journey? Our team is here to help with any inquiry.',
+  address: '4/A, Tejturi Bazar (Indira Road),\nMahabub Plaza, 4th Floor, Room 502,\nFarmgate, Dhaka-1215, Bangladesh',
+  phone1: '+880 1700-000001',
+  phone2: '+880 1700-000002',
+  hotline: '16XXX',
+  email1: 'info@airzoneltd.com',
+  email2: 'ticketing@airzoneltd.com',
+  hoursSaturdayThursday: 'Saturday – Thursday: 9:00 AM – 6:00 PM',
+  hoursFriday: 'Friday: Closed',
+};
+
+const defaultAdSettings: AdSettings = {
+  isEnabled: true,
+  slides: [
+    {
+      image: 'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      linkUrl: 'https://www.airzoneltd.com',
+    },
+    {
+      image: 'https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      linkUrl: 'https://www.airzoneltd.com',
+    },
+    {
+      image: 'https://images.pexels.com/photos/1835718/pexels-photo-1835718.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      linkUrl: 'https://www.airzoneltd.com',
+    },
+  ]
 };
 
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -316,7 +355,18 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const [visaSettings, setVisaSettings] = useState<VisaSettings>(() => {
     const saved = localStorage.getItem('visaSettings');
-    return saved ? JSON.parse(saved) : defaultVisaSettings;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.items && parsed.items.length < defaultVisaSettings.items.length) {
+        parsed.items = [
+          ...parsed.items,
+          ...defaultVisaSettings.items.slice(parsed.items.length)
+        ];
+        localStorage.setItem('visaSettings', JSON.stringify(parsed));
+      }
+      return parsed;
+    }
+    return defaultVisaSettings;
   });
 
   const [teamSettings, setTeamSettings] = useState<TeamSettings>(() => {
@@ -336,6 +386,31 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return parsed;
     }
     return defaultFooterSettings;
+  });
+
+  const [contactSettings, setContactSettings] = useState<ContactSettings>(() => {
+    const saved = localStorage.getItem('contactSettings');
+    return saved ? JSON.parse(saved) : defaultContactSettings;
+  });
+
+  const [adSettings, setAdSettings] = useState<AdSettings>(() => {
+    const saved = localStorage.getItem('adSettings');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (!parsed.slides) {
+        parsed.slides = [
+          {
+            image: parsed.image || defaultAdSettings.slides[0].image,
+            linkUrl: parsed.linkUrl || defaultAdSettings.slides[0].linkUrl
+          }
+        ];
+        delete parsed.image;
+        delete parsed.linkUrl;
+        localStorage.setItem('adSettings', JSON.stringify(parsed));
+      }
+      return parsed;
+    }
+    return defaultAdSettings;
   });
 
   // Updaters
@@ -391,6 +466,24 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return next;
     });
     addSystemLog('info', 'system', 'Footer Section CMS settings updated');
+  };
+
+  const updateContactSettings = (updates: Partial<ContactSettings>) => {
+    setContactSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('contactSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Contact Section CMS settings updated');
+  };
+
+  const updateAdSettings = (updates: Partial<AdSettings>) => {
+    setAdSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('adSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Advertising Section CMS settings updated');
   };
 
   // Sync page state scroll behavior
@@ -577,7 +670,11 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         teamSettings,
         updateTeamSettings,
         footerSettings,
-        updateFooterSettings
+        updateFooterSettings,
+        contactSettings,
+        updateContactSettings,
+        adSettings,
+        updateAdSettings
       }}
     >
       {children}

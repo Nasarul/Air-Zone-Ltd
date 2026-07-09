@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
+import { useDashboard } from './dashboard/DashboardContext';
 
 export default function Contact() {
+  const { contactSettings } = useDashboard();
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
 
@@ -31,14 +33,16 @@ export default function Contact() {
   };
 
 
+  if (!contactSettings.isEnabled) return null;
+
   return (
     <section id="contact" className="py-24 bg-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="text-sky-400 font-semibold text-sm uppercase tracking-widest">Reach Us</span>
-          <h2 className="text-4xl font-extrabold mt-2">Get In Touch</h2>
+          <span className="text-sky-400 font-semibold text-sm uppercase tracking-widest">{contactSettings.badge}</span>
+          <h2 className="text-4xl font-extrabold mt-2">{contactSettings.title}</h2>
           <p className="text-slate-400 mt-3 max-w-lg mx-auto">
-            Ready to plan your next journey? Our team is here to help with any inquiry.
+            {contactSettings.subtitle}
           </p>
         </div>
 
@@ -51,10 +55,8 @@ export default function Contact() {
               </div>
               <div>
                 <div className="font-bold text-white mb-1">Office Address</div>
-                <div className="text-slate-400 text-sm leading-relaxed">
-                  4/A, Tejturi Bazar (Indira Road),<br />
-                  Mahabub Plaza, 4th Floor, Room 502,<br />
-                  Farmgate, Dhaka-1215, Bangladesh
+                <div className="text-slate-400 text-sm leading-relaxed whitespace-pre-line">
+                  {contactSettings.address}
                 </div>
               </div>
             </div>
@@ -66,9 +68,9 @@ export default function Contact() {
               <div>
                 <div className="font-bold text-white mb-1">Phone & Hotline</div>
                 <div className="text-slate-400 text-sm space-y-1">
-                  <div>+880 1700-000001</div>
-                  <div>+880 1700-000002</div>
-                  <div className="text-sky-400 font-medium">Hotline: 16XXX</div>
+                  <div>{contactSettings.phone1}</div>
+                  {contactSettings.phone2 && <div>{contactSettings.phone2}</div>}
+                  {contactSettings.hotline && <div className="text-sky-400 font-medium">Hotline: {contactSettings.hotline}</div>}
                 </div>
               </div>
             </div>
@@ -80,8 +82,8 @@ export default function Contact() {
               <div>
                 <div className="font-bold text-white mb-1">Email</div>
                 <div className="text-slate-400 text-sm space-y-1">
-                  <div>info@airzoneltd.com</div>
-                  <div>ticketing@airzoneltd.com</div>
+                  <div>{contactSettings.email1}</div>
+                  {contactSettings.email2 && <div>{contactSettings.email2}</div>}
                 </div>
               </div>
             </div>
@@ -93,8 +95,8 @@ export default function Contact() {
               <div>
                 <div className="font-bold text-white mb-1">Office Hours</div>
                 <div className="text-slate-400 text-sm space-y-1">
-                  <div>Saturday – Thursday: 9:00 AM – 6:00 PM</div>
-                  <div>Friday: Closed</div>
+                  {contactSettings.hoursSaturdayThursday && <div>{contactSettings.hoursSaturdayThursday}</div>}
+                  {contactSettings.hoursFriday && <div>{contactSettings.hoursFriday}</div>}
                 </div>
               </div>
             </div>
