@@ -97,6 +97,27 @@ const defaultHeroSettings: HeroSettings = {
       desc: 'Fast, reliable visa processing for tourist, business, and student visas with expert documentation support.',
       tagline: 'FAST & SECURE APPLICATION',
     },
+    {
+      image: 'https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      title: 'Unforgettable Journeys',
+      subtitle: 'Tailored Just For You',
+      desc: 'From hot air balloons to scenic mountain hikes, let us design the perfect itinerary for your dream vacation.',
+      tagline: 'MEMORABLE EXPERIENCES',
+    },
+    {
+      image: 'https://images.pexels.com/photos/1835718/pexels-photo-1835718.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      title: 'Luxury Resorts',
+      subtitle: 'At Unbeatable Prices',
+      desc: 'Get exclusive discounts on premium resorts, hotels, and beachside villas worldwide. Book today.',
+      tagline: 'PREMIUM ACCOMMODATION',
+    },
+    {
+      image: 'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      title: 'Explore Heritage',
+      subtitle: 'Cultural & Historic Tours',
+      desc: 'Discover rich histories, architectures, and local cultures with our expert-guided heritage tour packages.',
+      tagline: 'CULTURAL EXPERIENCE',
+    },
   ]
 };
 
@@ -267,7 +288,18 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // CMS Section Settings State Hooks
   const [heroSettings, setHeroSettings] = useState<HeroSettings>(() => {
     const saved = localStorage.getItem('heroSettings');
-    return saved ? JSON.parse(saved) : defaultHeroSettings;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.slides && parsed.slides.length < defaultHeroSettings.slides.length) {
+        parsed.slides = [
+          ...parsed.slides,
+          ...defaultHeroSettings.slides.slice(parsed.slides.length)
+        ];
+        localStorage.setItem('heroSettings', JSON.stringify(parsed));
+      }
+      return parsed;
+    }
+    return defaultHeroSettings;
   });
 
   const [aboutSettings, setAboutSettings] = useState<AboutSettings>(() => {
