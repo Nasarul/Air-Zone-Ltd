@@ -77,15 +77,15 @@ export default function Hero() {
           <div className="max-w-7xl mx-auto px-6 w-full">
             <div className="max-w-2xl text-left">
               <div className="flex items-center gap-2 mb-4 animate-fade-up">
-                <div className="w-8 h-0.5 bg-sky-400" />
-                <span className="text-sky-300 text-xs md:text-sm font-extrabold uppercase tracking-widest">
+                <div className="w-8 h-0.5 bg-primary" />
+                <span className="text-primary-light text-xs md:text-sm font-extrabold uppercase tracking-widest">
                   {slide.tagline}
                 </span>
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7.5xl font-black text-white leading-tight mb-4 tracking-tight drop-shadow-sm">
                 {slide.title}
                 <br />
-                <span className="bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">{slide.subtitle}</span>
+                <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">{slide.subtitle}</span>
               </h1>
               <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed max-w-xl">
                 {slide.desc}
@@ -93,7 +93,7 @@ export default function Hero() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => document.querySelector('#tours')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-lg hover:shadow-sky-500/20 transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5"
                 >
                   Explore Packages <ArrowRight size={16} />
                 </button>
@@ -129,7 +129,7 @@ export default function Hero() {
               key={i}
               onClick={() => go(i)}
               className={`h-2.5 rounded-full transition-all duration-300 ${
-                i === current ? 'w-8 bg-sky-400' : 'w-2.5 bg-white/30 hover:bg-white/60'
+                i === current ? 'w-8 bg-primary' : 'w-2.5 bg-white/30 hover:bg-white/60'
               }`}
             />
           ))}
@@ -145,8 +145,8 @@ export default function Hero() {
               onClick={() => setActiveTab('tours')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === 'tours'
-                  ? 'bg-sky-50 text-sky-700 shadow-sm'
-                  : 'text-slate-500 hover:text-sky-700 hover:bg-slate-50'
+                  ? 'bg-primary/5 text-primary shadow-sm'
+                  : 'text-slate-500 hover:text-primary hover:bg-slate-50'
               }`}
             >
               <Calendar size={16} />
@@ -156,8 +156,8 @@ export default function Hero() {
               onClick={() => setActiveTab('flights')}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === 'flights'
-                  ? 'bg-sky-50 text-sky-700 shadow-sm'
-                  : 'text-slate-500 hover:text-sky-700 hover:bg-slate-50'
+                  ? 'bg-primary/5 text-primary shadow-sm'
+                  : 'text-slate-500 hover:text-primary hover:bg-slate-50'
               }`}
             >
               <Plane size={16} />
@@ -187,7 +187,7 @@ export default function Hero() {
                     <select
                       value={tourDest}
                       onChange={(e) => setTourDest(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
                     >
                       <option value="">Any Destination</option>
                       <option value="Bali">Bali, Indonesia</option>
@@ -206,7 +206,7 @@ export default function Hero() {
                     <select
                       value={tourDuration}
                       onChange={(e) => setTourDuration(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
                     >
                       <option value="">Any Duration</option>
                       <option value="3-5">3 to 5 Days</option>
@@ -221,12 +221,12 @@ export default function Hero() {
                     <input
                       type="text"
                       placeholder="Enter promo code"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+                    className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
                   >
                     <Search size={16} />
                     Search Tours
@@ -244,7 +244,7 @@ export default function Hero() {
                     <select
                       value={flightFrom}
                       onChange={(e) => setFlightFrom(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
                     >
                       <option value="DAC">Dhaka (DAC)</option>
                       <option value="CGP">Chittagong (CGP)</option>
@@ -260,7 +260,7 @@ export default function Hero() {
                     <select
                       value={flightTo}
                       onChange={(e) => setFlightTo(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
                     >
                       <option value="">Select Destination</option>
                       <option value="Cox's Bazar">Cox's Bazar (CXB)</option>
@@ -279,12 +279,12 @@ export default function Hero() {
                       type="date"
                       value={flightDate}
                       onChange={(e) => setFlightDate(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+                    className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
                   >
                     <Search size={16} />
                     Search Flights
@@ -354,16 +354,16 @@ export default function Hero() {
       </div>
 
       {/* Stats */}
-      <div className="bg-sky-950 text-white py-16 relative overflow-hidden border-t border-sky-900/50">
+      <div className="bg-secondary text-white py-16 relative overflow-hidden border-t border-secondary/50">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
           {stats.map((s) => (
             <div key={s.label} className="text-center group">
-              <div className="text-3xl md:text-4.5xl font-black text-sky-400 group-hover:scale-105 transition-transform duration-300 inline-block">{s.value}</div>
+              <div className="text-3xl md:text-4.5xl font-black text-accent-light group-hover:scale-105 transition-transform duration-300 inline-block">{s.value}</div>
               <div className="text-xs md:text-sm text-slate-400 mt-2 font-bold uppercase tracking-wider">{s.label}</div>
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(3,105,161,0.12),transparent)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,67,104,0.12),transparent)] pointer-events-none" />
       </div>
     </section>
   );

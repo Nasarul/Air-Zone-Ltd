@@ -347,7 +347,7 @@ export default function SettingsView() {
                     <span className={`flex-shrink-0 font-bold uppercase ${
                       l.level === 'error' ? 'text-red-500' :
                       l.level === 'warn' ? 'text-amber-500' :
-                      'text-sky-400'
+                      'text-primary-light'
                     }`}>[{l.level}]</span>
                     <span className="text-slate-400">({l.category})</span>
                     <span className="text-slate-100">{l.message}</span>

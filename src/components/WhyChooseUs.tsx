@@ -16,15 +16,15 @@ export default function WhyChooseUs() {
   if (!whyChooseUsSettings.isEnabled) return null;
 
   return (
-    <section className="py-24 bg-slate-800 text-white">
+    <section className="py-24 bg-secondary text-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
           <div>
-            <span className="text-sky-400 font-semibold text-sm uppercase tracking-widest">{whyChooseUsSettings.badge}</span>
+            <span className="text-primary-light font-semibold text-sm uppercase tracking-widest">{whyChooseUsSettings.badge}</span>
             <h2 className="text-4xl font-extrabold mt-2 mb-6 leading-tight">
               {whyChooseUsSettings.titleLine1} <br />
-              <span className="text-sky-400">{whyChooseUsSettings.titleLine2}</span>
+              <span className="text-primary-light">{whyChooseUsSettings.titleLine2}</span>
             </h2>
             <p className="text-slate-400 leading-relaxed mb-10">
               {whyChooseUsSettings.description}
@@ -35,7 +35,7 @@ export default function WhyChooseUs() {
                 const IconComponent = iconMap[r.iconName] || Award;
                 return (
                   <div key={idx} className="flex gap-4 items-start group">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-sky-100/10 text-sky-400 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-primary/20 text-primary-light group-hover:scale-110 transition-transform duration-300">
                       <IconComponent size={22} />
                     </div>
                     <div>
@@ -57,7 +57,7 @@ export default function WhyChooseUs() {
             />
             {/* Floating card */}
             <div className="absolute bottom-6 left-6 bg-white text-slate-800 rounded-2xl p-5 shadow-2xl max-w-xs">
-              <div className="text-3xl font-extrabold text-sky-600 mb-1">{whyChooseUsSettings.floatingCardNumber}</div>
+              <div className="text-3xl font-extrabold text-primary mb-1">{whyChooseUsSettings.floatingCardNumber}</div>
               <div className="font-semibold text-sm text-slate-700">{whyChooseUsSettings.floatingCardTitle}</div>
               <div className="text-slate-400 text-xs mt-1">{whyChooseUsSettings.floatingCardDesc}</div>
             </div>

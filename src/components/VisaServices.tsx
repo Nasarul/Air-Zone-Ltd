@@ -72,7 +72,7 @@ export default function VisaServices() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-sky-600 font-extrabold text-xs uppercase tracking-widest block mb-2">Hassle-Free Processing</span>
+            <span className="text-primary font-extrabold text-xs uppercase tracking-widest block mb-2">Hassle-Free Processing</span>
             <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">{title}</h2>
             <p className="text-slate-500 text-sm md:text-base mt-2 max-w-xl">
               {subtitle}
@@ -87,7 +87,7 @@ export default function VisaServices() {
               placeholder="Search visa by country..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 shadow-sm"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm"
             />
             {searchQuery && (
               <button
@@ -107,7 +107,7 @@ export default function VisaServices() {
               <div
                 key={v.country}
                 onClick={() => setSelectedVisa(v)}
-                className="bg-white rounded-2xl border border-slate-100 hover:border-sky-200 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-200 p-5 flex items-center justify-between group cursor-pointer transform hover:-translate-y-0.5"
+                className="bg-white rounded-2xl border border-slate-100 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 p-5 flex items-center justify-between group cursor-pointer transform hover:-translate-y-0.5"
               >
                 <div className="flex items-center gap-4 min-w-0">
                   <img
@@ -119,15 +119,15 @@ export default function VisaServices() {
                     }}
                   />
                   <div className="min-w-0">
-                    <div className="font-extrabold text-slate-800 text-sm leading-tight truncate group-hover:text-sky-700 transition-colors">{v.country}</div>
+                    <div className="font-extrabold text-slate-800 text-sm leading-tight truncate group-hover:text-primary transition-colors">{v.country}</div>
                     <div className="text-slate-400 text-[10px] font-semibold mt-0.5 uppercase tracking-wide">{v.category}</div>
-                    <div className="flex items-center gap-1 text-sky-600 text-[10px] mt-1.5 font-bold uppercase tracking-wider">
+                    <div className="flex items-center gap-1 text-primary text-[10px] mt-1.5 font-bold uppercase tracking-wider">
                       <Clock size={10} />
                       {v.days}
                     </div>
                   </div>
                 </div>
-                <ArrowRight size={14} className="text-slate-300 group-hover:text-sky-600 flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight size={14} className="text-slate-300 group-hover:text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
               </div>
             ))}
           </div>
@@ -140,20 +140,20 @@ export default function VisaServices() {
         )}
 
         {/* Bottom Banner */}
-        <div className="mt-12 bg-sky-950 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden shadow-xl">
+        <div className="mt-12 bg-secondary rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden shadow-xl">
           <div className="relative z-10 max-w-2xl mx-auto">
             <h3 className="text-2xl md:text-3.5xl font-black mb-3">Looking for a different country?</h3>
-            <p className="text-sky-200/90 text-sm md:text-base mb-6 leading-relaxed">
+            <p className="text-white/90 text-sm md:text-base mb-6 leading-relaxed">
               If your desired destination isn't listed, don't worry. Our visa department assists with applications to 50+ countries worldwide.
             </p>
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs tracking-wider uppercase px-8 py-3.5 rounded-full transition-colors shadow-lg hover:shadow-sky-500/20"
+              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-extrabold text-xs tracking-wider uppercase px-8 py-3.5 rounded-full transition-colors shadow-lg hover:shadow-primary/20"
             >
               Inquire Other Country <ArrowRight size={14} />
             </button>
           </div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(3,105,161,0.25),transparent)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(6,67,104,0.25),transparent)] pointer-events-none" />
         </div>
       </div>
 
@@ -207,20 +207,20 @@ export default function VisaServices() {
                     </div>
                     <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                       <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Service Cost</div>
-                      <div className="font-extrabold text-sky-700 text-sm mt-1">{selectedVisa.price}</div>
+                      <div className="font-extrabold text-primary text-sm mt-1">{selectedVisa.price}</div>
                     </div>
                   </div>
 
                   {/* Checklist */}
                   <div className="mb-8">
                     <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-1.5">
-                      <FileText size={13} className="text-sky-600" />
+                      <FileText size={13} className="text-primary" />
                       Required Documents Checklist
                     </h4>
                     <ul className="space-y-3.5">
                       {(selectedVisa.documents || defaultDocuments).map((doc, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-slate-600 text-xs md:text-sm leading-relaxed">
-                          <div className="w-5 h-5 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold">
+                          <div className="w-5 h-5 bg-primary/10 text-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold">
                             {idx + 1}
                           </div>
                           {doc}
@@ -232,7 +232,7 @@ export default function VisaServices() {
                   {/* Visa Inquiry Form */}
                   <div className="border-t border-slate-100 pt-6">
                     <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-1.5">
-                      <FileCheck2 size={13} className="text-sky-600" />
+                      <FileCheck2 size={13} className="text-primary" />
                       Request Documentation Check
                     </h4>
                     <form onSubmit={handleInquirySubmit} className="space-y-4">
@@ -243,7 +243,7 @@ export default function VisaServices() {
                           placeholder="Your Name"
                           value={inquiryName}
                           onChange={(e) => setInquiryName(e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                         <input
                           type="tel"
@@ -251,7 +251,7 @@ export default function VisaServices() {
                           placeholder="Phone Number"
                           value={inquiryPhone}
                           onChange={(e) => setInquiryPhone(e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                       </div>
                       <div className="flex items-center justify-between gap-4 pt-2">
@@ -260,7 +260,7 @@ export default function VisaServices() {
                         </span>
                         <button
                           type="submit"
-                          className="bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-sky-500/10 flex items-center gap-1.5"
+                          className="bg-primary hover:bg-primary-hover text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-primary/10 flex items-center gap-1.5"
                         >
                           <Send size={12} />
                           Submit Request

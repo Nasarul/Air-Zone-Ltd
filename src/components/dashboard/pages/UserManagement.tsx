@@ -540,7 +540,7 @@ export default function UserManagement() {
                         <span className="inline-flex items-center gap-1 font-semibold">
                           <span className={`w-1.5 h-1.5 rounded-full ${
                             user.role === 'Administrator' ? 'bg-primary' : 
-                            user.role === 'Manager' ? 'bg-cyan-500' :
+                            user.role === 'Manager' ? 'bg-primary-light' :
                             user.role === 'Support' ? 'bg-emerald-500' : 'bg-slate-450'
                           }`} />
                           <span>{user.role}</span>

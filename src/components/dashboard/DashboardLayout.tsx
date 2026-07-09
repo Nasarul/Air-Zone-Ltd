@@ -128,7 +128,7 @@ export default function DashboardLayout() {
               onClick={() => setSectionsExpanded(!sectionsExpanded)}
               className={`w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-200 group relative ${
                 subPage.startsWith('sections-')
-                  ? 'text-primary dark:text-sky-400 font-bold bg-slate-50 dark:bg-slate-800/30'
+                  ? 'text-primary dark:text-primary-light font-bold bg-slate-50 dark:bg-slate-800/30'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium'
               }`}
             >
@@ -167,7 +167,7 @@ export default function DashboardLayout() {
                       onClick={() => setSubPage(subItem.id)}
                       className={`w-full text-left px-3 py-1.5 rounded-lg text-[11px] transition-colors ${
                         isSubActive
-                          ? 'text-primary dark:text-sky-400 bg-primary/5 dark:bg-sky-400/5 font-bold'
+                          ? 'text-primary dark:text-primary-light bg-primary/5 dark:bg-primary-light/5 font-bold'
                           : 'text-slate-450 hover:text-slate-700 dark:hover:text-slate-200 font-medium'
                       }`}
                     >
@@ -414,7 +414,7 @@ export default function DashboardLayout() {
                       <span>July 8: Today (Current Cycle)</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       <span>July 12: Onboarding Setup</span>
                     </div>
                   </div>
@@ -616,7 +616,7 @@ export default function DashboardLayout() {
                             }}
                             className={`w-full text-left px-3 py-2 rounded-lg text-[10px] transition-colors font-bold ${
                               isSubActive
-                                ? 'text-primary bg-primary/5 dark:bg-sky-400/5'
+                                ? 'text-primary bg-primary/5 dark:bg-primary-light/5'
                                 : 'text-slate-450 hover:text-slate-700 dark:hover:text-slate-200'
                             }`}
                           >

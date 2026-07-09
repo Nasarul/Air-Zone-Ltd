@@ -156,7 +156,7 @@ export const HeroSectionSettings: React.FC = () => {
               key={idx}
               className={`p-3 rounded-xl border transition-all text-left flex justify-between items-center ${
                 activeSlideIdx === idx 
-                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-sky-400 font-bold' 
+                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-light font-bold' 
                   : 'border-slate-205 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'
               }`}
             >
@@ -613,7 +613,7 @@ export const PackagesSectionSettings: React.FC = () => {
                       <span>•</span>
                       <span>{pkg.duration}</span>
                     </div>
-                    <div className="font-extrabold text-xs text-primary dark:text-sky-400 mt-2">{pkg.price}</div>
+                    <div className="font-extrabold text-xs text-primary dark:text-primary-light mt-2">{pkg.price}</div>
                   </div>
 
                   <div className="flex flex-col gap-1.5 justify-center">
@@ -964,7 +964,7 @@ export const VisaSectionSettings: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-extrabold text-primary dark:text-sky-400 mr-1">{visa.price}</span>
+                    <span className="text-xs font-extrabold text-primary dark:text-primary-light mr-1">{visa.price}</span>
                     <button 
                       type="button" 
                       disabled={idx === 0} 
@@ -1802,7 +1802,7 @@ export const AdSectionSettings: React.FC = () => {
               key={idx}
               className={`p-3 rounded-xl border transition-all text-left flex justify-between items-center ${
                 activeSlideIdx === idx 
-                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-sky-400 font-bold' 
+                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-light font-bold' 
                   : 'border-slate-205 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'
               }`}
             >
@@ -2141,7 +2141,7 @@ export const FlightTicketingSectionSettings: React.FC = () => {
                 key={deal.id}
                 className={`p-2.5 rounded-xl border transition-all text-left flex justify-between items-center cursor-pointer ${
                   activeDealIdx === idx
-                    ? 'border-primary bg-primary/5 text-primary dark:text-sky-400 font-bold'
+                    ? 'border-primary bg-primary/5 text-primary dark:text-primary-light font-bold'
                     : 'border-slate-100 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600'
                 }`}
                 onClick={() => setActiveDealIdx(idx)}
@@ -2583,7 +2583,7 @@ export const TestimonialsSectionSettings: React.FC = () => {
                 key={idx}
                 className={`p-2.5 rounded-xl border transition-all text-left flex justify-between items-center cursor-pointer ${
                   activeTestimonialIdx === idx
-                    ? 'border-primary bg-primary/5 text-primary dark:text-sky-400 font-bold'
+                    ? 'border-primary bg-primary/5 text-primary dark:text-primary-light font-bold'
                     : 'border-slate-105 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600'
                 }`}
                 onClick={() => setActiveTestimonialIdx(idx)}

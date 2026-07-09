@@ -19,7 +19,7 @@ export default function Services() {
     <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="text-sky-600 font-semibold text-sm uppercase tracking-widest">{servicesSettings.badge}</span>
+          <span className="text-primary font-semibold text-sm uppercase tracking-widest">{servicesSettings.badge}</span>
           <h2 className="text-4xl font-extrabold text-slate-800 mt-2">{servicesSettings.title}</h2>
           <p className="text-slate-500 mt-3 max-w-xl mx-auto">
             {servicesSettings.subtitle}
@@ -32,9 +32,9 @@ export default function Services() {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl p-8 border border-transparent hover:border-sky-200 transition-all duration-300 hover:shadow-lg group cursor-default"
+                className="bg-white rounded-2xl p-8 border border-transparent hover:border-primary/30 transition-all duration-300 hover:shadow-lg group cursor-default"
               >
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-sky-50 text-sky-600 mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-primary/5 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
                   <IconComponent size={26} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-800 mb-3">{s.title}</h3>

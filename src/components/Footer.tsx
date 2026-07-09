@@ -33,7 +33,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-secondary text-white">
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
@@ -56,7 +56,7 @@ export default function Footer() {
               <a
                 href={footerSettings.facebookUrl}
                 target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 bg-slate-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-slate-800 hover:bg-primary rounded-lg flex items-center justify-center transition-colors"
               >
                 <Facebook size={16} />
               </a>
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={l}>
                   <button
                     onClick={() => scrollTo(l)}
-                    className="text-slate-400 hover:text-sky-400 text-sm transition-colors"
+                    className="text-slate-400 hover:text-primary-light text-sm transition-colors"
                   >
                     {l}
                   </button>
@@ -99,7 +99,7 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-5">Our Services</h4>
             <ul className="space-y-2.5">
               {footerSettings.services.map((s) => (
-                <li key={s} className="text-slate-400 text-sm hover:text-sky-400 transition-colors cursor-default">{s}</li>
+                <li key={s} className="text-slate-400 text-sm hover:text-primary-light transition-colors cursor-default">{s}</li>
               ))}
             </ul>
           </div>
@@ -114,11 +114,11 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email"
-                className="flex-1 bg-slate-800 border border-slate-700 text-white text-sm px-4 py-2.5 rounded-l-xl outline-none focus:border-sky-500 placeholder-slate-500"
+                className="flex-1 bg-slate-800 border border-slate-700 text-white text-sm px-4 py-2.5 rounded-l-xl outline-none focus:border-primary placeholder-slate-500"
               />
               <button
                 type="submit"
-                className="bg-sky-600 hover:bg-sky-500 text-white px-4 rounded-r-xl transition-colors"
+                className="bg-primary hover:bg-primary-hover text-white px-4 rounded-r-xl transition-colors"
               >
                 <Send size={15} />
               </button>
@@ -127,15 +127,15 @@ export default function Footer() {
 
             <div className="space-y-2.5 text-sm text-slate-400">
               <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-sky-500 flex-shrink-0" />
+                <MapPin size={14} className="text-primary-light flex-shrink-0" />
                 {footerSettings.address}
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={14} className="text-sky-500 flex-shrink-0" />
+                <Phone size={14} className="text-primary-light flex-shrink-0" />
                 {footerSettings.phone}
               </div>
               <div className="flex items-center gap-2">
-                <Mail size={14} className="text-sky-500 flex-shrink-0" />
+                <Mail size={14} className="text-primary-light flex-shrink-0" />
                 {footerSettings.email}
               </div>
             </div>

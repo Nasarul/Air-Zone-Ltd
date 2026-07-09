@@ -43,8 +43,8 @@ export default function Navbar() {
               <img src="/logo.png" alt="Air Zone Logo" className="w-full h-full object-contain" />
             </div>
             <div className="font-black text-2xl tracking-tight whitespace-nowrap select-none">
-              <span className="text-[#064368] dark:text-[#E0EEF7]">Air Zone</span>{' '}
-              <span className="text-[#901A1D]">Ltd.</span>
+              <span className="text-secondary dark:text-accent-light">Air Zone</span>{' '}
+              <span className="text-primary">Ltd.</span>
             </div>
           </button>
 
@@ -54,7 +54,7 @@ export default function Navbar() {
               <button
                 key={l.href}
                 onClick={() => handleLink(l.href)}
-                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-sky-700 rounded-lg hover:bg-sky-50 transition-colors duration-200"
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary rounded-lg hover:bg-primary/5 transition-colors duration-200"
               >
                 {l.label}
               </button>
@@ -64,12 +64,12 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setPage('login')}
-              className="hidden md:inline-flex items-center gap-1 border border-slate-200 hover:border-sky-600 hover:text-sky-700 text-slate-600 text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200"
+              className="hidden md:inline-flex items-center gap-1 border border-slate-200 hover:border-primary hover:text-primary text-slate-600 text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200"
             >
               Admin Portal
             </button>
             <button
-              className="lg:hidden p-2 text-slate-600 hover:text-sky-700"
+              className="lg:hidden p-2 text-slate-600 hover:text-primary"
               onClick={() => setOpen(!open)}
             >
               {open ? <X size={22} /> : <Menu size={22} />}
@@ -88,7 +88,7 @@ export default function Navbar() {
               <button
                 key={l.href}
                 onClick={() => handleLink(l.href)}
-                className="text-left px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-sky-700 hover:bg-sky-50 rounded-lg transition-colors"
+                className="text-left px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors"
               >
                 {l.label}
               </button>
@@ -98,7 +98,7 @@ export default function Navbar() {
                 setOpen(false);
                 setPage('login');
               }}
-              className="mt-2 text-center text-xs font-bold text-sky-700 hover:bg-sky-50 border border-sky-600 py-2.5 rounded-full"
+              className="mt-2 text-center text-xs font-bold text-primary hover:bg-primary/5 border border-primary py-2.5 rounded-full"
             >
               Admin Portal
             </button>

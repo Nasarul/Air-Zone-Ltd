@@ -35,7 +35,7 @@ export default function AnalyticsView() {
         <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-850 p-6 rounded-2xl shadow-sm space-y-3.5">
           <div className="flex justify-between items-center text-xs font-bold text-slate-400">
             <span>Customer Satisfaction Net</span>
-            <span className="text-cyan-500 font-black">97%</span>
+            <span className="text-secondary font-black">97%</span>
           </div>
           <ProgressBar progress={97} />
           <div className="text-[10px] text-slate-400 font-medium">978 review tickets marked 5-Star</div>
@@ -59,7 +59,7 @@ export default function AnalyticsView() {
               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Flights</span>
             </div>
             <div className="flex flex-col items-center gap-2 w-16">
-              <div className="w-8 bg-cyan-500 rounded-t-lg transition-all duration-500" style={{ height: '90px' }} />
+              <div className="w-8 bg-secondary rounded-t-lg transition-all duration-500" style={{ height: '90px' }} />
               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Visas</span>
             </div>
             <div className="flex flex-col items-center gap-2 w-16">
@@ -134,7 +134,7 @@ export default function AnalyticsView() {
             </svg>
             <div className="flex gap-4 text-[10px] font-bold mt-2">
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-primary" /> Desktop</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-cyan-500" /> Mobile</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-secondary" /> Mobile</span>
             </div>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function AnalyticsView() {
                 <span>Desktop (60%)</span>
               </div>
               <div className="flex items-center gap-2">
-                <Smartphone className="w-4 h-4 text-cyan-500" />
+                <Smartphone className="w-4 h-4 text-secondary" />
                 <span>Mobile Phone (30%)</span>
               </div>
               <div className="flex items-center gap-2">

@@ -36,10 +36,10 @@ export default function Contact() {
   if (!contactSettings.isEnabled) return null;
 
   return (
-    <section id="contact" className="py-24 bg-slate-800 text-white">
+    <section id="contact" className="py-24 bg-secondary text-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="text-sky-400 font-semibold text-sm uppercase tracking-widest">{contactSettings.badge}</span>
+          <span className="text-primary-light font-semibold text-sm uppercase tracking-widest">{contactSettings.badge}</span>
           <h2 className="text-4xl font-extrabold mt-2">{contactSettings.title}</h2>
           <p className="text-slate-400 mt-3 max-w-lg mx-auto">
             {contactSettings.subtitle}
@@ -50,7 +50,7 @@ export default function Contact() {
           {/* Info */}
           <div className="lg:col-span-2 space-y-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-sky-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
                 <MapPin size={20} />
               </div>
               <div>
@@ -62,7 +62,7 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-sky-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
                 <Phone size={20} />
               </div>
               <div>
@@ -70,13 +70,13 @@ export default function Contact() {
                 <div className="text-slate-400 text-sm space-y-1">
                   <div>{contactSettings.phone1}</div>
                   {contactSettings.phone2 && <div>{contactSettings.phone2}</div>}
-                  {contactSettings.hotline && <div className="text-sky-400 font-medium">Hotline: {contactSettings.hotline}</div>}
+                  {contactSettings.hotline && <div className="text-primary-light font-medium">Hotline: {contactSettings.hotline}</div>}
                 </div>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-sky-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
                 <Mail size={20} />
               </div>
               <div>
@@ -89,7 +89,7 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-sky-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
                 <Clock size={20} />
               </div>
               <div>
@@ -124,7 +124,7 @@ export default function Contact() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Your full name"
-                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition"
                     />
                   </div>
                   <div>
@@ -135,7 +135,7 @@ export default function Contact() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="your@email.com"
-                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition"
                     />
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default function Contact() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+880 XXXX-XXXXXX"
-                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition"
                     />
                   </div>
                   <div>
@@ -155,7 +155,7 @@ export default function Contact() {
                     <select
                       value={form.service}
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
-                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition bg-white"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition bg-white"
                     >
                       <option value="">Select a service</option>
                       <option>Tour Package</option>
@@ -173,12 +173,12 @@ export default function Contact() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={4}
                     placeholder="Tell us about your travel plans or inquiry..."
-                    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition resize-none"
+                    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 shadow-sm"
+                  className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 shadow-sm"
                 >
                   <Send size={17} />
                   Send Inquiry

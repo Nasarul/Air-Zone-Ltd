@@ -98,9 +98,9 @@ function LoginPage() {
       {/* Left Column: Premium Brand Illustration */}
       <div className="w-full md:w-1/2 bg-slate-950 text-white p-12 flex flex-col justify-between relative overflow-hidden">
         {/* Background gradient graphics */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-sky-900 via-slate-950 to-primary/20 opacity-90 z-0" />
-        <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-cyan-500/10 blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] rounded-full bg-blue-600/15 blur-[120px]" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-secondary via-slate-950 to-primary/20 opacity-90 z-0" />
+        <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-secondary/10 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] rounded-full bg-secondary/15 blur-[120px]" />
 
         {/* Company Header */}
         <div className="relative z-10 flex items-center gap-3">
@@ -122,9 +122,9 @@ function LoginPage() {
             <div className="absolute inset-4 rounded-full border border-white/5 border-dashed animate-spin" style={{ animationDuration: '30s' }} />
             
             {/* Custom SVG Dashboard graphic representation */}
-            <svg viewBox="0 0 100 100" className="w-36 h-36 text-sky-400">
+            <svg viewBox="0 0 100 100" className="w-36 h-36 text-primary-light">
               <path d="M20 70 A 35 35 0 0 1 80 70" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" opacity="0.3" />
-              <path d="M20 70 A 35 35 0 0 1 65 35" fill="none" stroke="#2563EB" strokeWidth="5" strokeLinecap="round" />
+              <path d="M20 70 A 35 35 0 0 1 65 35" fill="none" stroke="#064368" strokeWidth="5" strokeLinecap="round" />
               <circle cx="50" cy="50" r="4" fill="white" />
               <line x1="50" y1="50" x2="68" y2="38" stroke="white" strokeWidth="3" strokeLinecap="round" />
               <path d="M30 65 L40 55 H60 L70 65" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
@@ -720,7 +720,7 @@ function VerifyEmailPage() {
       exit={{ opacity: 0, y: -15 }}
       className="w-full max-w-md mx-4 p-8 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl shadow-xl text-center"
     >
-      <div className="w-20 h-20 bg-sky-500/10 dark:bg-sky-500/20 text-sky-500 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-20 h-20 bg-primary/10 dark:bg-primary/20 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
         <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 animate-bounce">
           <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />

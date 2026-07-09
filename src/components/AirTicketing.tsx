@@ -234,15 +234,15 @@ export default function AirTicketing() {
   return (
     <section id="flights" className="py-24 bg-white relative overflow-hidden">
       {/* Visual decorations */}
-      <div className="absolute right-0 top-0 w-96 h-96 bg-sky-50 rounded-full opacity-65 blur-3xl pointer-events-none" />
+      <div className="absolute right-0 top-0 w-96 h-96 bg-primary/5 rounded-full opacity-65 blur-3xl pointer-events-none" />
       <div className="absolute left-0 bottom-0 w-96 h-96 bg-slate-50 rounded-full opacity-65 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 bg-sky-50 text-sky-800 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">
-            <Award size={13} className="text-sky-600" />
+          <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">
+            <Award size={13} className="text-primary" />
             IATA Accredited Agency Partner
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">{flightTicketingSettings.title}</h2>
@@ -260,7 +260,7 @@ export default function AirTicketing() {
                 name="trip-type"
                 checked={tripType === 'oneway'}
                 onChange={() => setTripType('oneway')}
-                className="text-sky-600 focus:ring-sky-500/20"
+                className="text-primary focus:ring-primary/20"
               />
               One-Way
             </label>
@@ -270,7 +270,7 @@ export default function AirTicketing() {
                 name="trip-type"
                 checked={tripType === 'roundtrip'}
                 onChange={() => setTripType('roundtrip')}
-                className="text-sky-600 focus:ring-sky-500/20"
+                className="text-primary focus:ring-primary/20"
               />
               Round-Trip
             </label>
@@ -282,7 +282,7 @@ export default function AirTicketing() {
               <select
                 value={fromAirport}
                 onChange={(e) => setFromAirport(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 cursor-pointer"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
               >
                 <option value="DAC">Dhaka (DAC)</option>
                 <option value="CGP">Chittagong (CGP)</option>
@@ -296,7 +296,7 @@ export default function AirTicketing() {
               <select
                 value={toAirport}
                 onChange={(e) => setToAirport(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 cursor-pointer"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
               >
                 <option value="">Select Destination</option>
                 <optgroup label="Domestic">
@@ -320,7 +320,7 @@ export default function AirTicketing() {
                 type="date"
                 value={bookingForm.date}
                 onChange={(e) => setBookingForm({...bookingForm, date: e.target.value})}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
 
@@ -329,7 +329,7 @@ export default function AirTicketing() {
               <input
                 type="date"
                 disabled={tripType === 'oneway'}
-                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -341,12 +341,12 @@ export default function AirTicketing() {
                   min="1"
                   value={bookingForm.passengers}
                   onChange={(e) => setBookingForm({...bookingForm, passengers: parseInt(e.target.value) || 1})}
-                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
               </div>
               <button
                 onClick={() => setSearchQuery(toAirport)}
-                className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 rounded-xl transition-colors flex items-center justify-center shadow-sm"
+                className="bg-primary hover:bg-primary-hover text-white font-bold px-6 rounded-xl transition-colors flex items-center justify-center shadow-sm"
               >
                 <Search size={16} />
               </button>
@@ -363,7 +363,7 @@ export default function AirTicketing() {
                 onClick={() => { setActiveTab(tab as any); }}
                 className={`px-5 py-2.5 rounded-xl text-xs font-extrabold uppercase tracking-wide transition-all ${
                   activeTab === tab
-                    ? 'bg-sky-600 text-white shadow-md shadow-sky-500/10'
+                    ? 'bg-primary text-white shadow-md shadow-primary/10'
                     : 'bg-white border border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-800'
                 }`}
               >
@@ -388,7 +388,7 @@ export default function AirTicketing() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <div className="p-2 bg-sky-50 text-sky-600 rounded-lg group-hover:scale-105 transition-transform">
+                      <div className="p-2 bg-primary/5 text-primary rounded-lg group-hover:scale-105 transition-transform">
                         <Plane size={18} />
                       </div>
                       <span className="text-xs font-black text-slate-800 uppercase tracking-wide">{deal.airline}</span>
@@ -408,9 +408,9 @@ export default function AirTicketing() {
                     <div className="flex flex-col items-center flex-1 px-4">
                       <div className="text-[10px] text-slate-400 font-semibold">{deal.duration}</div>
                       <div className="relative w-full h-0.5 bg-slate-200 my-1">
-                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border border-sky-600 bg-white" />
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border border-primary bg-white" />
                       </div>
-                      <div className="text-[9px] text-sky-600 font-black uppercase tracking-widest">{deal.stops}</div>
+                      <div className="text-[9px] text-primary font-black uppercase tracking-widest">{deal.stops}</div>
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-black text-slate-800">{deal.to.split(' ')[0]}</div>
@@ -437,14 +437,14 @@ export default function AirTicketing() {
                 <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                   <div>
                     <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest leading-none">Starting from</div>
-                    <div className="text-2xl font-black text-sky-700">{deal.price}</div>
+                    <div className="text-2xl font-black text-primary">{deal.price}</div>
                   </div>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedFlight(deal);
                     }}
-                    className="bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs tracking-wider uppercase px-5 py-3 rounded-xl transition-colors shadow-sm"
+                    className="bg-primary hover:bg-primary-hover text-white font-extrabold text-xs tracking-wider uppercase px-5 py-3 rounded-xl transition-colors shadow-sm"
                   >
                     Inquire Booking
                   </button>
@@ -476,7 +476,7 @@ export default function AirTicketing() {
 
             {/* Modal Header */}
             <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex items-center gap-3">
-              <div className="p-2.5 bg-sky-50 text-sky-600 rounded-xl">
+              <div className="p-2.5 bg-primary/5 text-primary rounded-xl">
                 <Plane size={24} />
               </div>
               <div>
@@ -513,7 +513,7 @@ export default function AirTicketing() {
                     </div>
                     <div className="bg-slate-50 border border-slate-100 p-3.5 rounded-xl text-center">
                       <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Departure</div>
-                      <div className="font-extrabold text-sky-700 text-xs mt-1">{selectedFlight.schedule.split(' - ')[0]}</div>
+                      <div className="font-extrabold text-primary text-xs mt-1">{selectedFlight.schedule.split(' - ')[0]}</div>
                     </div>
                   </div>
 
@@ -523,7 +523,7 @@ export default function AirTicketing() {
                   </div>
 
                   <div className="bg-slate-50 border border-slate-150 rounded-2xl p-5 mb-8 flex items-start gap-3">
-                    <Info size={16} className="text-sky-600 flex-shrink-0 mt-0.5" />
+                    <Info size={16} className="text-primary flex-shrink-0 mt-0.5" />
                     <div className="text-xs text-slate-500 leading-relaxed">
                       <span className="font-bold text-slate-700 block mb-0.5">Important Booking Information:</span>
                       Ticket prices fluctuate based on real-time seat inventory. The pricing indicated above is a base guideline. Custom dates, holiday seasons, and booking classes may affect the final seat pricing.
@@ -541,7 +541,7 @@ export default function AirTicketing() {
                           placeholder="Your Full Name"
                           value={bookingForm.name}
                           onChange={(e) => setBookingForm({...bookingForm, name: e.target.value})}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                         <input
                           type="tel"
@@ -549,7 +549,7 @@ export default function AirTicketing() {
                           placeholder="Phone Number"
                           value={bookingForm.phone}
                           onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
@@ -560,7 +560,7 @@ export default function AirTicketing() {
                             required
                             value={bookingForm.date}
                             onChange={(e) => setBookingForm({...bookingForm, date: e.target.value})}
-                            className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                            className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                           />
                         </div>
                         <div className="relative">
@@ -572,7 +572,7 @@ export default function AirTicketing() {
                             placeholder="Passengers count"
                             value={bookingForm.passengers}
                             onChange={(e) => setBookingForm({...bookingForm, passengers: parseInt(e.target.value) || 1})}
-                            className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                            className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                           />
                         </div>
                       </div>
@@ -580,7 +580,7 @@ export default function AirTicketing() {
                         <div className="text-slate-800 text-xl font-black">{selectedFlight.price} <span className="text-slate-400 text-xs font-semibold">est. / seat</span></div>
                         <button
                           type="submit"
-                          className="bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-sky-500/10 flex items-center gap-1.5"
+                          className="bg-primary hover:bg-primary-hover text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-primary/10 flex items-center gap-1.5"
                         >
                           <Phone size={12} />
                           Check Availability

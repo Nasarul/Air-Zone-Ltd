@@ -240,12 +240,12 @@ export default function ProfileView() {
 
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Twitter className="w-4 h-4 text-sky-400 flex-shrink-0" />
+              <Twitter className="w-4 h-4 text-primary-light flex-shrink-0" />
               <input
                 type="text"
                 value={twitter}
                 onChange={e => setTwitter(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-4.5 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-sky-400"
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-4.5 py-2.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
 

@@ -175,8 +175,8 @@ export default function HomeView() {
               <svg viewBox="0 0 500 200" className="w-full h-full text-primary" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
+                    <stop offset="0%" stopColor="#901A1D" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="#901A1D" stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
                 {/* Grid Lines */}
@@ -192,14 +192,14 @@ export default function HomeView() {
                 <path
                   d="M0 160 Q 80 120 160 140 T 320 80 T 500 40"
                   fill="none"
-                  stroke="#2563EB"
+                  stroke="#901A1D"
                   strokeWidth="3.5"
                   strokeLinecap="round"
                 />
                 {/* Data Points */}
-                <circle cx="80" cy="130" r="4.5" fill="#2563EB" stroke="white" strokeWidth="1.5" />
-                <circle cx="240" cy="115" r="4.5" fill="#2563EB" stroke="white" strokeWidth="1.5" />
-                <circle cx="400" cy="65" r="4.5" fill="#2563EB" stroke="white" strokeWidth="1.5" />
+                <circle cx="80" cy="130" r="4.5" fill="#901A1D" stroke="white" strokeWidth="1.5" />
+                <circle cx="240" cy="115" r="4.5" fill="#901A1D" stroke="white" strokeWidth="1.5" />
+                <circle cx="400" cy="65" r="4.5" fill="#901A1D" stroke="white" strokeWidth="1.5" />
               </svg>
             ) : (
               <svg viewBox="0 0 500 200" className="w-full h-full text-emerald-500" preserveAspectRatio="none">
@@ -258,9 +258,9 @@ export default function HomeView() {
               {/* Ring segments */}
               <circle cx="50" cy="50" r="38" fill="transparent" stroke="#E2E8F0" strokeWidth="8" className="dark:stroke-slate-800" />
               {/* Admins - primary */}
-              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#2563EB" strokeWidth="8" strokeDasharray="238.76" strokeDashoffset="59.69" strokeLinecap="round" />
+              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#901A1D" strokeWidth="8" strokeDasharray="238.76" strokeDashoffset="59.69" strokeLinecap="round" />
               {/* Managers - cyan */}
-              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#06B6D4" strokeWidth="8" strokeDasharray="238.76" strokeDashoffset="179.07" strokeLinecap="round" />
+              <circle cx="50" cy="50" r="38" fill="transparent" stroke="#064368" strokeWidth="8" strokeDasharray="238.76" strokeDashoffset="179.07" strokeLinecap="round" />
               {/* Support - green */}
               <circle cx="50" cy="50" r="38" fill="transparent" stroke="#22C55E" strokeWidth="8" strokeDasharray="238.76" strokeDashoffset="214.88" strokeLinecap="round" />
             </svg>
@@ -396,7 +396,7 @@ export default function HomeView() {
           </div>
 
           {/* Announcements */}
-          <div className="bg-gradient-to-tr from-sky-600 to-primary text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
+          <div className="bg-gradient-to-tr from-secondary to-primary text-white rounded-2xl p-6 shadow-md relative overflow-hidden">
             <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-white/10 blur-xl" />
             
             <h4 className="text-sm font-bold text-white relative z-10 flex items-center gap-2">

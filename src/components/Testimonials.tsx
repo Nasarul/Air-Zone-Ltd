@@ -7,10 +7,10 @@ export default function Testimonials() {
   if (!testimonialsSettings.isEnabled) return null;
 
   return (
-    <section className="py-24 bg-gradient-to-br from-sky-50 to-slate-100">
+    <section className="py-24 bg-gradient-to-br from-primary/5 to-slate-100">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="text-sky-600 font-semibold text-sm uppercase tracking-widest">{testimonialsSettings.badge}</span>
+          <span className="text-primary font-semibold text-sm uppercase tracking-widest">{testimonialsSettings.badge}</span>
           <h2 className="text-4xl font-extrabold text-slate-800 mt-2">{testimonialsSettings.title}</h2>
         </div>
 
@@ -20,7 +20,7 @@ export default function Testimonials() {
               key={idx}
               className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
             >
-              <Quote size={28} className="text-sky-200 mb-4 flex-shrink-0" fill="currentColor" />
+              <Quote size={28} className="text-primary/20 mb-4 flex-shrink-0" fill="currentColor" />
               <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">{t.text}</p>
               <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (

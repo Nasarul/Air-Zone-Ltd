@@ -77,7 +77,7 @@ export default function TourPackages() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-sky-600 font-extrabold text-xs uppercase tracking-widest block mb-2">{subtitle}</span>
+            <span className="text-primary font-extrabold text-xs uppercase tracking-widest block mb-2">{subtitle}</span>
             <h2 className="text-3.5xl md:text-5xl font-black text-slate-800 tracking-tight">{title}</h2>
           </div>
           
@@ -89,7 +89,7 @@ export default function TourPackages() {
               placeholder="Search packages or destinations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 shadow-sm transition-all"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm transition-all"
             />
             {searchQuery && (
               <button
@@ -111,7 +111,7 @@ export default function TourPackages() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2.5 rounded-full text-xs font-extrabold tracking-wide uppercase transition-all whitespace-nowrap ${
                   activeCategory === cat
-                    ? 'bg-sky-600 text-white shadow-md shadow-sky-500/20'
+                    ? 'bg-primary text-white shadow-md shadow-primary/20'
                     : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-800'
                 }`}
               >
@@ -140,7 +140,7 @@ export default function TourPackages() {
                     alt={t.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-sky-600/90 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-sm">
+                  <div className="absolute top-4 left-4 bg-primary/90 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-sm">
                     <Clock size={11} />
                     {t.duration}
                   </div>
@@ -150,14 +150,14 @@ export default function TourPackages() {
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-2">
-                    <MapPin size={12} className="text-sky-500" />
+                    <MapPin size={12} className="text-primary-light" />
                     {t.location}
                   </div>
-                  <h3 className="font-extrabold text-slate-800 text-lg mb-3 leading-snug group-hover:text-sky-700 transition-colors flex-1">{t.title}</h3>
+                  <h3 className="font-extrabold text-slate-800 text-lg mb-3 leading-snug group-hover:text-primary transition-colors flex-1">{t.title}</h3>
                   
                   <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-auto">
                     <div>
-                      <span className="text-2.5xl font-black text-sky-700">{t.price}</span>
+                      <span className="text-2.5xl font-black text-primary">{t.price}</span>
                       <span className="text-slate-400 text-xs ml-1">/ person</span>
                     </div>
                     <div className="flex items-center gap-1 text-amber-500 text-xs font-extrabold bg-amber-50 px-2.5 py-1 rounded-lg">
@@ -170,7 +170,7 @@ export default function TourPackages() {
                       e.stopPropagation();
                       setSelectedTour(t);
                     }}
-                    className="mt-5 w-full bg-slate-50 group-hover:bg-sky-600 text-slate-700 group-hover:text-white font-extrabold text-xs tracking-wider uppercase py-3.5 rounded-2xl transition-all duration-200 flex items-center justify-center gap-1"
+                    className="mt-5 w-full bg-slate-50 group-hover:bg-primary text-slate-700 group-hover:text-white font-extrabold text-xs tracking-wider uppercase py-3.5 rounded-2xl transition-all duration-200 flex items-center justify-center gap-1"
                   >
                     View Details & Book
                     <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -186,7 +186,7 @@ export default function TourPackages() {
             <p className="text-slate-400 text-sm max-w-sm mx-auto">We couldn't find any packages matching "{searchQuery}". Try adjusting your filters or search query.</p>
             <button
               onClick={() => { setSearchQuery(''); setDurationFilter(''); }}
-              className="mt-5 bg-sky-50 hover:bg-sky-100 text-sky-700 text-xs font-bold px-5 py-2.5 rounded-full"
+              className="mt-5 bg-primary/5 hover:bg-primary/10 text-primary text-xs font-bold px-5 py-2.5 rounded-full"
             >
               Reset Search
             </button>
@@ -219,12 +219,12 @@ export default function TourPackages() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white">
-                    <span className="text-xs bg-sky-600/90 text-white font-extrabold px-3 py-1 rounded-full uppercase tracking-wider block w-max mb-3">
+                    <span className="text-xs bg-primary/90 text-white font-extrabold px-3 py-1 rounded-full uppercase tracking-wider block w-max mb-3">
                       {selectedTour.duration}
                     </span>
                     <h3 className="text-xl md:text-2xl font-black leading-tight mb-1">{selectedTour.title}</h3>
                     <div className="flex items-center gap-1.5 text-slate-300 text-xs mt-2">
-                      <MapPin size={12} className="text-sky-400" />
+                      <MapPin size={12} className="text-primary-light" />
                       {selectedTour.location}
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function TourPackages() {
                         <div className="space-y-4">
                           {selectedTour.itinerary.map((day, i) => (
                             <div key={i} className="flex gap-4">
-                              <div className="text-sky-600 text-xs font-black uppercase tracking-wider w-14 flex-shrink-0 mt-0.5">{day.day}</div>
+                              <div className="text-primary text-xs font-black uppercase tracking-wider w-14 flex-shrink-0 mt-0.5">{day.day}</div>
                               <div>
                                 <h5 className="text-sm font-bold text-slate-800 mb-0.5">{day.title}</h5>
                                 <p className="text-slate-500 text-xs leading-relaxed">{day.desc}</p>
@@ -289,7 +289,7 @@ export default function TourPackages() {
                                 placeholder="Your Name"
                                 value={bookingForm.name}
                                 onChange={(e) => setBookingForm({...bookingForm, name: e.target.value})}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                               />
                             </div>
                             <div>
@@ -299,7 +299,7 @@ export default function TourPackages() {
                                 placeholder="Phone Number"
                                 value={bookingForm.phone}
                                 onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                               />
                             </div>
                           </div>
@@ -311,7 +311,7 @@ export default function TourPackages() {
                                 required
                                 value={bookingForm.date}
                                 onChange={(e) => setBookingForm({...bookingForm, date: e.target.value})}
-                                className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                                className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                               />
                             </div>
                             <div className="relative">
@@ -323,7 +323,7 @@ export default function TourPackages() {
                                 placeholder="Number of Guests"
                                 value={bookingForm.guests}
                                 onChange={(e) => setBookingForm({...bookingForm, guests: parseInt(e.target.value) || 1})}
-                                className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+                                className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
                               />
                             </div>
                           </div>
@@ -331,7 +331,7 @@ export default function TourPackages() {
                             <div className="text-slate-800 text-lg font-black">{selectedTour.price} <span className="text-slate-400 text-xs font-semibold">/ person</span></div>
                             <button
                               type="submit"
-                              className="bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-sky-500/10 flex items-center gap-1.5"
+                              className="bg-primary hover:bg-primary-hover text-white font-extrabold text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-colors shadow-md shadow-primary/10 flex items-center gap-1.5"
                             >
                               <Phone size={13} />
                               Call Me Back

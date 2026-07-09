@@ -18,15 +18,15 @@ export default function About() {
               alt="About Air Zone Ltd"
               className="rounded-2xl object-cover w-full h-[480px] shadow-xl"
             />
-            <div className="absolute -bottom-6 -right-6 bg-sky-600 text-white rounded-2xl px-8 py-6 shadow-xl hidden md:block">
+            <div className="absolute -bottom-6 -right-6 bg-primary text-white rounded-2xl px-8 py-6 shadow-xl hidden md:block">
               <div className="text-4xl font-extrabold">{yearsExperience}</div>
-              <div className="text-sky-200 text-sm font-medium mt-1">{yearsLabel}</div>
+              <div className="text-primary-light text-sm font-medium mt-1">{yearsLabel}</div>
             </div>
           </div>
 
           {/* Content */}
           <div>
-            <span className="text-sky-600 font-semibold text-sm uppercase tracking-widest">{badge}</span>
+            <span className="text-primary font-semibold text-sm uppercase tracking-widest">{badge}</span>
             <h2 className="text-4xl font-extrabold text-slate-800 mt-2 mb-5 leading-tight">
               {title}
             </h2>
@@ -39,14 +39,14 @@ export default function About() {
             <ul className="space-y-3">
               {points.map((p) => (
                 <li key={p} className="flex items-start gap-3 text-slate-600 text-sm">
-                  <CheckCircle size={18} className="text-sky-500 flex-shrink-0 mt-0.5" />
+                  <CheckCircle size={18} className="text-primary flex-shrink-0 mt-0.5" />
                   {p}
                 </li>
               ))}
             </ul>
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="mt-10 inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-3.5 rounded-full transition-colors shadow-sm"
+              className="mt-10 inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold px-8 py-3.5 rounded-full transition-colors shadow-sm"
             >
               Get In Touch
             </button>
