@@ -137,7 +137,7 @@ export default function Hero() {
       </div>
 
       {/* Premium Tabbed Search Widget */}
-      <div className="relative z-30 max-w-5xl mx-auto px-6 -mt-12">
+      <div className="relative z-30 max-w-5xl mx-auto px-6 mt-16 mb-20">
         <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8">
           {/* Tabs */}
           <div className="flex gap-2 border-b border-slate-100 pb-5 mb-6 overflow-x-auto">
@@ -354,7 +354,7 @@ export default function Hero() {
       </div>
 
       {/* Stats */}
-      <div className="bg-sky-950 text-white py-12 relative overflow-hidden border-t border-sky-900/50">
+      <div className="bg-sky-950 text-white py-16 relative overflow-hidden border-t border-sky-900/50">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
           {stats.map((s) => (
             <div key={s.label} className="text-center group">

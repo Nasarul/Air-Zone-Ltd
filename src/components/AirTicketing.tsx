@@ -137,6 +137,21 @@ const flightDeals: FlightDeal[] = [
     type: 'international',
     details: 'Traditional Thai service, quick transit entry, and extensive vegetarian meal choices.',
     schedule: '02:00 PM - 04:30 PM'
+  },
+  {
+    id: 'dac-ist',
+    airline: 'Turkish Airlines',
+    logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+    from: 'Dhaka (DAC)',
+    to: 'Istanbul (IST)',
+    price: '৳85,000',
+    duration: '8h 15m',
+    stops: 'Non-stop',
+    cabin: 'Economy',
+    baggage: '35 kg',
+    type: 'international',
+    details: 'Experience premium Turkish hospitality. Includes hot meals, free Wi-Fi messaging, and generous baggage allowance.',
+    schedule: '06:30 AM - 12:45 PM'
   }
 ];
 
