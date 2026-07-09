@@ -31,36 +31,56 @@ export default function ProfileView() {
       return;
     }
 
-    updateProfile({ name, email, phone, role, address, bio });
+    updateProfile({ name, email, phone, role, address, bio, avatar, cover });
     showToast('success', 'Profile Updated', 'Profile information has been stored successfully.');
   };
 
   const triggerUploadAvatar = () => {
-    showToast('info', 'File Selector opened', 'Simulating image picker for Avatar upload...');
-    setTimeout(() => {
-      const newAvatars = [
-        'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=120&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&fit=crop&q=80'
-      ];
-      const randomAvatar = newAvatars[Math.floor(Math.random() * newAvatars.length)];
-      setAvatar(randomAvatar);
-      showToast('success', 'Avatar Uploaded', 'Successfully modified user avatar thumbnail.');
-    }, 1200);
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          showToast('error', 'File Too Large', 'Please select an image under 2MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const resultStr = event.target?.result as string;
+          setAvatar(resultStr);
+          updateProfile({ avatar: resultStr });
+          showToast('success', 'Avatar Uploaded', 'Successfully modified user avatar thumbnail.');
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
   };
 
   const triggerUploadCover = () => {
-    showToast('info', 'File Selector opened', 'Simulating image picker for Cover Banner photo...');
-    setTimeout(() => {
-      const newCovers = [
-        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&fit=crop&q=80'
-      ];
-      const randomCover = newCovers[Math.floor(Math.random() * newCovers.length)];
-      setCover(randomCover);
-      showToast('success', 'Cover Photo Uploaded', 'Successfully changed profile header layout background.');
-    }, 1200);
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        if (file.size > 3 * 1024 * 1024) {
+          showToast('error', 'File Too Large', 'Please select an image under 3MB.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const resultStr = event.target?.result as string;
+          setCover(resultStr);
+          updateProfile({ cover: resultStr });
+          showToast('success', 'Cover Photo Uploaded', 'Successfully changed profile header layout background.');
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
   };
 
   return (

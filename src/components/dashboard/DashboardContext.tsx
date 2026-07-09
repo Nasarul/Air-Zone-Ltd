@@ -18,7 +18,7 @@ interface DashboardContextType {
   login: (email: string) => boolean;
   logout: () => void;
   currentUser: { name: string; email: string; avatar: string; role: string; bio: string; phone: string; address: string; cover: string } | null;
-  updateProfile: (data: Partial<{ name: string; email: string; bio: string; phone: string; address: string; role: string }>) => void;
+  updateProfile: (data: Partial<{ name: string; email: string; bio: string; phone: string; address: string; role: string; avatar: string; cover: string }>) => void;
   users: User[];
   addUser: (user: Omit<User, 'id' | 'createdDate' | 'lastLogin'>) => void;
   updateUser: (id: string, updates: Partial<User>) => void;
@@ -820,11 +820,11 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     showToast('info', 'Signed Out', 'You have been securely signed out.');
   };
 
-  const updateProfile = (data: Partial<{ name: string; email: string; bio: string; phone: string; address: string; role: string }>) => {
+  const updateProfile = (data: Partial<{ name: string; email: string; bio: string; phone: string; address: string; role: string; avatar: string; cover: string }>) => {
     if (currentUser) {
       setCurrentUser({ ...currentUser, ...data });
       // Update in active user listing if applicable
-      setUsers(prev => prev.map(u => u.email === currentUser.email ? { ...u, name: data.name || u.name, email: data.email || u.email, role: (data.role as any) || u.role } : u));
+      setUsers(prev => prev.map(u => u.email === currentUser.email ? { ...u, name: data.name || u.name, email: data.email || u.email, role: (data.role as any) || u.role, avatar: data.avatar || u.avatar } : u));
       addSystemLog('info', 'system', 'User profile information updated');
       showToast('success', 'Profile Updated', 'Your profile details were saved successfully.');
     }
