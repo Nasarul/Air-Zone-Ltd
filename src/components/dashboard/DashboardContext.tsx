@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   Page, SubPage, User, ToastMessage, SystemLog,
-  HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings
+  HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings,
+  ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings
 } from '../../types/dashboard';
 
 interface DashboardContextType {
@@ -52,6 +53,14 @@ interface DashboardContextType {
   updateContactSettings: (settings: Partial<ContactSettings>) => void;
   adSettings: AdSettings;
   updateAdSettings: (settings: Partial<AdSettings>) => void;
+  servicesSettings: ServicesSettings;
+  updateServicesSettings: (settings: Partial<ServicesSettings>) => void;
+  flightTicketingSettings: FlightTicketingSettings;
+  updateFlightTicketingSettings: (settings: Partial<FlightTicketingSettings>) => void;
+  whyChooseUsSettings: WhyChooseUsSettings;
+  updateWhyChooseUsSettings: (settings: Partial<WhyChooseUsSettings>) => void;
+  testimonialsSettings: TestimonialsSettings;
+  updateTestimonialsSettings: (settings: Partial<TestimonialsSettings>) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -310,6 +319,215 @@ const defaultAdSettings: AdSettings = {
   ]
 };
 
+const defaultServicesSettings: ServicesSettings = {
+  isEnabled: true,
+  badge: 'What We Offer',
+  title: 'Service Highlights',
+  subtitle: 'Everything you need for a seamless journey — from planning to landing.',
+  items: [
+    { title: 'Tour Packages', desc: 'Curated domestic and international tour packages with flights, hotels, and guided experiences tailored to every budget.', iconName: 'Compass' },
+    { title: 'Air Ticketing', desc: 'Domestic & international flight reservations on 100+ airlines. Corporate travel management and instant group bookings.', iconName: 'Plane' },
+    { title: 'Visa Assistance', desc: 'Professional visa processing for 50+ countries — tourist, business, and student visas with a 98% approval success rate.', iconName: 'Globe' }
+  ]
+};
+
+const defaultFlightTicketingSettings: FlightTicketingSettings = {
+  isEnabled: true,
+  title: 'Domestic & International Ticketing',
+  subtitle: 'Find the cheapest flight routes on Biman Bangladesh, US-Bangla, Emirates, Qatar Airways, Singapore Airlines, and 100+ other airlines.',
+  deals: [
+    {
+      id: 'dac-cxb',
+      airline: 'US-Bangla Airlines',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: "Cox's Bazar (CXB)",
+      price: '৳6,200',
+      duration: '1h 00m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '20 kg',
+      type: 'domestic',
+      details: 'Regular daily flights on comfortable turboprop aircraft. Quick check-in and friendly service.',
+      schedule: '08:30 AM - 09:30 AM'
+    },
+    {
+      id: 'dac-cgp',
+      airline: 'Novoair',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Chittagong (CGP)',
+      price: '৳5,800',
+      duration: '0h 45m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '20 kg',
+      type: 'domestic',
+      details: 'Excellent business commuter flight with highly reliable on-time performance records.',
+      schedule: '11:15 AM - 12:00 PM'
+    },
+    {
+      id: 'dac-zyl',
+      airline: 'Biman Bangladesh',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Sylhet (ZYL)',
+      price: '৳5,500',
+      duration: '0h 45m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '20 kg',
+      type: 'domestic',
+      details: 'Daily service using modern fleets. In-flight mineral water provided.',
+      schedule: '03:30 PM - 04:15 PM'
+    },
+    {
+      id: 'dac-dxb',
+      airline: 'Emirates',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Dubai (DXB)',
+      price: '৳68,000',
+      duration: '4h 30m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '30 kg',
+      type: 'international',
+      details: 'Fly on the world-class Boeing 777. Enjoy premium multi-course meals, seatback entertainment, and famous crew hospitality.',
+      schedule: '07:30 PM - 11:00 PM'
+    },
+    {
+      id: 'dac-sin',
+      airline: 'Singapore Airlines',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Singapore (SIN)',
+      price: '৳52,000',
+      duration: '4h 15m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '25 kg',
+      type: 'international',
+      details: 'Award-winning passenger service. Features extensive media collections and premium hot dining options.',
+      schedule: '11:55 PM - 06:10 AM (+1)'
+    },
+    {
+      id: 'dac-lhr',
+      airline: 'Qatar Airways',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'London (LHR)',
+      price: '৳1,10,000',
+      duration: '11h 45m',
+      stops: '1 Stop (Doha)',
+      cabin: 'Economy',
+      baggage: '30 kg',
+      type: 'international',
+      details: 'Transit through Hamad International Airport (Doha), recognized as one of the best airports globally. Free transit meals included.',
+      schedule: '10:40 AM - 05:25 PM'
+    },
+    {
+      id: 'dac-kul',
+      airline: 'US-Bangla Airlines',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Kuala Lumpur (KUL)',
+      price: '৳38,000',
+      duration: '3h 50m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '25 kg',
+      type: 'international',
+      details: 'Direct flight linking Dhaka and KL. Friendly cabin crew and hot meals served onboard.',
+      schedule: '08:50 AM - 12:40 PM'
+    },
+    {
+      id: 'dac-bkk',
+      airline: 'Thai Airways',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Bangkok (BKK)',
+      price: '৳32,000',
+      duration: '2h 30m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '20 kg',
+      type: 'international',
+      details: 'Traditional Thai service, quick transit entry, and extensive vegetarian meal choices.',
+      schedule: '02:00 PM - 04:30 PM'
+    },
+    {
+      id: 'dac-ist',
+      airline: 'Turkish Airlines',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'Istanbul (IST)',
+      price: '৳85,000',
+      duration: '8h 15m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '35 kg',
+      type: 'international',
+      details: 'Experience premium Turkish hospitality. Includes hot meals, free Wi-Fi messaging, and generous baggage allowance.',
+      schedule: '06:30 AM - 12:45 PM'
+    }
+  ]
+};
+
+const defaultWhyChooseUsSettings: WhyChooseUsSettings = {
+  isEnabled: true,
+  badge: 'Why Air Zone Ltd.',
+  titleLine1: 'We Make Travel',
+  titleLine2: 'Simple & Memorable',
+  description: 'With over 15 years of experience, we have helped thousands of travelers explore the world with confidence. Our commitment to quality, transparency, and customer satisfaction sets us apart.',
+  reasons: [
+    { title: 'Licensed & Certified', desc: 'Fully licensed by the Civil Aviation Authority, Bangladesh, with valid certification and IATA accreditation.', iconName: 'Award' },
+    { title: 'Best Price Guarantee', desc: 'Competitive pricing with complete transparency. No hidden fees, no surprise charges — ever.', iconName: 'BadgeDollarSign' },
+    { title: '24/7 Support', desc: 'Our dedicated team is available round-the-clock to assist you before, during, and after your trip.', iconName: 'HeadphonesIcon' },
+    { title: 'Global Network', desc: 'Strong partnerships with 200+ airlines, hotels, and tour operators worldwide for seamless experiences.', iconName: 'Globe2' }
+  ],
+  image: 'https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg?auto=compress&cs=tinysrgb&w=800',
+  floatingCardNumber: '98%',
+  floatingCardTitle: 'Visa Success Rate',
+  floatingCardDesc: 'Based on 5,000+ applications processed'
+};
+
+const defaultTestimonialsSettings: TestimonialsSettings = {
+  isEnabled: true,
+  badge: 'Happy Travelers',
+  title: 'What Our Clients Say',
+  items: [
+    {
+      name: 'Mohammad Hasan',
+      role: 'Business Executive',
+      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200',
+      text: 'Air Zone arranged our Europe group tour perfectly. The itinerary was detailed, the hotels were excellent, and the visa processing was smooth. Highly recommend!',
+      rating: 5,
+    },
+    {
+      name: 'Fatima Begum',
+      role: 'Homemaker',
+      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&fit=crop&q=80',
+      text: 'Air Zone booked our family flight tickets to Canada at an unbeatable rate. Their support staff helped us manage all baggage requests and seat arrangements smoothly.',
+      rating: 5,
+    },
+    {
+      name: 'Rahim Chowdhury',
+      role: 'Software Engineer',
+      image: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=200',
+      text: 'Got my UK visa processed in record time. The documentation guidance was professional and clear. Will definitely use Air Zone again for my next trip.',
+      rating: 5,
+    },
+    {
+      name: 'Sumaiya Khan',
+      role: 'Teacher',
+      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop&q=80',
+      text: 'Booked a Bali honeymoon package — the hotel selections were incredible and every detail was taken care of. It was truly the perfect trip.',
+      rating: 5,
+    }
+  ]
+};
+
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [page, setPageState] = useState<Page>('landing');
   const [subPage, setSubPage] = useState<SubPage>('home');
@@ -413,6 +631,26 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return defaultAdSettings;
   });
 
+  const [servicesSettings, setServicesSettings] = useState<ServicesSettings>(() => {
+    const saved = localStorage.getItem('servicesSettings');
+    return saved ? JSON.parse(saved) : defaultServicesSettings;
+  });
+
+  const [flightTicketingSettings, setFlightTicketingSettings] = useState<FlightTicketingSettings>(() => {
+    const saved = localStorage.getItem('flightTicketingSettings');
+    return saved ? JSON.parse(saved) : defaultFlightTicketingSettings;
+  });
+
+  const [whyChooseUsSettings, setWhyChooseUsSettings] = useState<WhyChooseUsSettings>(() => {
+    const saved = localStorage.getItem('whyChooseUsSettings');
+    return saved ? JSON.parse(saved) : defaultWhyChooseUsSettings;
+  });
+
+  const [testimonialsSettings, setTestimonialsSettings] = useState<TestimonialsSettings>(() => {
+    const saved = localStorage.getItem('testimonialsSettings');
+    return saved ? JSON.parse(saved) : defaultTestimonialsSettings;
+  });
+
   // Updaters
   const updateHeroSettings = (updates: Partial<HeroSettings>) => {
     setHeroSettings(prev => {
@@ -484,6 +722,42 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return next;
     });
     addSystemLog('info', 'system', 'Advertising Section CMS settings updated');
+  };
+
+  const updateServicesSettings = (updates: Partial<ServicesSettings>) => {
+    setServicesSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('servicesSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Services Section CMS settings updated');
+  };
+
+  const updateFlightTicketingSettings = (updates: Partial<FlightTicketingSettings>) => {
+    setFlightTicketingSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('flightTicketingSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Ticketing Section CMS settings updated');
+  };
+
+  const updateWhyChooseUsSettings = (updates: Partial<WhyChooseUsSettings>) => {
+    setWhyChooseUsSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('whyChooseUsSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Why Choose Us Section CMS settings updated');
+  };
+
+  const updateTestimonialsSettings = (updates: Partial<TestimonialsSettings>) => {
+    setTestimonialsSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('testimonialsSettings', JSON.stringify(next));
+      return next;
+    });
+    addSystemLog('info', 'system', 'Testimonials Section CMS settings updated');
   };
 
   // Sync page state scroll behavior
@@ -674,7 +948,15 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         contactSettings,
         updateContactSettings,
         adSettings,
-        updateAdSettings
+        updateAdSettings,
+        servicesSettings,
+        updateServicesSettings,
+        flightTicketingSettings,
+        updateFlightTicketingSettings,
+        whyChooseUsSettings,
+        updateWhyChooseUsSettings,
+        testimonialsSettings,
+        updateTestimonialsSettings
       }}
     >
       {children}

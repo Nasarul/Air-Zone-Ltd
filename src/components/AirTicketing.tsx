@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plane, Calendar, Users, Search, X, Check, Phone, Info, Award } from 'lucide-react';
+import { useDashboard } from './dashboard/DashboardContext';
 
 interface FlightDeal {
   id: string;
@@ -156,6 +157,12 @@ const flightDeals: FlightDeal[] = [
 ];
 
 export default function AirTicketing() {
+  const { flightTicketingSettings } = useDashboard();
+
+  if (!flightTicketingSettings.isEnabled) return null;
+
+  const flightDeals = flightTicketingSettings.deals;
+
   const [activeTab, setActiveTab] = useState<'all' | 'domestic' | 'international'>('all');
   const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
   const [fromAirport, setFromAirport] = useState('DAC');
@@ -238,9 +245,9 @@ export default function AirTicketing() {
             <Award size={13} className="text-sky-600" />
             IATA Accredited Agency Partner
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">Domestic & International Ticketing</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">{flightTicketingSettings.title}</h2>
           <p className="text-slate-500 max-w-xl mx-auto mt-3 text-sm md:text-base leading-relaxed">
-            Find the cheapest flight routes on Biman Bangladesh, US-Bangla, Emirates, Qatar Airways, Singapore Airlines, and 100+ other airlines.
+            {flightTicketingSettings.subtitle}
           </p>
         </div>
 

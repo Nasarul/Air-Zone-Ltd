@@ -42,7 +42,8 @@ export interface Announcement {
 export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500';
 export type SubPage = 
   | 'home' | 'users' | 'profile' | 'reports' | 'analytics' | 'settings' | 'security' | 'notifications'
-  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad';
+  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad'
+  | 'sections-services' | 'sections-ticketing' | 'sections-whychooseus' | 'sections-testimonials';
 
 export interface AdSlide {
   image: string;
@@ -182,4 +183,75 @@ export interface SystemLog {
   level: 'info' | 'warn' | 'error';
   category: 'auth' | 'api' | 'db' | 'system';
   message: string;
+}
+
+export interface ServiceItem {
+  title: string;
+  desc: string;
+  iconName: string;
+}
+
+export interface ServicesSettings {
+  isEnabled: boolean;
+  badge: string;
+  title: string;
+  subtitle: string;
+  items: ServiceItem[];
+}
+
+export interface FlightDealItem {
+  id: string;
+  airline: string;
+  logo: string;
+  from: string;
+  to: string;
+  price: string;
+  duration: string;
+  stops: string;
+  cabin: string;
+  baggage: string;
+  type: 'domestic' | 'international';
+  details: string;
+  schedule: string;
+}
+
+export interface FlightTicketingSettings {
+  isEnabled: boolean;
+  title: string;
+  subtitle: string;
+  deals: FlightDealItem[];
+}
+
+export interface ReasonItem {
+  title: string;
+  desc: string;
+  iconName: string;
+}
+
+export interface WhyChooseUsSettings {
+  isEnabled: boolean;
+  badge: string;
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+  reasons: ReasonItem[];
+  image: string;
+  floatingCardNumber: string;
+  floatingCardTitle: string;
+  floatingCardDesc: string;
+}
+
+export interface TestimonialItem {
+  name: string;
+  role: string;
+  image: string;
+  text: string;
+  rating: number;
+}
+
+export interface TestimonialsSettings {
+  isEnabled: boolean;
+  badge: string;
+  title: string;
+  items: TestimonialItem[];
 }

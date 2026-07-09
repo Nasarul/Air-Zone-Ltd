@@ -19,7 +19,8 @@ import SecurityView from './pages/SecurityView';
 import NotificationsView from './pages/NotificationsView';
 import { 
   HeroSectionSettings, AboutSectionSettings, PackagesSectionSettings, 
-  VisaSectionSettings, TeamSectionSettings, FooterSectionSettings, ContactSectionSettings, AdSectionSettings
+  VisaSectionSettings, TeamSectionSettings, FooterSectionSettings, ContactSectionSettings, AdSectionSettings,
+  ServicesSectionSettings, FlightTicketingSectionSettings, WhyChooseUsSectionSettings, TestimonialsSectionSettings
 } from './pages/SectionSettingsPages';
 
 export default function DashboardLayout() {
@@ -147,13 +148,17 @@ export default function DashboardLayout() {
               <div className="pl-4 space-y-1 mt-1.5 border-l border-slate-100 dark:border-slate-800 ml-5">
                 {[
                   { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
+                  { id: 'sections-services' as SubPage, label: 'Service Highlights' },
                   { id: 'sections-about' as SubPage, label: 'About Us' },
                   { id: 'sections-packages' as SubPage, label: 'Tour Packages' },
+                  { id: 'sections-ticketing' as SubPage, label: 'Flight Ticketing' },
+                  { id: 'sections-whychooseus' as SubPage, label: 'Why Choose Us' },
                   { id: 'sections-visa' as SubPage, label: 'Visa Services' },
                   { id: 'sections-team' as SubPage, label: 'Team Members' },
+                  {id: 'sections-ad' as SubPage, label: 'Advertising Banner'},
+                  {id: 'sections-testimonials' as SubPage, label: 'Client Testimonials'},
                   {id: 'sections-footer' as SubPage, label: 'Footer'},
                   {id: 'sections-contact' as SubPage, label: 'Get In Touch'},
-                  {id: 'sections-ad' as SubPage, label: 'Advertising Banner'},
                 ].map(subItem => {
                   const isSubActive = subPage === subItem.id;
                   return (
@@ -494,13 +499,17 @@ export default function DashboardLayout() {
               {subPage === 'security' && <SecurityView />}
               {subPage === 'notifications' && <NotificationsView />}
               {subPage === 'sections-hero' && <HeroSectionSettings />}
+              {subPage === 'sections-services' && <ServicesSectionSettings />}
               {subPage === 'sections-about' && <AboutSectionSettings />}
               {subPage === 'sections-packages' && <PackagesSectionSettings />}
+              {subPage === 'sections-ticketing' && <FlightTicketingSectionSettings />}
+              {subPage === 'sections-whychooseus' && <WhyChooseUsSectionSettings />}
               {subPage === 'sections-visa' && <VisaSectionSettings />}
               {subPage === 'sections-team' && <TeamSectionSettings />}
               {subPage === 'sections-footer' && <FooterSectionSettings />}
               {subPage === 'sections-contact' && <ContactSectionSettings />}
               {subPage === 'sections-ad' && <AdSectionSettings />}
+              {subPage === 'sections-testimonials' && <TestimonialsSectionSettings />}
             </motion.div>
           </AnimatePresence>
         </main>
@@ -585,13 +594,17 @@ export default function DashboardLayout() {
                     <div className="pl-6 space-y-1 mt-1 border-l border-slate-100 dark:border-slate-800 ml-5 animate-fadeIn">
                       {[
                         { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
+                        { id: 'sections-services' as SubPage, label: 'Service Highlights' },
                         { id: 'sections-about' as SubPage, label: 'About Us' },
                         { id: 'sections-packages' as SubPage, label: 'Tour Packages' },
+                        { id: 'sections-ticketing' as SubPage, label: 'Flight Ticketing' },
+                        { id: 'sections-whychooseus' as SubPage, label: 'Why Choose Us' },
                         { id: 'sections-visa' as SubPage, label: 'Visa Services' },
                         { id: 'sections-team' as SubPage, label: 'Team Members' },
+                        {id: 'sections-ad' as SubPage, label: 'Advertising Banner'},
+                        {id: 'sections-testimonials' as SubPage, label: 'Client Testimonials'},
                         {id: 'sections-footer' as SubPage, label: 'Footer'},
                         {id: 'sections-contact' as SubPage, label: 'Get In Touch'},
-                        {id: 'sections-ad' as SubPage, label: 'Advertising Banner'},
                       ].map(subItem => {
                         const isSubActive = subPage === subItem.id;
                         return (

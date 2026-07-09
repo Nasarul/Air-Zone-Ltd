@@ -4,7 +4,7 @@ import {
   Save, Eye, EyeOff, ArrowUp, ArrowDown, Trash2, Plus, 
   Upload, CheckCircle, Image as ImageIcon, MapPin, DollarSign, Calendar
 } from 'lucide-react';
-import { TourPackageItem, VisaServiceItem, TeamMemberItem, HeroSlide, ContactSettings, AdSettings } from '../../../types/dashboard';
+import { TourPackageItem, VisaServiceItem, TeamMemberItem, HeroSlide, ContactSettings, AdSettings, ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings } from '../../../types/dashboard';
 
 /* ==========================================================================
    SHARED UI SUB-COMPONENTS
@@ -1906,6 +1906,788 @@ export const AdSectionSettings: React.FC = () => {
         >
           <Save className="w-3.5 h-3.5" />
           <span>Save Ad Settings</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   9. SERVICES SECTION SETTINGS
+   ========================================================================== */
+
+export const ServicesSectionSettings: React.FC = () => {
+  const { servicesSettings, updateServicesSettings, showToast } = useDashboard();
+  const [draft, setDraft] = React.useState({ ...servicesSettings });
+
+  const handleSave = () => {
+    updateServicesSettings(draft);
+    showToast('success', 'Services Settings Saved', 'Services section parameters have been updated.');
+  };
+
+  const handleItemChange = (index: number, key: 'title' | 'desc' | 'iconName', val: string) => {
+    const nextItems = [...draft.items];
+    nextItems[index] = { ...nextItems[index], [key]: val };
+    setDraft({ ...draft, items: nextItems });
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSSectionHeader
+        title="Services Section Settings (Service Highlights)"
+        description="Configure titles, badge text, and the details for your main service cards."
+        isEnabled={draft.isEnabled}
+        onToggle={val => setDraft({ ...draft, isEnabled: val })}
+      />
+
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Header Content
+        </h4>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Badge text</label>
+            <input
+              type="text"
+              value={draft.badge}
+              onChange={e => setDraft({ ...draft, badge: e.target.value })}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Section Title</label>
+            <input
+              type="text"
+              value={draft.title}
+              onChange={e => setDraft({ ...draft, title: e.target.value })}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Subtitle Description</label>
+          <input
+            type="text"
+            value={draft.subtitle}
+            onChange={e => setDraft({ ...draft, subtitle: e.target.value })}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+          />
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h4 className="text-xs uppercase font-black text-slate-455 tracking-wider">Service Cards</h4>
+        <div className="grid md:grid-cols-3 gap-6">
+          {draft.items.map((item, idx) => (
+            <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl space-y-4">
+              <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-2">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-300">Service {idx + 1}</span>
+                <span className="text-[10px] text-slate-400 font-mono">{item.iconName}</span>
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Card Title</label>
+                <input
+                  type="text"
+                  value={item.title}
+                  onChange={e => handleItemChange(idx, 'title', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Lucide Icon name</label>
+                <select
+                  value={item.iconName}
+                  onChange={e => handleItemChange(idx, 'iconName', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+                >
+                  <option value="Compass">Compass</option>
+                  <option value="Plane">Plane</option>
+                  <option value="Globe">Globe</option>
+                  <option value="Award">Award</option>
+                  <option value="Shield">Shield</option>
+                  <option value="Heart">Heart</option>
+                </select>
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Description</label>
+                <textarea
+                  rows={4}
+                  value={item.desc}
+                  onChange={e => handleItemChange(idx, 'desc', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary resize-none"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md shadow-primary/20 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          Save Services Settings
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   10. FLIGHT TICKETING SECTION SETTINGS
+   ========================================================================== */
+
+export const FlightTicketingSectionSettings: React.FC = () => {
+  const { flightTicketingSettings, updateFlightTicketingSettings, showToast } = useDashboard();
+  const [title, setTitle] = useState(flightTicketingSettings.title);
+  const [subtitle, setSubtitle] = useState(flightTicketingSettings.subtitle);
+  const [deals, setDeals] = useState<FlightDealItem[]>(flightTicketingSettings.deals || []);
+  const [activeDealIdx, setActiveDealIdx] = useState<number | null>(0);
+
+  const handleSave = () => {
+    updateFlightTicketingSettings({ title, subtitle, deals });
+    showToast('success', 'Ticketing Settings Saved', 'Flight deals showcard has been updated on the front-end.');
+  };
+
+  const handleDealFieldChange = (index: number, key: keyof FlightDealItem, val: any) => {
+    const next = [...deals];
+    next[index] = { ...next[index], [key]: val };
+    setDeals(next);
+  };
+
+  const handleAddDeal = () => {
+    const newDeal: FlightDealItem = {
+      id: Math.random().toString(36).substring(2, 9),
+      airline: 'Sample Airways',
+      logo: 'https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&w=150',
+      from: 'Dhaka (DAC)',
+      to: 'New Destination',
+      price: '৳25,000',
+      duration: '3h 30m',
+      stops: 'Non-stop',
+      cabin: 'Economy',
+      baggage: '30 kg',
+      type: 'international',
+      details: 'Enjoy world class service, delicious hot meals, and priority luggage privileges.',
+      schedule: '09:00 AM - 12:30 PM'
+    };
+    setDeals([...deals, newDeal]);
+    setActiveDealIdx(deals.length);
+    showToast('success', 'New Deal Added', 'Click on the new card to customize flight options.');
+  };
+
+  const handleDeleteDeal = (index: number) => {
+    const next = deals.filter((_, i) => i !== index);
+    setDeals(next);
+    setActiveDealIdx(next.length > 0 ? 0 : null);
+    showToast('info', 'Deal Removed', 'Flight deal draft removed.');
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSSectionHeader
+        title="Domestic & International Flight Ticketing Settings"
+        description="Toggle ticketing lists, update section headings, and manage active flight promotion items."
+        isEnabled={flightTicketingSettings.isEnabled}
+        onToggle={val => updateFlightTicketingSettings({ isEnabled: val })}
+      />
+
+      {/* Heading Info */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Header Strings
+        </h4>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Section Title</label>
+          <input
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Subtitle Description</label>
+          <input
+            type="text"
+            value={subtitle}
+            onChange={e => setSubtitle(e.target.value)}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl">
+        {/* Deal Sidebar list */}
+        <div className="md:col-span-1 space-y-2 border-r border-slate-100 dark:border-slate-800 pr-4">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-[10px] uppercase font-black text-slate-455 tracking-wider">Flight Deals ({deals.length})</span>
+            <button
+              type="button"
+              onClick={handleAddDeal}
+              className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add New</span>
+            </button>
+          </div>
+          <div className="space-y-1 max-h-[380px] overflow-y-auto pr-1 flex flex-col">
+            {deals.map((deal, idx) => (
+              <div
+                key={deal.id}
+                className={`p-2.5 rounded-xl border transition-all text-left flex justify-between items-center cursor-pointer ${
+                  activeDealIdx === idx
+                    ? 'border-primary bg-primary/5 text-primary dark:text-sky-400 font-bold'
+                    : 'border-slate-100 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600'
+                }`}
+                onClick={() => setActiveDealIdx(idx)}
+              >
+                <div className="flex-1 truncate">
+                  <div className="text-[11px] font-bold">{deal.airline}</div>
+                  <div className="text-[10px] text-slate-400 truncate">{deal.from} ➔ {deal.to}</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); handleDeleteDeal(idx); }}
+                  className="p-1 text-slate-400 hover:text-red-650 transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Deal Edit Form */}
+        <div className="md:col-span-2 space-y-4">
+          {activeDealIdx !== null && deals[activeDealIdx] ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Airline Carrier Name</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].airline}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'airline', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Flight Category</label>
+                <select
+                  value={deals[activeDealIdx].type}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'type', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                >
+                  <option value="domestic">Domestic Flight</option>
+                  <option value="international">International Flight</option>
+                </select>
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Departure Airport Code</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].from}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'from', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Destination Airport Code</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].to}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'to', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Ticket Price Text</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].price}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'price', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-450 tracking-wider">Duration Days/Hours</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].duration}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'duration', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Stops Count</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].stops}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'stops', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Cabin baggage Limit</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].baggage}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'baggage', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Flight Timing Schedule</label>
+                <input
+                  type="text"
+                  value={deals[activeDealIdx].schedule}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'schedule', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                />
+              </div>
+              <div className="space-y-1 md:col-span-2">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Deal Details Description</label>
+                <textarea
+                  rows={2}
+                  value={deals[activeDealIdx].details}
+                  onChange={e => handleDealFieldChange(activeDealIdx, 'details', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-850 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 resize-none"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center justify-center text-slate-400 text-xs">
+              Select or add a flight deal from the left listing to begin customizing.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md shadow-primary/20 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          Save Ticketing Settings
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   11. WHY CHOOSE US (WE MAKE TRAVEL) SECTION SETTINGS
+   ========================================================================== */
+
+export const WhyChooseUsSectionSettings: React.FC = () => {
+  const { whyChooseUsSettings, updateWhyChooseUsSettings, showToast } = useDashboard();
+  const [draft, setDraft] = React.useState({ ...whyChooseUsSettings });
+
+  const handleSave = () => {
+    updateWhyChooseUsSettings(draft);
+    showToast('success', 'Why Choose Us Saved', 'Content parameters have been saved successfully.');
+  };
+
+  const handleReasonChange = (index: number, key: 'title' | 'desc', val: string) => {
+    const nextReasons = [...draft.reasons];
+    nextReasons[index] = { ...nextReasons[index], [key]: val };
+    setDraft({ ...draft, reasons: nextReasons });
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('error', 'File Too Large', 'Please select an image under 2MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setDraft({ ...draft, image: event.target?.result as string });
+        showToast('success', 'Backdrop image loaded', 'Click save to apply changes.');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSSectionHeader
+        title="Why Choose Us (We Make Travel) Settings"
+        description="Edit badge strings, titles, floating counter values, side images, and quality parameters."
+        isEnabled={draft.isEnabled}
+        onToggle={val => setDraft({ ...draft, isEnabled: val })}
+      />
+
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Text and Headings
+        </h4>
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Badge Text</label>
+            <input
+              type="text"
+              value={draft.badge}
+              onChange={e => setDraft({ ...draft, badge: e.target.value })}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-350 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Title Line 1</label>
+            <input
+              type="text"
+              value={draft.titleLine1}
+              onChange={e => setDraft({ ...draft, titleLine1: e.target.value })}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-350 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Title Line 2 (Highlighted)</label>
+            <input
+              type="text"
+              value={draft.titleLine2}
+              onChange={e => setDraft({ ...draft, titleLine2: e.target.value })}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-350 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Section Description</label>
+          <textarea
+            rows={3}
+            value={draft.description}
+            onChange={e => setDraft({ ...draft, description: e.target.value })}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 dark:text-slate-300 focus:ring-1 focus:ring-primary resize-none"
+          />
+        </div>
+      </div>
+
+      {/* Reason items & Side panel image */}
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl space-y-4">
+          <h4 className="text-sm font-extrabold text-slate-800 dark:text-slate-250 flex items-center gap-2 mb-2">
+            <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+            Core Reasons List
+          </h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            {draft.reasons.map((r, idx) => (
+              <div key={idx} className="p-3 border border-slate-100 dark:border-slate-800 rounded-xl space-y-2">
+                <span className="text-[9px] font-bold text-primary">Reason {idx + 1} ({r.iconName})</span>
+                <input
+                  type="text"
+                  value={r.title}
+                  onChange={e => handleReasonChange(idx, 'title', e.target.value)}
+                  placeholder="Reason Title"
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 dark:text-slate-350"
+                />
+                <textarea
+                  rows={2}
+                  value={r.desc}
+                  onChange={e => handleReasonChange(idx, 'desc', e.target.value)}
+                  placeholder="Details"
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-lg px-2 py-1 text-[10px] text-slate-700 dark:text-slate-300 resize-none"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Side Image and card details */}
+        <div className="md:col-span-1 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl space-y-4">
+          <h4 className="text-sm font-extrabold text-slate-800 dark:text-slate-250 flex items-center gap-2">
+            <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+            Panel Image &amp; Stat Card
+          </h4>
+          <div className="relative group w-full h-32 border border-slate-205 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
+            {draft.image ? (
+              <img src={draft.image} className="w-full h-full object-cover" alt="Side showcase image preview" />
+            ) : (
+              <span className="text-xs text-slate-400">No image loaded</span>
+            )}
+            <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 text-white text-[9px] font-bold cursor-pointer transition-opacity">
+              <Upload className="w-4 h-4" />
+              <span>Replace Image</span>
+              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+            </label>
+          </div>
+          <p className="text-[9px] text-slate-400 text-center">800x480px | Max 2MB</p>
+          <div className="space-y-2.5 pt-2">
+            <div className="space-y-1">
+              <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Stat Number</label>
+              <input
+                type="text"
+                value={draft.floatingCardNumber}
+                onChange={e => setDraft({ ...draft, floatingCardNumber: e.target.value })}
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 dark:text-slate-350"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Stat Title</label>
+              <input
+                type="text"
+                value={draft.floatingCardTitle}
+                onChange={e => setDraft({ ...draft, floatingCardTitle: e.target.value })}
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 dark:text-slate-350"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Stat Subtitle</label>
+              <input
+                type="text"
+                value={draft.floatingCardDesc}
+                onChange={e => setDraft({ ...draft, floatingCardDesc: e.target.value })}
+                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-700 dark:text-slate-350"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md shadow-primary/20 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          Save Choice Settings
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   12. TESTIMONIALS (WHAT CLIENTS SAY) SECTION SETTINGS
+   ========================================================================== */
+
+export const TestimonialsSectionSettings: React.FC = () => {
+  const { testimonialsSettings, updateTestimonialsSettings, showToast } = useDashboard();
+  const [badge, setBadge] = useState(testimonialsSettings.badge);
+  const [title, setTitle] = useState(testimonialsSettings.title);
+  const [items, setItems] = useState<TestimonialItem[]>(testimonialsSettings.items || []);
+  const [activeTestimonialIdx, setActiveTestimonialIdx] = useState<number | null>(0);
+
+  const handleSave = () => {
+    updateTestimonialsSettings({ badge, title, items });
+    showToast('success', 'Testimonials Saved', 'Client review slides updated successfully.');
+  };
+
+  const handleItemFieldChange = (index: number, key: keyof TestimonialItem, val: any) => {
+    const next = [...items];
+    next[index] = { ...next[index], [key]: val };
+    setItems(next);
+  };
+
+  const handleImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 1 * 1024 * 1024) {
+        showToast('error', 'File Too Large', 'Please select an image under 1MB.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const next = [...items];
+        next[index] = { ...next[index], image: event.target?.result as string };
+        setItems(next);
+        showToast('success', 'Reviewer Avatar loaded', 'Avatar image updated in draft.');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAddTestimonial = () => {
+    const newItem: TestimonialItem = {
+      name: 'New Client',
+      role: 'Travel Enthusiast',
+      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200',
+      text: 'Wonderful experience dealing with Air Zone. Highly recommended service.',
+      rating: 5
+    };
+    setItems([...items, newItem]);
+    setActiveTestimonialIdx(items.length);
+    showToast('success', 'New Testimonial added', 'Select the card on the left list to customize details.');
+  };
+
+  const handleDeleteTestimonial = (index: number) => {
+    if (items.length <= 1) {
+      showToast('warning', 'Minimum Testimonials reached', 'You must maintain at least one client testimonial.');
+      return;
+    }
+    const next = items.filter((_, i) => i !== index);
+    setItems(next);
+    setActiveTestimonialIdx(0);
+    showToast('info', 'Testimonial Removed', 'Client testimonial deleted from draft.');
+  };
+
+  return (
+    <div className="space-y-6 max-w-4xl">
+      <CMSSectionHeader
+        title="Testimonials Section Settings (What Our Clients Say)"
+        description="Toggle testimonials visibility, modify headings, and update reviewer names, descriptions and ratings."
+        isEnabled={testimonialsSettings.isEnabled}
+        onToggle={val => updateTestimonialsSettings({ isEnabled: val })}
+      />
+
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-6 space-y-4">
+        <h4 className="text-sm font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+          <span className="w-1.5 h-4 rounded-full bg-primary inline-block" />
+          Headers
+        </h4>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Badge Text</label>
+            <input
+              type="text"
+              value={badge}
+              onChange={e => setBadge(e.target.value)}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Section Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-700 focus:ring-1 focus:ring-primary"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl">
+        {/* Testimonials list */}
+        <div className="md:col-span-1 space-y-2 border-r border-slate-100 dark:border-slate-800 pr-4">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-[10px] uppercase font-black text-slate-455 tracking-wider">Testimonials ({items.length})</span>
+            <button
+              type="button"
+              onClick={handleAddTestimonial}
+              className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add New</span>
+            </button>
+          </div>
+          <div className="space-y-1 max-h-[350px] overflow-y-auto pr-1 flex flex-col">
+            {items.map((item, idx) => (
+              <div
+                key={idx}
+                className={`p-2.5 rounded-xl border transition-all text-left flex justify-between items-center cursor-pointer ${
+                  activeTestimonialIdx === idx
+                    ? 'border-primary bg-primary/5 text-primary dark:text-sky-400 font-bold'
+                    : 'border-slate-105 dark:border-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600'
+                }`}
+                onClick={() => setActiveTestimonialIdx(idx)}
+              >
+                <div className="flex items-center gap-2 truncate">
+                  <img src={item.image} className="w-6 h-6 rounded-full object-cover" alt="" />
+                  <span className="text-[11px] truncate font-bold">{item.name}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); handleDeleteTestimonial(idx); }}
+                  className="p-1 text-slate-400 hover:text-red-650 transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Testimonial Form */}
+        <div className="md:col-span-2 space-y-4">
+          {activeTestimonialIdx !== null && items[activeTestimonialIdx] ? (
+            <div className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Reviewer Name</label>
+                  <input
+                    type="text"
+                    value={items[activeTestimonialIdx].name}
+                    onChange={e => handleItemFieldChange(activeTestimonialIdx, 'name', e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Reviewer Designation / Role</label>
+                  <input
+                    type="text"
+                    value={items[activeTestimonialIdx].role}
+                    onChange={e => handleItemFieldChange(activeTestimonialIdx, 'role', e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4 items-center">
+                {/* Avatar uploader */}
+                <div className="md:col-span-1 space-y-1">
+                  <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider block">Avatar Graphic</label>
+                  <div className="relative group w-16 h-16 border border-slate-205 rounded-full overflow-hidden bg-slate-50 flex items-center justify-center">
+                    {items[activeTestimonialIdx].image ? (
+                      <img src={items[activeTestimonialIdx].image} className="w-full h-full object-cover" alt="" />
+                    ) : (
+                      <span className="text-[10px] text-slate-400">None</span>
+                    )}
+                    <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-[8px] font-bold cursor-pointer transition-opacity">
+                      <Upload className="w-3.5 h-3.5" />
+                      <input type="file" accept="image/*" className="hidden" onChange={e => handleImageUpload(activeTestimonialIdx, e)} />
+                    </label>
+                  </div>
+                  <p className="text-[8px] text-slate-400">200x200px | Max 1MB</p>
+                </div>
+
+                <div className="md:col-span-2 space-y-1">
+                  <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Rating Stars (1 to 5)</label>
+                  <select
+                    value={items[activeTestimonialIdx].rating}
+                    onChange={e => handleItemFieldChange(activeTestimonialIdx, 'rating', Number(e.target.value))}
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-350"
+                  >
+                    <option value={5}>5 Stars</option>
+                    <option value={4}>4 Stars</option>
+                    <option value={3}>3 Stars</option>
+                    <option value={2}>2 Stars</option>
+                    <option value={1}>1 Star</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-slate-455 tracking-wider">Testimonial Review text</label>
+                <textarea
+                  rows={3}
+                  value={items[activeTestimonialIdx].text}
+                  onChange={e => handleItemFieldChange(activeTestimonialIdx, 'text', e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 resize-none"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center justify-center text-slate-400 text-xs">
+              Select or add a client testimonial reviewer from the left menu to customize text.
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex justify-end pt-2">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl text-xs font-bold shadow-md shadow-primary/20 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          Save Testimonials Settings
         </button>
       </div>
     </div>
