@@ -155,10 +155,10 @@ export default function DashboardLayout() {
                   { id: 'sections-whychooseus' as SubPage, label: 'Why Choose Us' },
                   { id: 'sections-visa' as SubPage, label: 'Visa Services' },
                   { id: 'sections-team' as SubPage, label: 'Team Members' },
-                  {id: 'sections-ad' as SubPage, label: 'Advertising Banner'},
-                  {id: 'sections-testimonials' as SubPage, label: 'Client Testimonials'},
-                  {id: 'sections-footer' as SubPage, label: 'Footer'},
-                  {id: 'sections-contact' as SubPage, label: 'Get In Touch'},
+                  { id: 'sections-ad' as SubPage, label: 'Advertising Banner' },
+                  { id: 'sections-testimonials' as SubPage, label: 'Client Testimonials' },
+                  { id: 'sections-contact' as SubPage, label: 'Get In Touch' },
+                  { id: 'sections-footer' as SubPage, label: 'Footer' },
                 ].map(subItem => {
                   const isSubActive = subPage === subItem.id;
                   return (
