@@ -326,9 +326,9 @@ const defaultServicesSettings: ServicesSettings = {
   title: 'Service Highlights',
   subtitle: 'Everything you need for a seamless journey — from planning to landing.',
   items: [
-    { title: 'Tour Packages', desc: 'Curated domestic and international tour packages with flights, hotels, and guided experiences tailored to every budget.', iconName: 'Compass' },
     { title: 'Air Ticketing', desc: 'Domestic & international flight reservations on 100+ airlines. Corporate travel management and instant group bookings.', iconName: 'Plane' },
-    { title: 'Visa Assistance', desc: 'Professional visa processing for 50+ countries — tourist, business, and student visas with a 98% approval success rate.', iconName: 'Globe' }
+    { title: 'Visa Assistance', desc: 'Professional visa processing for 50+ countries — tourist, business, and student visas with a 98% approval success rate.', iconName: 'Globe' },
+    { title: 'Tour Packages', desc: 'Curated domestic and international tour packages with flights, hotels, and guided experiences tailored to every budget.', iconName: 'Compass' }
   ]
 };
 
