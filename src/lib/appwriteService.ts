@@ -150,3 +150,23 @@ export const syncArrayToCollection = async (collectionId: string, items: any[], 
     console.error(`Failed to sync array to collection ${collectionId}:`, err);
   }
 };
+
+// Save a contact form message from a user
+export const submitContactMessage = async (messageData: any) => {
+  try {
+    // Save to Appwrite collection 'contact_messages'
+    // Requires Guest 'Create' permissions in Appwrite Database
+    await databases.createDocument(databaseId, 'contact_messages', ID.unique(), {
+      name: messageData.name,
+      email: messageData.email,
+      phone: messageData.phone || '',
+      service: messageData.service || 'General Inquiry',
+      message: messageData.message,
+      createdAt: new Date().toISOString(),
+      ipAddress: messageData.ipAddress || 'unknown'
+    });
+  } catch (err) {
+    console.error('Failed to save contact message to Appwrite:', err);
+    // Do not throw, as we want the email to still send even if DB fails
+  }
+};

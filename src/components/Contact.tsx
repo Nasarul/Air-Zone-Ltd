@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Clock, Loader2, AlertCircle } from 'lucide-react';
 import { useDashboard } from './dashboard/DashboardContext';
+import { submitContactMessage } from '../lib/appwriteService';
 
 export default function Contact() {
   const { contactSettings } = useDashboard();
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const handlePrepopulate = (e: Event) => {
@@ -25,13 +28,66 @@ export default function Contact() {
     return () => window.removeEventListener('prepopulate-inquiry', handlePrepopulate);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ name: '', email: '', phone: '', service: '', message: '' });
-  };
+    setSending(true);
+    setError(null);
+    
+    try {
+      // 1. Fetch user IP address (if available)
+      let ipAddress = 'unknown';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ipAddress = ipData.ip;
+      } catch (e) {
+        // silently ignore IP fetch failures
+      }
 
+      // 2. Prepare data payload (The keys here determine how the email body looks)
+      const payload = {
+        "Customer Name": form.name,
+        "Email Address": form.email,
+        "Phone Number": form.phone || 'Not provided',
+        "Service Requested": form.service || 'General Inquiry',
+        "Message Details": form.message,
+        "Submission Time": new Date().toLocaleString(),
+        "User IP": ipAddress,
+        // FormSubmit specific config
+        _subject: `New Inquiry from ${form.name}: ${form.service || 'General Inquiry'}`,
+        _captcha: 'false',
+        _template: 'box' // 'box' is a premium-looking HTML template provided by FormSubmit
+      };
+
+      // 3. Send to FormSubmit using your secure randomized hash to protect your email from spam bots
+      const emailRes = await fetch('https://formsubmit.co/ajax/d92c89ad3b138fedd658754d09ca0d15', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!emailRes.ok) {
+        throw new Error('Failed to send email. FormSubmit returned an error.');
+      }
+
+      // 4. Save to Appwrite Database for Dashboard Access
+      await submitContactMessage({
+        ...form,
+        ipAddress
+      });
+
+      // 5. Show Success UI
+      setSent(true);
+      setForm({ name: '', email: '', phone: '', service: '', message: '' });
+      setTimeout(() => setSent(false), 6000);
+
+    } catch (err) {
+      console.error('Contact Form Error:', err);
+      setError('Something went wrong while sending your message. Please try again or call us directly.');
+    } finally {
+      setSending(false);
+    }
+  };
 
   if (!contactSettings.isEnabled) return null;
 
@@ -176,12 +232,30 @@ export default function Contact() {
                     className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent transition resize-none"
                   />
                 </div>
+                
+                {error && (
+                  <div className="bg-red-50 text-red-600 border border-red-200 p-4 rounded-xl flex items-start gap-3 text-sm">
+                    <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+                    <span>{error}</span>
+                  </div>
+                )}
+                
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 shadow-sm"
+                  disabled={sending}
+                  className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Send size={17} />
-                  Send Inquiry
+                  {sending ? (
+                    <>
+                      <Loader2 size={17} className="animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={17} />
+                      Send Inquiry
+                    </>
+                  )}
                 </button>
               </form>
             )}
