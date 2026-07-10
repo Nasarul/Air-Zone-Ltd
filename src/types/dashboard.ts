@@ -70,17 +70,13 @@ export interface ContactSettings {
   hoursFriday: string;
 }
 
-export interface HeroSlide {
-  image: string;
+export interface HeroSettings {
+  isEnabled: boolean;
+  videoUrl: string;
   title: string;
   subtitle: string;
   desc: string;
   tagline: string;
-}
-
-export interface HeroSettings {
-  isEnabled: boolean;
-  slides: HeroSlide[];
 }
 
 export interface AboutSettings {

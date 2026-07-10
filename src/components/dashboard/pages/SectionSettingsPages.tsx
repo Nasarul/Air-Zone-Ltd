@@ -4,7 +4,7 @@ import {
   Save, Eye, EyeOff, ArrowUp, ArrowDown, Trash2, Plus, 
   Upload, CheckCircle, Image as ImageIcon, MapPin, DollarSign, Calendar
 } from 'lucide-react';
-import { TourPackageItem, VisaServiceItem, TeamMemberItem, HeroSlide, ContactSettings, AdSettings, ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings } from '../../../types/dashboard';
+import { TourPackageItem, VisaServiceItem, TeamMemberItem, ContactSettings, AdSettings, ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings } from '../../../types/dashboard';
 
 /* ==========================================================================
    SHARED UI SUB-COMPONENTS
@@ -58,221 +58,56 @@ const CMSSectionHeader: React.FC<SectionHeaderProps> = ({ title, description, is
 
 export const HeroSectionSettings: React.FC = () => {
   const { heroSettings, updateHeroSettings, showToast } = useDashboard();
-  const [slides, setSlides] = useState<HeroSlide[]>(heroSettings.slides);
-  const [activeSlideIdx, setActiveSlideIdx] = useState<number | null>(0);
+  const [videoUrl, setVideoUrl] = useState(heroSettings.videoUrl);
+  const [title, setTitle] = useState(heroSettings.title);
+  const [subtitle, setSubtitle] = useState(heroSettings.subtitle);
+  const [desc, setDesc] = useState(heroSettings.desc);
+  const [tagline, setTagline] = useState(heroSettings.tagline);
 
   const handleSave = () => {
-    updateHeroSettings({ slides });
-    showToast('success', 'Hero Content Saved', 'Homepage slideshow modifications have been published.');
-  };
-
-  const handleUpdateSlideField = (index: number, field: keyof HeroSlide, value: string) => {
-    const next = [...slides];
-    next[index] = { ...next[index], [field]: value };
-    setSlides(next);
-  };
-
-  const handleImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        showToast('error', 'File Too Large', 'Please select an image under 2MB.');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const next = [...slides];
-        next[index] = { ...next[index], image: event.target?.result as string };
-        setSlides(next);
-        showToast('success', 'Slide Image Loaded', 'Press Save to publish the new image.');
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleMove = (index: number, direction: 'up' | 'down') => {
-    if (direction === 'up' && index === 0) return;
-    if (direction === 'down' && index === slides.length - 1) return;
-    const targetIdx = direction === 'up' ? index - 1 : index + 1;
-    const next = [...slides];
-    const temp = next[index];
-    next[index] = next[targetIdx];
-    next[targetIdx] = temp;
-    setSlides(next);
-    if (activeSlideIdx === index) setActiveSlideIdx(targetIdx);
-    else if (activeSlideIdx === targetIdx) setActiveSlideIdx(index);
-  };
-
-  const handleDelete = (index: number) => {
-    if (slides.length <= 1) {
-      showToast('warning', 'Minimum Slides reached', 'You must keep at least one hero slide active.');
-      return;
-    }
-    const next = slides.filter((_, i) => i !== index);
-    setSlides(next);
-    setActiveSlideIdx(0);
-    showToast('info', 'Slide Removed', 'Hero slide item deleted from draft.');
-  };
-
-  const handleAddSlide = () => {
-    const newSlide: HeroSlide = {
-      image: 'https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'New Destination Gateway',
-      subtitle: 'Premium Travel Agency',
-      desc: 'Explore custom itineraries and flight services built around your needs.',
-      tagline: 'BRAND NEW PROMO DEAL'
-    };
-    setSlides([...slides, newSlide]);
-    setActiveSlideIdx(slides.length);
-    showToast('success', 'New Slide Added', 'Configured default mock data. Customize details below.');
+    updateHeroSettings({ videoUrl, title, subtitle, desc, tagline });
+    showToast('success', 'Hero Content Saved', 'Homepage hero modifications have been published.');
   };
 
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-xs max-w-4xl">
       <CMSSectionHeader 
-        title="Hero Carousel Settings" 
-        description="Edit titles, background graphics, and key taglines in the homepage slideshow."
+        title="Hero Video Settings" 
+        description="Edit titles, background video URL, and key taglines in the homepage hero section."
         isEnabled={heroSettings.isEnabled}
         onToggle={(val) => updateHeroSettings({ isEnabled: val })}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Slides list */}
-        <div className="md:col-span-1 space-y-2 border-r border-slate-105 dark:border-slate-850 pr-4">
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-[10px] uppercase font-black text-slate-450 tracking-wider">Slide Indexes</span>
-            <button 
-              type="button" 
-              onClick={handleAddSlide}
-              className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Add New</span>
-            </button>
-          </div>
-
-          {slides.map((slide, idx) => (
-            <div 
-              key={idx}
-              className={`p-3 rounded-xl border transition-all text-left flex justify-between items-center ${
-                activeSlideIdx === idx 
-                  ? 'border-primary/40 bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-light font-bold' 
-                  : 'border-slate-205 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-              }`}
-            >
-              <button 
-                type="button"
-                onClick={() => setActiveSlideIdx(idx)}
-                className="flex-1 text-xs truncate text-left font-bold"
-              >
-                Slide {idx + 1}: {slide.title || 'Untitled'}
-              </button>
-              <div className="flex items-center gap-1.5 ml-2">
-                <button 
-                  type="button" 
-                  disabled={idx === 0} 
-                  onClick={() => handleMove(idx, 'up')}
-                  className="p-1 text-slate-400 hover:text-slate-700 disabled:opacity-30"
-                >
-                  <ArrowUp className="w-3 h-3" />
-                </button>
-                <button 
-                  type="button" 
-                  disabled={idx === slides.length - 1} 
-                  onClick={() => handleMove(idx, 'down')}
-                  className="p-1 text-slate-400 hover:text-slate-700 disabled:opacity-30"
-                >
-                  <ArrowDown className="w-3 h-3" />
-                </button>
-                <button 
-                  type="button" 
-                  onClick={() => handleDelete(idx)}
-                  className="p-1 text-red-400 hover:text-red-650"
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              </div>
-            </div>
-          ))}
+      <div className="space-y-4 mt-6">
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Background Video URL (mp4 format)</label>
+          <input 
+            type="text" 
+            value={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
+            placeholder="e.g. https://domain.com/video.mp4"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
         </div>
 
-        {/* Slide Edit Form */}
-        <div className="md:col-span-2 space-y-4">
-          {activeSlideIdx !== null && slides[activeSlideIdx] ? (
-            <div className="space-y-4">
-              <div className="p-3 bg-slate-50 dark:bg-slate-850/50 rounded-xl flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-350">Editing Slide {activeSlideIdx + 1}</span>
-                <span className="text-[10px] text-slate-400">Homepage slide instance</span>
-              </div>
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Headline Title</label>
+          <input 
+            type="text" 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs font-bold focus:outline-none text-slate-700 dark:text-slate-300"
+          />
+        </div>
 
-              {/* Graphic preview */}
-              <div className="relative group w-full h-36 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-100 flex items-center justify-center">
-                <img 
-                  src={slides[activeSlideIdx].image} 
-                  alt="Slide background" 
-                  className="w-full h-full object-cover" 
-                />
-                <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1.5 text-white text-[10px] font-bold cursor-pointer transition-opacity">
-                  <Upload className="w-4 h-4 animate-bounce" />
-                  <span>Replace Backdrop Image</span>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden" 
-                    onChange={(e) => handleImageUpload(activeSlideIdx, e)} 
-                  />
-                </label>
-              </div>
-              <p className="text-[9px] text-slate-400 dark:text-slate-500 mt-1 text-center">
-                Recommended Resolution: 1600x900px | Max Size: 2MB
-              </p>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Tagline Badge</label>
-                  <input 
-                    type="text" 
-                    value={slides[activeSlideIdx].tagline}
-                    onChange={(e) => handleUpdateSlideField(activeSlideIdx, 'tagline', e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Sub-heading</label>
-                  <input 
-                    type="text" 
-                    value={slides[activeSlideIdx].subtitle}
-                    onChange={(e) => handleUpdateSlideField(activeSlideIdx, 'subtitle', e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Slide Headline Title</label>
-                <input 
-                  type="text" 
-                  value={slides[activeSlideIdx].title}
-                  onChange={(e) => handleUpdateSlideField(activeSlideIdx, 'title', e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs font-bold focus:outline-none text-slate-700 dark:text-slate-300"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Short description paragraph</label>
-                <textarea 
-                  rows={2}
-                  value={slides[activeSlideIdx].desc}
-                  onChange={(e) => handleUpdateSlideField(activeSlideIdx, 'desc', e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="h-full flex items-center justify-center text-slate-400 text-xs">
-              Select or add a slide index from the left menu to customize contents.
-            </div>
-          )}
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Sub-heading</label>
+          <input 
+            type="text" 
+            value={subtitle}
+            onChange={(e) => setSubtitle(e.target.value)}
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
         </div>
       </div>
 
@@ -282,7 +117,7 @@ export const HeroSectionSettings: React.FC = () => {
           className="px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/15 transition-all"
         >
           <Save className="w-3.5 h-3.5" />
-          <span>Save Slides Settings</span>
+          <span>Save Hero Settings</span>
         </button>
       </div>
     </div>

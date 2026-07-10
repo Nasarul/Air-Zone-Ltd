@@ -11,11 +11,6 @@ const stats = [
 
 export default function Hero() {
   const { heroSettings } = useDashboard();
-  if (!heroSettings.isEnabled) return null;
-  const slides = heroSettings.slides;
-
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
   const [activeTab, setActiveTab] = useState<'tours' | 'flights' | 'visa'>('tours');
 
   // Search form states
@@ -28,19 +23,7 @@ export default function Hero() {
   const [visaCountry, setVisaCountry] = useState('');
   const [visaType, setVisaType] = useState('');
 
-  const go = (idx: number) => {
-    if (animating) return;
-    setAnimating(true);
-    setCurrent((idx + slides.length) % slides.length);
-    setTimeout(() => {
-      setAnimating(false);
-    }, 50);
-  };
-
-  useEffect(() => {
-    const t = setInterval(() => go(current + 1), 7000);
-    return () => clearInterval(t);
-  }, [current]);
+  if (!heroSettings.isEnabled) return null;
 
   const handleSearch = () => {
     if (activeTab === 'tours') {
@@ -55,92 +38,42 @@ export default function Hero() {
     }
   };
 
-  const slide = slides[current];
-
   return (
     <section id="home" className="relative bg-slate-950">
-      {/* Slider */}
+      {/* Video Background Container */}
       <div className="relative h-[100vh] min-h-[700px] overflow-hidden">
-        {/* Images with Ken Burns effect */}
         <div className="absolute inset-0">
-          <img
-            key={current}
-            src={slide.image}
-            alt={slide.title}
-            className="w-full h-full object-cover object-center animate-kenburns scale-105"
-          />
-          {/* Elegant Dark Overlay for Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+          <video
+            key={heroSettings.videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop"
+            className="w-full h-full object-cover object-center scale-105"
+          >
+            <source src={heroSettings.videoUrl} type="video/mp4" />
+          </video>
+          {/* Premium Dark Overlay for Perfect Text Contrast */}
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-slate-900/20" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center pb-24 pt-20">
-          <div className="max-w-7xl mx-auto px-6 w-full">
-            <div className="max-w-3xl text-left animate-fade-up">
-              {/* Tagline Badge */}
-              <div className="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 shadow-lg">
-                <span className="flex h-2.5 w-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#901A1D]" />
-                <span className="text-white text-xs md:text-sm font-bold uppercase tracking-widest">
-                  {slide.tagline}
+        <div className="relative z-10 h-full flex flex-col justify-center items-center pb-32 pt-20">
+          <div className="max-w-7xl mx-auto px-6 w-full text-center">
+            <div className="max-w-5xl mx-auto animate-fade-up">
+              {/* Main Headline Centered */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.05] tracking-tight drop-shadow-2xl">
+                {heroSettings.title}
+                <span className="block text-primary mt-3 md:mt-4 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold opacity-95">
+                  {heroSettings.subtitle}
                 </span>
-              </div>
-              
-              {/* Headlines */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
-                {slide.title}
-                <span className="block text-primary mt-2">{slide.subtitle}</span>
               </h1>
-              
-              <p className="text-slate-200 text-lg md:text-xl lg:text-2xl mb-10 leading-relaxed max-w-2xl font-medium drop-shadow-md">
-                {slide.desc}
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => document.querySelector('#tours')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-xl hover:shadow-primary/40 transform hover:-translate-y-1 text-base md:text-lg"
-                >
-                  Explore Packages <ArrowRight size={20} />
-                </button>
-                <button
-                  onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white text-white hover:text-secondary border border-white/30 hover:border-white font-bold px-8 py-4 rounded-full transition-all duration-300 backdrop-blur-md shadow-lg text-base md:text-lg"
-                >
-                  Get Free Consultation
-                </button>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Navigation Arrows */}
-        <button
-          onClick={() => go(current - 1)}
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-primary text-white rounded-full transition-all duration-300 border border-white/20 backdrop-blur-md group"
-        >
-          <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
-        </button>
-        <button
-          onClick={() => go(current + 1)}
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-primary text-white rounded-full transition-all duration-300 border border-white/20 backdrop-blur-md group"
-        >
-          <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
-        </button>
-
-        {/* Dots */}
-        <div className="absolute bottom-40 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              className={`h-3 rounded-full transition-all duration-500 shadow-md ${
-                i === current ? 'w-10 bg-primary' : 'w-3 bg-white/40 hover:bg-white'
-              }`}
-            />
-          ))}
-        </div>
       </div>
 
       {/* Premium Tabbed Search Widget (Overlapping Hero) */}

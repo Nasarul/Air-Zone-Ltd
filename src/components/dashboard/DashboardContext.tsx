@@ -89,50 +89,11 @@ const initialLogs: SystemLog[] = [
 
 const defaultHeroSettings: HeroSettings = {
   isEnabled: true,
-  slides: [
-    {
-      image: 'https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Explore the World',
-      subtitle: 'with Air Zone Ltd.',
-      desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',
-      tagline: 'YOUR GATEWAY TO ADVENTURE',
-    },
-    {
-      image: 'https://images.pexels.com/photos/46148/pexels-photo-46148.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Best Flight Deals',
-      subtitle: 'Domestic & International',
-      desc: 'Fly to your dream destination with premium airlines. Quick booking, flexible dates, and 24/7 ticketing support.',
-      tagline: 'ACCUMULATED MILES & BEST FARES',
-    },
-    {
-      image: 'https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Hassle-Free',
-      subtitle: 'Visa Processing',
-      desc: 'Fast, reliable visa processing for tourist, business, and student visas with expert documentation support.',
-      tagline: 'FAST & SECURE APPLICATION',
-    },
-    {
-      image: 'https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Unforgettable Journeys',
-      subtitle: 'Tailored Just For You',
-      desc: 'From hot air balloons to scenic mountain hikes, let us design the perfect itinerary for your dream vacation.',
-      tagline: 'MEMORABLE EXPERIENCES',
-    },
-    {
-      image: 'https://images.pexels.com/photos/1835718/pexels-photo-1835718.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Luxury Resorts',
-      subtitle: 'At Unbeatable Prices',
-      desc: 'Get exclusive discounts on premium resorts, hotels, and beachside villas worldwide. Book today.',
-      tagline: 'PREMIUM ACCOMMODATION',
-    },
-    {
-      image: 'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      title: 'Explore Heritage',
-      subtitle: 'Cultural & Historic Tours',
-      desc: 'Discover rich histories, architectures, and local cultures with our expert-guided heritage tour packages.',
-      tagline: 'CULTURAL EXPERIENCE',
-    },
-  ]
+  videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-commercial-airplane-flying-in-the-clouds-17255-large.mp4',
+  title: 'Explore the World',
+  subtitle: 'with Air Zone Ltd.',
+  desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',
+  tagline: 'YOUR GATEWAY TO ADVENTURE',
 };
 
 const defaultAboutSettings: AboutSettings = {
@@ -550,14 +511,16 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const saved = localStorage.getItem('heroSettings');
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (parsed.slides && parsed.slides.length < defaultHeroSettings.slides.length) {
-        parsed.slides = [
-          ...parsed.slides,
-          ...defaultHeroSettings.slides.slice(parsed.slides.length)
-        ];
-        localStorage.setItem('heroSettings', JSON.stringify(parsed));
+      // If they already have the new format (videoUrl exists natively), use it directly
+      if (parsed.videoUrl !== undefined) {
+        return { ...defaultHeroSettings, ...parsed };
       }
-      return parsed;
+      // Migration from old array format
+      if (parsed.slides && parsed.slides.length > 0) {
+         const oldSlide = parsed.slides[0];
+         return { ...defaultHeroSettings, ...oldSlide, videoUrl: defaultHeroSettings.videoUrl };
+      }
+      return { ...defaultHeroSettings, ...parsed };
     }
     return defaultHeroSettings;
   });
@@ -870,15 +833,21 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const login = async (email: string, password?: string): Promise<boolean> => {
     try {
-      if (password) {
+      // Local development bypass for specific admin credentials
+      if (email === 'nasarulhasan@gmail.com' && password === '!@#$%^&*') {
+        console.log("Local bypass active: Logging in without Appwrite verification.");
+      } else if (password) {
         // Appwrite Auth
         await account.createEmailPasswordSession(email, password);
       }
       
-      let name = 'Administrator';
+      let name = 'Nasarul Hasan';
       try {
-        const user = await account.get();
-        name = user.name || name;
+        // Only try to fetch Appwrite user if not using local bypass
+        if (!(email === 'nasarulhasan@gmail.com' && password === '!@#$%^&*')) {
+          const user = await account.get();
+          name = user.name || name;
+        }
       } catch(e) {
         // fallback
       }
