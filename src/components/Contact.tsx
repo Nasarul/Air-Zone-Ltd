@@ -50,8 +50,8 @@ export default function Contact() {
           {/* Info */}
           <div className="lg:col-span-2 space-y-8">
             <div className="flex items-start gap-4 group">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
-                <MapPin size={20} className="transition-transform duration-300 group-hover:animate-bounce" />
+              <div className="w-12 h-12 rounded-full border-2 border-white/20 text-white/80 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(144,26,29,0.5)]">
+                <MapPin size={20} className="transition-transform duration-300" />
               </div>
               <div>
                 <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Office Address</div>
@@ -62,8 +62,8 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4 group">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
-                <Phone size={20} className="transition-transform duration-300 group-hover:animate-pulse" />
+              <div className="w-12 h-12 rounded-full border-2 border-white/20 text-white/80 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(144,26,29,0.5)]">
+                <Phone size={20} className="transition-transform duration-300" />
               </div>
               <div>
                 <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Phone & Hotline</div>
@@ -76,8 +76,8 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4 group">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
-                <Mail size={20} className="transition-transform duration-300 group-hover:animate-bounce" />
+              <div className="w-12 h-12 rounded-full border-2 border-white/20 text-white/80 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(144,26,29,0.5)]">
+                <Mail size={20} className="transition-transform duration-300" />
               </div>
               <div>
                 <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Email</div>
@@ -89,8 +89,8 @@ export default function Contact() {
             </div>
 
             <div className="flex items-start gap-4 group">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
-                <Clock size={20} className="transition-transform duration-300 group-hover:animate-pulse" />
+              <div className="w-12 h-12 rounded-full border-2 border-white/20 text-white/80 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(144,26,29,0.5)]">
+                <Clock size={20} className="transition-transform duration-300" />
               </div>
               <div>
                 <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Office Hours</div>
