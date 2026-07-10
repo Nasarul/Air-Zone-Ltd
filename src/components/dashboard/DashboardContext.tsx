@@ -634,7 +634,16 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const [servicesSettings, setServicesSettings] = useState<ServicesSettings>(() => {
     const saved = localStorage.getItem('servicesSettings');
-    return saved ? JSON.parse(saved) : defaultServicesSettings;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Force migration to new order if the first item is Tour Packages
+      if (parsed.items && parsed.items[0]?.title === 'Tour Packages') {
+        localStorage.setItem('servicesSettings', JSON.stringify(defaultServicesSettings));
+        return defaultServicesSettings;
+      }
+      return parsed;
+    }
+    return defaultServicesSettings;
   });
 
   const [flightTicketingSettings, setFlightTicketingSettings] = useState<FlightTicketingSettings>(() => {
