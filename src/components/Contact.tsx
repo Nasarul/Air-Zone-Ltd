@@ -48,7 +48,7 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Info */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 flex flex-col justify-center">
             <div className="flex items-start gap-4 group">
               <div className="w-12 h-12 rounded-full border-2 border-white/20 text-white/80 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:scale-110 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(144,26,29,0.5)]">
                 <MapPin size={20} className="transition-transform duration-300" />
