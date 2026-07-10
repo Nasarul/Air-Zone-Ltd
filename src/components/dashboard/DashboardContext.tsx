@@ -833,23 +833,19 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const login = async (email: string, password?: string): Promise<boolean> => {
     try {
-      // Local development bypass for specific admin credentials
-      if (email === 'nasarulhasan@gmail.com' && password === '!@#$%^&*') {
-        console.log("Local bypass active: Logging in without Appwrite verification.");
-      } else if (password) {
-        // Appwrite Auth
-        await account.createEmailPasswordSession(email, password);
+      if (!password) {
+        throw new Error('Password is required.');
       }
       
-      let name = 'Nasarul Hasan';
+      // Appwrite Auth
+      await account.createEmailPasswordSession(email, password);
+      
+      let name = 'Admin User';
       try {
-        // Only try to fetch Appwrite user if not using local bypass
-        if (!(email === 'nasarulhasan@gmail.com' && password === '!@#$%^&*')) {
-          const user = await account.get();
-          name = user.name || name;
-        }
+        const user = await account.get();
+        name = user.name || name;
       } catch(e) {
-        // fallback
+        console.warn('Could not fetch user profile details.');
       }
 
       setIsAuthenticated(true);

@@ -96,7 +96,7 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
           <span className="text-primary-light font-semibold text-sm uppercase tracking-widest">{contactSettings.badge}</span>
-          <h2 className="text-4xl font-extrabold mt-2">{contactSettings.title}</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold mt-2">{contactSettings.title}</h2>
           <p className="text-slate-400 mt-3 max-w-3xl mx-auto">
             {contactSettings.subtitle}
           </p>

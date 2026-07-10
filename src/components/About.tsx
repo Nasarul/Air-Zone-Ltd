@@ -27,7 +27,7 @@ export default function About() {
           {/* Content */}
           <div>
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">{badge}</span>
-            <h2 className="text-4xl font-extrabold text-slate-800 mt-2 mb-5 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mt-2 mb-5 leading-tight">
               {title}
             </h2>
             <p className="text-slate-500 leading-relaxed mb-4">
