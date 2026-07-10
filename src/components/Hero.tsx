@@ -69,7 +69,6 @@ export default function Hero() {
             alt={slide.title}
             className="w-full h-full object-cover object-center animate-kenburns"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-transparent" />
         </div>
 
         {/* Content */}
@@ -82,12 +81,12 @@ export default function Hero() {
                   {slide.tagline}
                 </span>
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7.5xl font-black text-white leading-tight mb-4 tracking-tight drop-shadow-sm">
+              <h1 className="text-4xl md:text-6xl lg:text-7.5xl font-black text-white leading-tight mb-4 tracking-tight drop-shadow-xl">
                 {slide.title}
                 <br />
-                <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">{slide.subtitle}</span>
+                <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent drop-shadow-md">{slide.subtitle}</span>
               </h1>
-              <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed max-w-xl">
+              <p className="text-slate-100 text-base md:text-lg mb-8 leading-relaxed max-w-xl drop-shadow-md font-medium">
                 {slide.desc}
               </p>
               <div className="flex flex-wrap gap-4">
