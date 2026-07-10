@@ -49,52 +49,52 @@ export default function Contact() {
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Info */}
           <div className="lg:col-span-2 space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                <MapPin size={20} />
+            <div className="flex items-start gap-4 group">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
+                <MapPin size={20} className="transition-transform duration-300 group-hover:animate-bounce" />
               </div>
               <div>
-                <div className="font-bold text-white mb-1">Office Address</div>
-                <div className="text-slate-400 text-sm leading-relaxed whitespace-pre-line">
+                <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Office Address</div>
+                <div className="text-slate-400 text-sm leading-relaxed whitespace-pre-line group-hover:text-slate-300 transition-colors">
                   {contactSettings.address}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                <Phone size={20} />
+            <div className="flex items-start gap-4 group">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
+                <Phone size={20} className="transition-transform duration-300 group-hover:animate-pulse" />
               </div>
               <div>
-                <div className="font-bold text-white mb-1">Phone & Hotline</div>
-                <div className="text-slate-400 text-sm space-y-1">
+                <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Phone & Hotline</div>
+                <div className="text-slate-400 text-sm space-y-1 group-hover:text-slate-300 transition-colors">
                   <div>{contactSettings.phone1}</div>
                   {contactSettings.phone2 && <div>{contactSettings.phone2}</div>}
-                  {contactSettings.hotline && <div className="text-primary-light font-medium">Hotline: {contactSettings.hotline}</div>}
+                  {contactSettings.hotline && <div className="text-primary-light font-medium group-hover:text-white transition-colors">Hotline: {contactSettings.hotline}</div>}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                <Mail size={20} />
+            <div className="flex items-start gap-4 group">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
+                <Mail size={20} className="transition-transform duration-300 group-hover:animate-bounce" />
               </div>
               <div>
-                <div className="font-bold text-white mb-1">Email</div>
-                <div className="text-slate-400 text-sm space-y-1">
+                <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Email</div>
+                <div className="text-slate-400 text-sm space-y-1 group-hover:text-slate-300 transition-colors">
                   <div>{contactSettings.email1}</div>
                   {contactSettings.email2 && <div>{contactSettings.email2}</div>}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                <Clock size={20} />
+            <div className="flex items-start gap-4 group">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.6)]">
+                <Clock size={20} className="transition-transform duration-300 group-hover:animate-pulse" />
               </div>
               <div>
-                <div className="font-bold text-white mb-1">Office Hours</div>
-                <div className="text-slate-400 text-sm space-y-1">
+                <div className="font-bold text-white mb-1 group-hover:text-primary-light transition-colors">Office Hours</div>
+                <div className="text-slate-400 text-sm space-y-1 group-hover:text-slate-300 transition-colors">
                   {contactSettings.hoursSaturdayThursday && <div>{contactSettings.hoursSaturdayThursday}</div>}
                   {contactSettings.hoursFriday && <div>{contactSettings.hoursFriday}</div>}
                 </div>
