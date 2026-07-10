@@ -34,13 +34,13 @@ export default function WhyChooseUs() {
               {whyChooseUsSettings.reasons.map((r, idx) => {
                 const IconComponent = iconMap[r.iconName] || Award;
                 return (
-                  <div key={idx} className="flex gap-4 items-start group">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-primary/20 text-primary-light group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent size={22} />
+                  <div key={idx} className="flex gap-4 items-start group cursor-default p-3 -m-3 rounded-2xl hover:bg-white/5 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-primary/20 text-primary-light group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:-rotate-6 group-hover:shadow-[0_0_15px_rgba(144,26,29,0.5)] transition-all duration-300">
+                      <IconComponent size={22} className="transition-transform duration-300 group-hover:scale-110 group-hover:animate-pulse" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white mb-1 text-sm">{r.title}</h4>
-                      <p className="text-slate-400 text-xs leading-relaxed">{r.desc}</p>
+                      <h4 className="font-bold text-white mb-1 text-sm group-hover:text-primary-light transition-colors">{r.title}</h4>
+                      <p className="text-slate-400 text-xs leading-relaxed group-hover:text-slate-300 transition-colors">{r.desc}</p>
                     </div>
                   </div>
                 );
