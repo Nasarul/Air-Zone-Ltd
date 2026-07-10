@@ -58,47 +58,55 @@ export default function Hero() {
   const slide = slides[current];
 
   return (
-    <section id="home" className="relative bg-slate-900">
+    <section id="home" className="relative bg-slate-950">
       {/* Slider */}
-      <div className="relative h-[90vh] min-h-[600px] overflow-hidden">
+      <div className="relative h-[100vh] min-h-[700px] overflow-hidden">
         {/* Images with Ken Burns effect */}
         <div className="absolute inset-0">
           <img
             key={current}
             src={slide.image}
             alt={slide.title}
-            className="w-full h-full object-cover object-center animate-kenburns"
+            className="w-full h-full object-cover object-center animate-kenburns scale-105"
           />
+          {/* Elegant Dark Overlay for Readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex items-center">
+        <div className="relative z-10 h-full flex flex-col justify-center pb-24 pt-20">
           <div className="max-w-7xl mx-auto px-6 w-full">
-            <div className="max-w-2xl text-left">
-              <div className="flex items-center gap-2 mb-4 animate-fade-up">
-                <div className="w-8 h-0.5 bg-primary" />
-                <span className="text-primary-light text-xs md:text-sm font-extrabold uppercase tracking-widest">
+            <div className="max-w-3xl text-left animate-fade-up">
+              {/* Tagline Badge */}
+              <div className="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 shadow-lg">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#901A1D]" />
+                <span className="text-white text-xs md:text-sm font-bold uppercase tracking-widest">
                   {slide.tagline}
                 </span>
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7.5xl font-black text-white leading-tight mb-4 tracking-tight drop-shadow-xl">
+              
+              {/* Headlines */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-sm">
                 {slide.title}
-                <br />
-                <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent drop-shadow-md">{slide.subtitle}</span>
+                <span className="block text-primary mt-2">{slide.subtitle}</span>
               </h1>
-              <p className="text-slate-100 text-base md:text-lg mb-8 leading-relaxed max-w-xl drop-shadow-md font-medium">
+              
+              <p className="text-slate-200 text-lg md:text-xl lg:text-2xl mb-10 leading-relaxed max-w-2xl font-medium drop-shadow-md">
                 {slide.desc}
               </p>
-              <div className="flex flex-wrap gap-4">
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => document.querySelector('#tours')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-xl hover:shadow-primary/40 transform hover:-translate-y-1 text-base md:text-lg"
                 >
-                  Explore Packages <ArrowRight size={16} />
+                  Explore Packages <ArrowRight size={20} />
                 </button>
                 <button
                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-2 border border-white/30 hover:border-white text-white hover:bg-white/10 font-bold px-7 py-3.5 rounded-full transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white text-white hover:text-secondary border border-white/30 hover:border-white font-bold px-8 py-4 rounded-full transition-all duration-300 backdrop-blur-md shadow-lg text-base md:text-lg"
                 >
                   Get Free Consultation
                 </button>
@@ -107,86 +115,86 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Arrows */}
+        {/* Navigation Arrows */}
         <button
           onClick={() => go(current - 1)}
-          className="absolute left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-all border border-white/10 backdrop-blur-md"
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-primary text-white rounded-full transition-all duration-300 border border-white/20 backdrop-blur-md group"
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={24} className="group-hover:-translate-x-0.5 transition-transform" />
         </button>
         <button
           onClick={() => go(current + 1)}
-          className="absolute right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-all border border-white/10 backdrop-blur-md"
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-primary text-white rounded-full transition-all duration-300 border border-white/20 backdrop-blur-md group"
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={24} className="group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-40 left-1/2 -translate-x-1/2 z-20 flex gap-3">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => go(i)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                i === current ? 'w-8 bg-primary' : 'w-2.5 bg-white/30 hover:bg-white/60'
+              className={`h-3 rounded-full transition-all duration-500 shadow-md ${
+                i === current ? 'w-10 bg-primary' : 'w-3 bg-white/40 hover:bg-white'
               }`}
             />
           ))}
         </div>
       </div>
 
-      {/* Premium Tabbed Search Widget */}
-      <div className="relative z-30 max-w-5xl mx-auto px-6 mt-16 mb-20">
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8">
+      {/* Premium Tabbed Search Widget (Overlapping Hero) */}
+      <div className="relative z-30 max-w-6xl mx-auto px-4 sm:px-6 -mt-28 mb-24">
+        <div className="bg-white rounded-[2rem] shadow-2xl border border-slate-100 p-6 md:p-10 backdrop-blur-3xl">
           {/* Tabs */}
-          <div className="flex gap-2 border-b border-slate-100 pb-5 mb-6 overflow-x-auto">
+          <div className="flex gap-3 border-b border-slate-100 pb-6 mb-8 overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveTab('tours')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm md:text-base font-bold transition-all whitespace-nowrap ${
                 activeTab === 'tours'
-                  ? 'bg-primary/5 text-primary shadow-sm'
-                  : 'text-slate-500 hover:text-primary hover:bg-slate-50'
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105 transform origin-left'
+                  : 'text-slate-500 hover:text-primary hover:bg-primary/5 bg-slate-50'
               }`}
             >
-              <Calendar size={16} />
+              <Calendar size={18} />
               Tour Packages
             </button>
             <button
               onClick={() => setActiveTab('flights')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm md:text-base font-bold transition-all whitespace-nowrap ${
                 activeTab === 'flights'
-                  ? 'bg-primary/5 text-primary shadow-sm'
-                  : 'text-slate-500 hover:text-primary hover:bg-slate-50'
+                  ? 'bg-secondary text-white shadow-lg shadow-secondary/20 scale-105 transform origin-left'
+                  : 'text-slate-500 hover:text-secondary hover:bg-secondary/5 bg-slate-50'
               }`}
             >
-              <Plane size={16} />
+              <Plane size={18} />
               Air Tickets
             </button>
             <button
               onClick={() => setActiveTab('visa')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm md:text-base font-bold transition-all whitespace-nowrap ${
                 activeTab === 'visa'
-                  ? 'bg-amber-50 text-amber-700 shadow-sm'
-                  : 'text-slate-500 hover:text-amber-700 hover:bg-slate-50'
+                  ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20 scale-105 transform origin-left'
+                  : 'text-slate-500 hover:text-amber-600 hover:bg-amber-50 bg-slate-50'
               }`}
             >
-              <Globe size={16} />
+              <Globe size={18} />
               Visa Processing
             </button>
           </div>
 
           {/* Search Inputs Grid */}
-          <div className="grid md:grid-cols-4 gap-4 items-end">
+          <div className="grid md:grid-cols-4 gap-5 items-end animate-fade-in">
             {activeTab === 'tours' && (
               <>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Destination</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Destination</label>
                   <div className="relative">
-                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" />
                     <select
                       value={tourDest}
                       onChange={(e) => setTourDest(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer"
                     >
                       <option value="">Any Destination</option>
                       <option value="Bali">Bali, Indonesia</option>
@@ -198,14 +206,14 @@ export default function Hero() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Duration</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Duration</label>
                   <div className="relative">
-                    <Calendar size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Calendar size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" />
                     <select
                       value={tourDuration}
                       onChange={(e) => setTourDuration(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer"
                     >
                       <option value="">Any Duration</option>
                       <option value="3-5">3 to 5 Days</option>
@@ -214,20 +222,20 @@ export default function Hero() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2 md:col-span-2 flex flex-col md:flex-row gap-4 items-stretch md:items-end">
-                  <div className="flex-1 space-y-2">
-                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Promo Code (Optional)</label>
+                <div className="space-y-2.5 md:col-span-2 flex flex-col md:flex-row gap-5 items-stretch md:items-end">
+                  <div className="flex-1 space-y-2.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Promo Code (Optional)</label>
                     <input
                       type="text"
                       placeholder="Enter promo code"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+                    className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-4 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:-translate-y-0.5 whitespace-nowrap text-base"
                   >
-                    <Search size={16} />
+                    <Search size={20} />
                     Search Tours
                   </button>
                 </div>
@@ -236,14 +244,14 @@ export default function Hero() {
 
             {activeTab === 'flights' && (
               <>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">From (Origin)</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">From (Origin)</label>
                   <div className="relative">
-                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary" />
                     <select
                       value={flightFrom}
                       onChange={(e) => setFlightFrom(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-secondary/10 focus:border-secondary transition-all appearance-none cursor-pointer"
                     >
                       <option value="DAC">Dhaka (DAC)</option>
                       <option value="CGP">Chittagong (CGP)</option>
@@ -252,14 +260,14 @@ export default function Hero() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">To (Destination)</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">To (Destination)</label>
                   <div className="relative">
-                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Plane size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary" />
                     <select
                       value={flightTo}
                       onChange={(e) => setFlightTo(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-secondary/10 focus:border-secondary transition-all appearance-none cursor-pointer"
                     >
                       <option value="">Select Destination</option>
                       <option value="Cox's Bazar">Cox's Bazar (CXB)</option>
@@ -271,21 +279,21 @@ export default function Hero() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2 md:col-span-2 flex flex-col md:flex-row gap-4 items-stretch md:items-end">
-                  <div className="flex-1 space-y-2">
-                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Departure Date</label>
+                <div className="space-y-2.5 md:col-span-2 flex flex-col md:flex-row gap-5 items-stretch md:items-end">
+                  <div className="flex-1 space-y-2.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Departure Date</label>
                     <input
                       type="date"
                       value={flightDate}
                       onChange={(e) => setFlightDate(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-secondary/10 focus:border-secondary transition-all"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+                    className="bg-secondary hover:bg-secondary/90 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-secondary/25 hover:-translate-y-0.5 whitespace-nowrap text-base"
                   >
-                    <Search size={16} />
+                    <Search size={20} />
                     Search Flights
                   </button>
                 </div>
@@ -294,14 +302,14 @@ export default function Hero() {
 
             {activeTab === 'visa' && (
               <>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Select Country</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Select Country</label>
                   <div className="relative">
-                    <MapPin size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Globe size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-500" />
                     <select
                       value={visaCountry}
                       onChange={(e) => setVisaCountry(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all appearance-none cursor-pointer"
                     >
                       <option value="">Any Country</option>
                       <option value="United Kingdom">United Kingdom</option>
@@ -317,12 +325,12 @@ export default function Hero() {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Visa Category</label>
+                <div className="space-y-2.5">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Visa Category</label>
                   <select
                     value={visaType}
                     onChange={(e) => setVisaType(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 cursor-pointer"
+                    className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all cursor-pointer"
                   >
                     <option value="">All Categories</option>
                     <option value="Tourist">Tourist Visa</option>
@@ -330,19 +338,19 @@ export default function Hero() {
                     <option value="Student">Student Visa</option>
                   </select>
                 </div>
-                <div className="space-y-2 md:col-span-2 flex flex-col md:flex-row gap-4 items-stretch md:items-end">
-                  <div className="flex-1 space-y-2">
-                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Travel Date</label>
+                <div className="space-y-2.5 md:col-span-2 flex flex-col md:flex-row gap-5 items-stretch md:items-end">
+                  <div className="flex-1 space-y-2.5">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block ml-1">Travel Date</label>
                     <input
                       type="date"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                      className="w-full bg-slate-50/50 hover:bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-700 text-sm md:text-base font-medium focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all"
                     />
                   </div>
                   <button
                     onClick={handleSearch}
-                    className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+                    className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 hover:-translate-y-0.5 whitespace-nowrap text-base"
                   >
-                    <Search size={16} />
+                    <Search size={20} />
                     Check Requirements
                   </button>
                 </div>
@@ -353,16 +361,20 @@ export default function Hero() {
       </div>
 
       {/* Stats */}
-      <div className="bg-secondary text-white py-16 relative overflow-hidden border-t border-secondary/50">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+      <div className="bg-secondary text-white py-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 relative z-10">
           {stats.map((s) => (
-            <div key={s.label} className="text-center group">
-              <div className="text-3xl md:text-4.5xl font-black text-accent-light group-hover:scale-105 transition-transform duration-300 inline-block">{s.value}</div>
-              <div className="text-xs md:text-sm text-slate-400 mt-2 font-bold uppercase tracking-wider">{s.label}</div>
+            <div key={s.label} className="text-center group flex flex-col items-center justify-center">
+              <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white group-hover:text-primary-light transition-colors duration-300 mb-3 drop-shadow-md">
+                {s.value}
+              </div>
+              <div className="text-xs md:text-sm text-slate-300 font-bold uppercase tracking-widest bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/5">
+                {s.label}
+              </div>
             </div>
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,67,104,0.12),transparent)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(144,26,29,0.15),transparent)] pointer-events-none" />
       </div>
     </section>
   );
