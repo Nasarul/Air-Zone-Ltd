@@ -64,9 +64,9 @@ export default function Hero() {
           <div className="max-w-7xl mx-auto px-6 w-full text-center">
             <div className="max-w-5xl mx-auto animate-fade-up">
               {/* Main Headline Centered */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.05] tracking-tight drop-shadow-2xl">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight drop-shadow-2xl">
                 {heroSettings.title}
-                <span className="block text-primary mt-3 md:mt-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold opacity-95">
+                <span className="block text-primary mt-2 md:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold opacity-95">
                   {heroSettings.subtitle}
                 </span>
               </h1>
