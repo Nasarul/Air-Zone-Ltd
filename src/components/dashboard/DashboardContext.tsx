@@ -5,6 +5,7 @@ import {
   ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings
 } from '../../types/dashboard';
 import { fetchAllAppwriteData, syncCmsSettingToAppwrite, syncArrayToCollection } from '../../lib/appwriteService';
+import { account } from '../../lib/appwrite';
 interface DashboardContextType {
   page: Page;
   setPage: (page: Page) => void;
@@ -15,7 +16,7 @@ interface DashboardContextType {
   language: string;
   setLanguage: (lang: string) => void;
   isAuthenticated: boolean;
-  login: (email: string) => boolean;
+  login: (email: string, password?: string) => Promise<boolean>;
   logout: () => void;
   currentUser: { name: string; email: string; avatar: string; role: string; bio: string; phone: string; address: string; cover: string } | null;
   updateProfile: (data: Partial<{ name: string; email: string; bio: string; phone: string; address: string; role: string; avatar: string; cover: string }>) => void;
@@ -858,33 +859,50 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
   };
 
-  const login = (email: string): boolean => {
-    // Basic verification simulation
-    const foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    const name = foundUser ? foundUser.name : 'Administrator';
-    const role = foundUser ? foundUser.role : 'Administrator';
-    const avatar = foundUser ? foundUser.avatar : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&fit=crop&q=80';
+  const login = async (email: string, password?: string): Promise<boolean> => {
+    try {
+      if (password) {
+        // Appwrite Auth
+        await account.createEmailPasswordSession(email, password);
+      }
+      
+      let name = 'Administrator';
+      try {
+        const user = await account.get();
+        name = user.name || name;
+      } catch(e) {
+        // fallback
+      }
 
-    setIsAuthenticated(true);
-    setCurrentUser({
-      name,
-      email,
-      avatar,
-      role,
-      bio: 'Lead Cloud Architect and Full-Stack Developer for Air Zone Ltd. Focused on building high performance SaaS dashboards.',
-      phone: '+880 1700-000000',
-      address: 'Dhaka, Bangladesh',
-      cover: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
-    });
-    setPage('dashboard');
-    setSubPage('home');
-    addSystemLog('info', 'auth', `User ${name} logged in from browser.`);
-    showToast('success', 'Welcome Back!', `Signed in successfully as ${name}.`);
-    return true;
+      setIsAuthenticated(true);
+      setCurrentUser({
+        name,
+        email,
+        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&fit=crop&q=80',
+        role: 'Super Admin',
+        bio: 'Lead Cloud Architect and Full-Stack Developer for Air Zone Ltd.',
+        phone: '+880 1700-000000',
+        address: 'Dhaka, Bangladesh',
+        cover: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
+      });
+      setPage('dashboard');
+      setSubPage('home');
+      addSystemLog('info', 'auth', `User ${name} logged in securely.`);
+      showToast('success', 'Welcome Back!', `Signed in successfully as ${name}.`);
+      return true;
+    } catch (error) {
+      console.error("Login failed:", error);
+      return false;
+    }
   };
 
-  const logout = () => {
+  const logout = async () => {
     const userName = currentUser?.name || 'User';
+    try {
+      await account.deleteSession('current');
+    } catch (error) {
+      // ignore
+    }
     setIsAuthenticated(false);
     setCurrentUser(null);
     setPage('login');

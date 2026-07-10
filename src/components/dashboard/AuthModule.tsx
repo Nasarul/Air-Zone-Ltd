@@ -54,7 +54,7 @@ function LoginPage() {
     setCapsLock(e.getModifierState('CapsLock'));
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
 
@@ -78,14 +78,16 @@ function LoginPage() {
 
     setLoading(true);
 
-    // Simulated Loading State
-    setTimeout(() => {
-      setLoading(false);
-      const success = login(email);
+    try {
+      const success = await login(email, password);
       if (!success) {
-        setValidationError('Invalid email or password. Hint: admin@airzoneltd.com');
+        setValidationError('Invalid email or password. Please check your credentials.');
       }
-    }, 1500);
+    } catch (e) {
+      setValidationError('Authentication failed. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

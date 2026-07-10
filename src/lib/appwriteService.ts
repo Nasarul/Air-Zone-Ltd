@@ -12,12 +12,12 @@ export const fetchAllAppwriteData = async () => {
       testimonialsRes,
       cmsRes
     ] = await Promise.all([
-      databases.listDocuments(databaseId, 'tour_packages'),
-      databases.listDocuments(databaseId, 'visa_services'),
-      databases.listDocuments(databaseId, 'flight_deals'),
-      databases.listDocuments(databaseId, 'team_members'),
-      databases.listDocuments(databaseId, 'testimonials'),
-      databases.listDocuments(databaseId, 'cms_settings')
+      databases.listDocuments(databaseId, 'tour_packages', [Query.limit(100)]),
+      databases.listDocuments(databaseId, 'visa_services', [Query.limit(100)]),
+      databases.listDocuments(databaseId, 'flight_deals', [Query.limit(100)]),
+      databases.listDocuments(databaseId, 'team_members', [Query.limit(100)]),
+      databases.listDocuments(databaseId, 'testimonials', [Query.limit(100)]),
+      databases.listDocuments(databaseId, 'cms_settings', [Query.limit(100)])
     ]);
 
     // Map Tour Packages
