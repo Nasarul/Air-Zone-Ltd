@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Search, MapPin, Plane, Globe, Calendar, ArrowRight } from 'lucide-react';
 import { useDashboard } from './dashboard/DashboardContext';
 
@@ -12,6 +12,15 @@ const stats = [
 export default function Hero() {
   const { heroSettings } = useDashboard();
   const [activeTab, setActiveTab] = useState<'tours' | 'flights' | 'visa'>('tours');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch((e) => console.log('Autoplay prevented:', e));
+    }
+  }, [heroSettings.videoUrl]);
 
   // Search form states
   const [tourDest, setTourDest] = useState('');
@@ -44,6 +53,7 @@ export default function Hero() {
       <div className="relative h-[100vh] min-h-[700px] overflow-hidden">
         <div className="absolute inset-0">
           <video
+            ref={videoRef}
             key={heroSettings.videoUrl}
             autoPlay
             loop
