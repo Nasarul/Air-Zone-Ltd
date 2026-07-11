@@ -864,6 +864,13 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         throw new Error('Password is required.');
       }
       
+      // Clear any existing stale session before trying to log in
+      try {
+        await account.deleteSession('current');
+      } catch (err) {
+        // Ignored: If there is no session, this will throw an error, which is fine.
+      }
+      
       // Appwrite Auth
       await account.createEmailPasswordSession(email, password);
       
