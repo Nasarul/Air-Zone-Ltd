@@ -89,7 +89,7 @@ const initialLogs: SystemLog[] = [
 
 const defaultHeroSettings: HeroSettings = {
   isEnabled: true,
-  videoUrl: '/hero-video.mp4',
+  videoUrl: '/hero-video.mov',
   title: 'Explore the World',
   subtitle: 'with Air Zone Ltd.',
   desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',

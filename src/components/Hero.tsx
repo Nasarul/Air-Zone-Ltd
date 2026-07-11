@@ -67,7 +67,7 @@ export default function Hero() {
             poster="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop"
             className="w-full h-full object-cover object-center scale-105"
           >
-            <source src={heroSettings.videoUrl} type="video/mp4" />
+            <source src={heroSettings.videoUrl} />
           </video>
           {/* Premium Dark Overlay for Perfect Text Contrast */}
           <div className="absolute inset-0 bg-black/40" />
