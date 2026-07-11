@@ -160,10 +160,14 @@ export default function TourDetails() {
           <section id="itinerary" className="scroll-mt-32">
             <h2 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-2"><MapPin className="text-primary" /> Daily Itinerary</h2>
             <div className="space-y-6">
-              {activeTour.itinerary.map((day, i) => (
+              {(activeTour.itinerary || [
+                { day: 'Day 1', title: 'Arrival & Welcome', desc: 'Arrive at the destination. Transfer to the hotel and enjoy a welcome dinner.' },
+                { day: 'Day 2', title: 'City Tour', desc: 'Explore the highlights of the city with an expert guide.' },
+                { day: 'Day 3', title: 'Departure', desc: 'Breakfast at the hotel before transferring to the airport.' }
+              ]).map((day: any, i: number, arr: any[]) => (
                 <div key={i} className="flex gap-6 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm relative">
                   <div className="hidden md:flex absolute -left-[11px] top-8 w-6 h-6 rounded-full border-4 border-slate-50 bg-primary z-10"></div>
-                  {i !== activeTour.itinerary.length - 1 && (
+                  {i !== arr.length - 1 && (
                     <div className="hidden md:block absolute left-[0px] top-14 bottom-[-30px] w-0.5 bg-slate-200 z-0"></div>
                   )}
                   
@@ -185,7 +189,7 @@ export default function TourDetails() {
             <div>
               <h2 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><Check className="text-emerald-500" /> What's Included</h2>
               <ul className="space-y-3">
-                {activeTour.inclusions.map((inc, i) => (
+                {(activeTour.inclusions || ['Hotel accommodation', 'Daily breakfast', 'Airport transfers']).map((inc, i) => (
                   <li key={i} className="flex items-start gap-3 bg-white p-3 rounded-lg border border-slate-100">
                     <Check size={18} className="text-emerald-500 mt-0.5" />
                     <span className="text-sm font-medium text-slate-700">{inc}</span>
