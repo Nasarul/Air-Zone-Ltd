@@ -14,6 +14,39 @@ export default function TourPackages() {
   const [searchQuery, setSearchQuery] = useState('');
   const [durationFilter, setDurationFilter] = useState('');
 
+  // Listen to search events from Hero
+  useEffect(() => {
+    const handleFilter = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const { dest, duration } = customEvent.detail;
+      setSearchQuery(dest || '');
+      setDurationFilter(duration || '');
+      setActiveCategory('all');
+    };
+    window.addEventListener('filter-tours', handleFilter);
+    return () => window.removeEventListener('filter-tours', handleFilter);
+  }, []);
+
+  // Filter packages based on activeCategory, searchQuery, and durationFilter
+  const filteredTours = tours.filter((t) => {
+    const matchesCategory = activeCategory === 'all' || t.categories.includes(activeCategory);
+    
+    const matchesSearch = 
+      t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.location.toLowerCase().includes(searchQuery.toLowerCase());
+      
+    let matchesDuration = true;
+    if (durationFilter === '3-5') {
+      matchesDuration = t.durationDays >= 3 && t.durationDays <= 5;
+    } else if (durationFilter === '6-9') {
+      matchesDuration = t.durationDays >= 6 && t.durationDays <= 9;
+    } else if (durationFilter === '10') {
+      matchesDuration = t.durationDays >= 10;
+    }
+
+    return matchesCategory && matchesSearch && matchesDuration;
+  });
+
   // Booking logic moved to TourDetails.tsx
 
   return (
