@@ -89,7 +89,7 @@ const initialLogs: SystemLog[] = [
 
 const defaultHeroSettings: HeroSettings = {
   isEnabled: true,
-  videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-commercial-airplane-flying-in-the-clouds-17255-large.mp4',
+  videoUrl: '/hero-video.mp4',
   title: 'Explore the World',
   subtitle: 'with Air Zone Ltd.',
   desc: 'Premium tour packages, domestic & international flight ticketing, and seamless visa assistance — all in one place.',
