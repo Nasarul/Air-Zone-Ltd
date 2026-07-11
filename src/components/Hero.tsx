@@ -59,6 +59,11 @@ export default function Hero() {
             loop
             muted
             playsInline
+            preload="auto"
+            onCanPlay={(e) => {
+              e.currentTarget.muted = true;
+              e.currentTarget.play().catch(console.log);
+            }}
             poster="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop"
             className="w-full h-full object-cover object-center scale-105"
           >
