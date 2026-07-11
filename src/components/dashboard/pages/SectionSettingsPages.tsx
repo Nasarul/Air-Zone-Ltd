@@ -53,6 +53,91 @@ const CMSSectionHeader: React.FC<SectionHeaderProps> = ({ title, description, is
 
 
 /* ==========================================================================
+   0. TOP BAR SECTION SETTINGS
+   ========================================================================== */
+
+export const TopBarSectionSettings: React.FC = () => {
+  const { topBarSettings, updateTopBarSettings, showToast } = useDashboard();
+  const [email, setEmail] = useState(topBarSettings.email);
+  const [phone, setPhone] = useState(topBarSettings.phone);
+  const [whatsappNumber, setWhatsappNumber] = useState(topBarSettings.whatsappNumber);
+  const [messengerLink, setMessengerLink] = useState(topBarSettings.messengerLink);
+
+  const handleSave = () => {
+    updateTopBarSettings({ email, phone, whatsappNumber, messengerLink });
+    showToast('success', 'Top Contact Bar Saved', 'Contact details have been updated.');
+  };
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 shadow-xs max-w-4xl">
+      <CMSSectionHeader 
+        title="Top Contact Bar Settings" 
+        description="Edit the email, phone, WhatsApp, and Messenger link displayed in the top bar above the navigation."
+        isEnabled={topBarSettings.isEnabled}
+        onToggle={(val) => updateTopBarSettings({ isEnabled: val })}
+      />
+
+      <div className="space-y-4 mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        <div className="space-y-1 mt-4">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Email Address</label>
+          <input 
+            type="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="e.g. info@airzoneltd.com"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Contact Number</label>
+          <input 
+            type="text" 
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="e.g. +880 1700-000001"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">WhatsApp Number</label>
+          <input 
+            type="text" 
+            value={whatsappNumber}
+            onChange={(e) => setWhatsappNumber(e.target.value)}
+            placeholder="e.g. +8801700000001"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Messenger Link</label>
+          <input 
+            type="text" 
+            value={messengerLink}
+            onChange={(e) => setMessengerLink(e.target.value)}
+            placeholder="e.g. https://m.me/airzoneltd"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-250 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs focus:outline-none text-slate-700 dark:text-slate-300"
+          />
+        </div>
+      </div>
+
+      <div className="pt-5 mt-6 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+        <button 
+          onClick={handleSave}
+          className="px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/15 transition-all"
+        >
+          <Save className="w-3.5 h-3.5" />
+          <span>Save Top Bar Settings</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+
+/* ==========================================================================
    1. HERO SECTION SETTINGS
    ========================================================================== */
 

@@ -42,7 +42,7 @@ export interface Announcement {
 export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500';
 export type SubPage = 
   | 'home' | 'users' | 'profile' | 'reports' | 'analytics' | 'settings' | 'security' | 'notifications'
-  | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad'
+  | 'sections-topbar' | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad'
   | 'sections-services' | 'sections-ticketing' | 'sections-whychooseus' | 'sections-testimonials';
 
 export interface AdSlide {
@@ -53,6 +53,14 @@ export interface AdSlide {
 export interface AdSettings {
   isEnabled: boolean;
   slides: AdSlide[];
+}
+
+export interface TopBarSettings {
+  isEnabled: boolean;
+  email: string;
+  phone: string;
+  whatsappNumber: string;
+  messengerLink: string;
 }
 
 export interface ContactSettings {

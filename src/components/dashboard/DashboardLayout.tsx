@@ -20,7 +20,8 @@ import NotificationsView from './pages/NotificationsView';
 import { 
   HeroSectionSettings, AboutSectionSettings, PackagesSectionSettings, 
   VisaSectionSettings, TeamSectionSettings, FooterSectionSettings, ContactSectionSettings, AdSectionSettings,
-  ServicesSectionSettings, FlightTicketingSectionSettings, WhyChooseUsSectionSettings, TestimonialsSectionSettings
+  ServicesSectionSettings, FlightTicketingSectionSettings, WhyChooseUsSectionSettings, TestimonialsSectionSettings,
+  TopBarSectionSettings
 } from './pages/SectionSettingsPages';
 
 export default function DashboardLayout() {
@@ -147,6 +148,7 @@ export default function DashboardLayout() {
             {sectionsExpanded && !sidebarCollapsed && (
               <div className="pl-4 space-y-1 mt-1.5 border-l border-slate-100 dark:border-slate-800 ml-5">
                 {[
+                  { id: 'sections-topbar' as SubPage, label: 'Top Contact Bar' },
                   { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
                   { id: 'sections-services' as SubPage, label: 'Service Highlights' },
                   { id: 'sections-about' as SubPage, label: 'About Us' },
@@ -498,6 +500,7 @@ export default function DashboardLayout() {
               {subPage === 'settings' && <SettingsView />}
               {subPage === 'security' && <SecurityView />}
               {subPage === 'notifications' && <NotificationsView />}
+              {subPage === 'sections-topbar' && <TopBarSectionSettings />}
               {subPage === 'sections-hero' && <HeroSectionSettings />}
               {subPage === 'sections-services' && <ServicesSectionSettings />}
               {subPage === 'sections-about' && <AboutSectionSettings />}
@@ -593,6 +596,7 @@ export default function DashboardLayout() {
                   {sectionsExpanded && (
                     <div className="pl-6 space-y-1 mt-1 border-l border-slate-100 dark:border-slate-800 ml-5 animate-fadeIn">
                       {[
+                        { id: 'sections-topbar' as SubPage, label: 'Top Contact Bar' },
                         { id: 'sections-hero' as SubPage, label: 'Hero Slides' },
                         { id: 'sections-services' as SubPage, label: 'Service Highlights' },
                         { id: 'sections-about' as SubPage, label: 'About Us' },

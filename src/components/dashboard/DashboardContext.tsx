@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   Page, SubPage, User, ToastMessage, SystemLog,
   HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings,
-  ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings
+  ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings, TopBarSettings
 } from '../../types/dashboard';
 import { fetchAllAppwriteData, syncCmsSettingToAppwrite, syncArrayToCollection } from '../../lib/appwriteService';
 import { account } from '../../lib/appwrite';
@@ -62,6 +62,8 @@ interface DashboardContextType {
   updateWhyChooseUsSettings: (settings: Partial<WhyChooseUsSettings>) => void;
   testimonialsSettings: TestimonialsSettings;
   updateTestimonialsSettings: (settings: Partial<TestimonialsSettings>) => void;
+  topBarSettings: TopBarSettings;
+  updateTopBarSettings: (settings: Partial<TopBarSettings>) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -86,6 +88,14 @@ const initialLogs: SystemLog[] = [
   { id: '4', timestamp: '2026-07-08 09:12:44', level: 'error', category: 'db', message: 'Connection timeout on backup database secondary' },
   { id: '5', timestamp: '2026-07-08 08:00:00', level: 'info', category: 'system', message: 'Daily backup procedure completed: backup_20260708.sql' }
 ];
+
+const defaultTopBarSettings: TopBarSettings = {
+  isEnabled: true,
+  email: 'info@airzoneltd.com',
+  phone: '+880 1700-000001',
+  whatsappNumber: '+8801700000001',
+  messengerLink: 'https://m.me/airzoneltd'
+};
 
 const defaultHeroSettings: HeroSettings = {
   isEnabled: true,
@@ -506,6 +516,12 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [systemLogs, setSystemLogs] = useState<SystemLog[]>(initialLogs);
   const [maintenanceMode, setMaintenanceMode] = useState<boolean>(false);
 
+  // Top Bar State
+  const [topBarSettings, setTopBarSettings] = useState<TopBarSettings>(() => {
+    const saved = localStorage.getItem('topBarSettings');
+    return saved ? JSON.parse(saved) : defaultTopBarSettings;
+  });
+
   // CMS Section Settings State Hooks
   const [heroSettings, setHeroSettings] = useState<HeroSettings>(() => {
     const saved = localStorage.getItem('heroSettings');
@@ -646,11 +662,22 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         if (data.cms.adSettings) setAdSettings(data.cms.adSettings);
         if (data.cms.servicesSettings) setServicesSettings(data.cms.servicesSettings);
         if (data.cms.whyChooseUsSettings) setWhyChooseUsSettings(data.cms.whyChooseUsSettings);
+        if (data.cms.topBarSettings) setTopBarSettings(data.cms.topBarSettings);
       }
     });
   }, []);
 
   // Updaters
+  const updateTopBarSettings = (updates: Partial<TopBarSettings>) => {
+    setTopBarSettings(prev => {
+      const next = { ...prev, ...updates };
+      localStorage.setItem('topBarSettings', JSON.stringify(next));
+      syncCmsSettingToAppwrite('topBarSettings', next);
+      return next;
+    });
+    addSystemLog('info', 'system', 'Top Contact Bar CMS settings updated');
+  };
+
   const updateHeroSettings = (updates: Partial<HeroSettings>) => {
     setHeroSettings(prev => {
       const next = { ...prev, ...updates };
@@ -1020,7 +1047,9 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         whyChooseUsSettings,
         updateWhyChooseUsSettings,
         testimonialsSettings,
-        updateTestimonialsSettings
+        updateTestimonialsSettings,
+        topBarSettings,
+        updateTopBarSettings
       }}
     >
       {children}

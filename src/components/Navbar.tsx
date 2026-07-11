@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Mail, Phone, MessageCircle, MessageSquare } from 'lucide-react';
 import { useDashboard } from './dashboard/DashboardContext';
 
 const navLinks = [
@@ -12,7 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { setPage } = useDashboard();
+  const { setPage, topBarSettings } = useDashboard();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -36,7 +36,31 @@ export default function Navbar() {
           scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        {/* Top Contact Bar */}
+        {topBarSettings.isEnabled && (
+          <div className={`bg-slate-950 text-slate-300 text-xs py-2 transition-all duration-300 ${scrolled ? 'hidden' : 'block'}`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 gap-y-2 md:flex md:flex-row md:items-center md:justify-between">
+              <a href={`mailto:${topBarSettings.email}`} className="flex items-center justify-start md:justify-center gap-1.5 hover:text-primary-light transition-colors">
+                <Mail size={14} className="text-primary" />
+                <span className="truncate">{topBarSettings.email}</span>
+              </a>
+              <a href={`tel:${topBarSettings.phone}`} className="flex items-center justify-end md:justify-center gap-1.5 hover:text-primary-light transition-colors">
+                <Phone size={14} className="text-primary" />
+                <span>{topBarSettings.phone}</span>
+              </a>
+              <a href={`https://wa.me/${topBarSettings.whatsappNumber?.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-start md:justify-center gap-1.5 hover:text-green-400 transition-colors">
+                <MessageCircle size={14} className="text-green-500" />
+                <span>WhatsApp</span>
+              </a>
+              <a href={topBarSettings.messengerLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-end md:justify-center gap-1.5 hover:text-blue-400 transition-colors">
+                <MessageSquare size={14} className="text-blue-500" />
+                <span>Messenger</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between border-b border-slate-100/50">
           {/* Logo */}
           <button onClick={() => handleLink('#home')} className="flex items-center gap-2 group">
             <div className="relative w-20 h-20 flex-shrink-0">
