@@ -64,6 +64,8 @@ interface DashboardContextType {
   updateTestimonialsSettings: (settings: Partial<TestimonialsSettings>) => void;
   topBarSettings: TopBarSettings;
   updateTopBarSettings: (settings: Partial<TopBarSettings>) => void;
+  activeTour: TourPackageItem | null;
+  setActiveTour: (tour: TourPackageItem | null) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -515,6 +517,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [modal, setModal] = useState<DashboardContextType['modal']>(null);
   const [systemLogs, setSystemLogs] = useState<SystemLog[]>(initialLogs);
   const [maintenanceMode, setMaintenanceMode] = useState<boolean>(false);
+  const [activeTour, setActiveTour] = useState<TourPackageItem | null>(null);
 
   // Top Bar State
   const [topBarSettings, setTopBarSettings] = useState<TopBarSettings>(() => {
@@ -1056,7 +1059,9 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         testimonialsSettings,
         updateTestimonialsSettings,
         topBarSettings,
-        updateTopBarSettings
+        updateTopBarSettings,
+        activeTour,
+        setActiveTour
       }}
     >
       {children}

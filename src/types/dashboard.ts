@@ -39,7 +39,7 @@ export interface Announcement {
   date: string;
 }
 
-export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500';
+export type Page = 'landing' | 'login' | 'forgot-password' | 'reset-password' | 'verify-email' | 'dashboard' | '404' | '500' | 'tour-details';
 export type SubPage = 
   | 'home' | 'users' | 'profile' | 'reports' | 'analytics' | 'settings' | 'security' | 'notifications'
   | 'sections-topbar' | 'sections-hero' | 'sections-about' | 'sections-packages' | 'sections-visa' | 'sections-team' | 'sections-footer' | 'sections-contact' | 'sections-ad'

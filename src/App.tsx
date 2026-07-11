@@ -11,6 +11,7 @@ import Advertising from './components/Advertising';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import TourDetails from './components/TourDetails';
 
 // Dashboard imports
 import { DashboardProvider, useDashboard } from './components/dashboard/DashboardContext';
@@ -62,6 +63,19 @@ function AppContent() {
         <ToastContainer />
         <ModalContainer />
       </>
+    );
+  }
+
+  if (page === 'tour-details') {
+    return (
+      <div className="min-h-screen font-sans antialiased bg-slate-50 text-slate-800 transition-colors">
+        <Navbar />
+        <main>
+          <TourDetails />
+        </main>
+        <Footer />
+        <ToastContainer />
+      </div>
     );
   }
 
