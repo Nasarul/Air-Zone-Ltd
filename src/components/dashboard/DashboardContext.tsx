@@ -647,25 +647,50 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     fetchAllAppwriteData().then(data => {
       if (data) {
-        if (data.packages.length > 0) setPackagesSettings(prev => ({ ...prev, items: data.packages }));
-        if (data.visas.length > 0) setVisaSettings(prev => ({ ...prev, items: data.visas }));
-        if (data.flights.length > 0) setFlightTicketingSettings(prev => ({ ...prev, deals: data.flights }));
-        if (data.team.length > 0) setTeamSettings(prev => ({ ...prev, items: data.team }));
-        if (data.testimonials.length > 0) setTestimonialsSettings(prev => ({ ...prev, items: data.testimonials }));
+        if (data.packages.length > 0) {
+          const uniquePackages = data.packages.filter((p, index, self) =>
+            self.findIndex(x => x.title === p.title) === index
+          );
+          setPackagesSettings(prev => ({ ...prev, items: uniquePackages }));
+        }
+        if (data.visas.length > 0) {
+          const uniqueVisas = data.visas.filter((v, index, self) =>
+            self.findIndex(x => x.country === v.country) === index
+          );
+          setVisaSettings(prev => ({ ...prev, items: uniqueVisas }));
+        }
+        if (data.flights.length > 0) {
+          const uniqueFlights = data.flights.filter((f, index, self) =>
+            self.findIndex(x => x.airline === f.airline && x.to === f.to) === index
+          );
+          setFlightTicketingSettings(prev => ({ ...prev, deals: uniqueFlights }));
+        }
+        if (data.team.length > 0) {
+          const uniqueTeam = data.team.filter((t, index, self) =>
+            self.findIndex(x => x.name === t.name) === index
+          );
+          setTeamSettings(prev => ({ ...prev, items: uniqueTeam }));
+        }
+        if (data.testimonials.length > 0) {
+          const uniqueTestimonials = data.testimonials.filter((t, index, self) =>
+            self.findIndex(x => x.name === t.name && x.text === t.text) === index
+          );
+          setTestimonialsSettings(prev => ({ ...prev, items: uniqueTestimonials }));
+        }
         
-        if (data.cms.heroSettings) setHeroSettings(data.cms.heroSettings);
-        if (data.cms.aboutSettings) setAboutSettings(data.cms.aboutSettings);
+        if (data.cms.heroSettings) setHeroSettings(prev => ({ ...prev, ...data.cms.heroSettings }));
+        if (data.cms.aboutSettings) setAboutSettings(prev => ({ ...prev, ...data.cms.aboutSettings }));
         if (data.cms.packagesSettings_meta) setPackagesSettings(prev => ({ ...prev, ...data.cms.packagesSettings_meta }));
         if (data.cms.visaSettings_meta) setVisaSettings(prev => ({ ...prev, ...data.cms.visaSettings_meta }));
         if (data.cms.flightSettings_meta) setFlightTicketingSettings(prev => ({ ...prev, ...data.cms.flightSettings_meta }));
         if (data.cms.teamSettings_meta) setTeamSettings(prev => ({ ...prev, ...data.cms.teamSettings_meta }));
         if (data.cms.testimonialsSettings_meta) setTestimonialsSettings(prev => ({ ...prev, ...data.cms.testimonialsSettings_meta }));
-        if (data.cms.footerSettings) setFooterSettings(data.cms.footerSettings);
-        if (data.cms.contactSettings) setContactSettings(data.cms.contactSettings);
-        if (data.cms.adSettings) setAdSettings(data.cms.adSettings);
-        if (data.cms.servicesSettings) setServicesSettings(data.cms.servicesSettings);
-        if (data.cms.whyChooseUsSettings) setWhyChooseUsSettings(data.cms.whyChooseUsSettings);
-        if (data.cms.topBarSettings) setTopBarSettings(data.cms.topBarSettings);
+        if (data.cms.footerSettings) setFooterSettings(prev => ({ ...prev, ...data.cms.footerSettings }));
+        if (data.cms.contactSettings) setContactSettings(prev => ({ ...prev, ...data.cms.contactSettings }));
+        if (data.cms.adSettings) setAdSettings(prev => ({ ...prev, ...data.cms.adSettings }));
+        if (data.cms.servicesSettings) setServicesSettings(prev => ({ ...prev, ...data.cms.servicesSettings }));
+        if (data.cms.whyChooseUsSettings) setWhyChooseUsSettings(prev => ({ ...prev, ...data.cms.whyChooseUsSettings }));
+        if (data.cms.topBarSettings) setTopBarSettings(prev => ({ ...prev, ...data.cms.topBarSettings }));
       }
     });
   }, []);
