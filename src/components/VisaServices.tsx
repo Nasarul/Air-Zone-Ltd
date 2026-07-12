@@ -218,7 +218,7 @@ export default function VisaServices() {
                       Required Documents Checklist
                     </h4>
                     <ul className="space-y-3.5">
-                      {(selectedVisa.documents || defaultDocuments).map((doc, idx) => (
+                      {((selectedVisa.documents as string[]) || defaultDocuments).map((doc: string, idx: number) => (
                         <li key={idx} className="flex items-start gap-3 text-slate-600 text-xs md:text-sm leading-relaxed">
                           <div className="w-5 h-5 bg-primary/10 text-primary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold">
                             {idx + 1}

@@ -111,6 +111,7 @@ export interface TourPackageItem {
   categories: string[];
   desc: string;
   inclusions: string[];
+  itinerary?: { day: string; title: string; desc: string; }[];
 }
 
 export interface PackagesSettings {
@@ -123,9 +124,10 @@ export interface PackagesSettings {
 export interface VisaServiceItem {
   id: string;
   country: string;
-  processingTime: string;
-  fee: string;
-  type: string;
+  flag: string;
+  days: string;
+  category: string;
+  price: string;
   iconName: string;
 }
 

@@ -21,7 +21,7 @@ export const fetchAllAppwriteData = async () => {
     ]);
 
     // Map Tour Packages
-    const mappedPackages = packagesRes.documents.map(doc => ({
+    const mappedPackages = packagesRes.documents.map((doc: any) => ({
       id: doc.$id,
       image: doc.image,
       title: doc.title,
@@ -35,19 +35,19 @@ export const fetchAllAppwriteData = async () => {
       inclusions: doc.inclusions || []
     }));
 
-    // Map Visa Services (Fix schema mapping issues here if any exist)
-    const mappedVisas = visaRes.documents.map(doc => ({
+    // Map Visa Services
+    const mappedVisas = visaRes.documents.map((doc: any) => ({
       id: doc.$id,
       country: doc.country,
       flag: doc.flag,
-      processingTime: doc.days, // 'days' in DB
-      fee: doc.price, // 'price' in DB
-      type: doc.category, // 'category' in DB
+      days: doc.days,
+      price: doc.price,
+      category: doc.category,
       iconName: doc.iconName
     }));
 
     // Map Flight Deals
-    const mappedFlights = flightsRes.documents.map(doc => ({
+    const mappedFlights = flightsRes.documents.map((doc: any) => ({
       id: doc.$id,
       airline: doc.airline,
       logo: doc.logo,
@@ -64,7 +64,7 @@ export const fetchAllAppwriteData = async () => {
     }));
 
     // Map Team
-    const mappedTeam = teamRes.documents.map(doc => ({
+    const mappedTeam = teamRes.documents.map((doc: any) => ({
       id: doc.$id,
       name: doc.name,
       role: doc.role,
@@ -72,7 +72,7 @@ export const fetchAllAppwriteData = async () => {
     }));
 
     // Map Testimonials
-    const mappedTestimonials = testimonialsRes.documents.map(doc => ({
+    const mappedTestimonials = testimonialsRes.documents.map((doc: any) => ({
       name: doc.name,
       role: doc.role,
       image: doc.image,
@@ -82,7 +82,7 @@ export const fetchAllAppwriteData = async () => {
 
     // Map CMS Settings
     const cmsSettings: Record<string, any> = {};
-    cmsRes.documents.forEach(doc => {
+    cmsRes.documents.forEach((doc: any) => {
       try {
         cmsSettings[doc.key] = JSON.parse(doc.value);
       } catch (e) {
@@ -137,7 +137,7 @@ export const syncArrayToCollection = async (collectionId: string, items: any[], 
     const existing = await databases.listDocuments(databaseId, collectionId, [Query.limit(100)]);
     
     // 2. Delete all existing documents to avoid stale data
-    await Promise.all(existing.documents.map(doc => 
+    await Promise.all(existing.documents.map((doc: any) => 
       databases.deleteDocument(databaseId, collectionId, doc.$id)
     ));
 

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   Page, SubPage, User, ToastMessage, SystemLog,
   HeroSettings, AboutSettings, PackagesSettings, VisaSettings, TeamSettings, FooterSettings, ContactSettings, AdSettings,
-  ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings, TopBarSettings
+  ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings, TopBarSettings, TourPackageItem
 } from '../../types/dashboard';
 import { fetchAllAppwriteData, syncCmsSettingToAppwrite, syncArrayToCollection } from '../../lib/appwriteService';
 import { account } from '../../lib/appwrite';
@@ -725,7 +725,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       localStorage.setItem('visaSettings', JSON.stringify(next));
       if (updates.items) {
         syncArrayToCollection('visa_services', next.items, item => ({
-          country: item.country, flag: item.flag, days: item.processingTime, category: item.type, price: item.fee, iconName: item.iconName
+          country: item.country, flag: item.flag, days: item.days, category: item.category, price: item.price, iconName: item.iconName
         }));
       } else {
         syncCmsSettingToAppwrite('visaSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });

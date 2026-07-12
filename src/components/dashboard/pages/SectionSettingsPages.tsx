@@ -4,7 +4,7 @@ import {
   Save, Eye, EyeOff, ArrowUp, ArrowDown, Trash2, Plus, 
   Upload, CheckCircle, Image as ImageIcon, MapPin, DollarSign, Calendar
 } from 'lucide-react';
-import { TourPackageItem, VisaServiceItem, TeamMemberItem, ContactSettings, AdSettings, ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings } from '../../../types/dashboard';
+import { TourPackageItem, VisaServiceItem, TeamMemberItem, ContactSettings, AdSettings, ServicesSettings, FlightTicketingSettings, WhyChooseUsSettings, TestimonialsSettings, AdSlide, FlightDealItem, TestimonialItem } from '../../../types/dashboard';
 
 /* ==========================================================================
    SHARED UI SUB-COMPONENTS

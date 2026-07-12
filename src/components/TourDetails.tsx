@@ -189,7 +189,7 @@ export default function TourDetails() {
             <div>
               <h2 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><Check className="text-emerald-500" /> What's Included</h2>
               <ul className="space-y-3">
-                {(activeTour.inclusions || ['Hotel accommodation', 'Daily breakfast', 'Airport transfers']).map((inc, i) => (
+                {((activeTour.inclusions as string[]) || ['Hotel accommodation', 'Daily breakfast', 'Airport transfers']).map((inc: string, i: number) => (
                   <li key={i} className="flex items-start gap-3 bg-white p-3 rounded-lg border border-slate-100">
                     <Check size={18} className="text-emerald-500 mt-0.5" />
                     <span className="text-sm font-medium text-slate-700">{inc}</span>
