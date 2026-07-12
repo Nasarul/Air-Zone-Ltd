@@ -218,14 +218,14 @@ const defaultVisaSettings: VisaSettings = {
   title: 'Visa Services & Assistance',
   subtitle: 'Apply for your visa with high approval rates. We offer expert processing for major destinations.',
   items: [
-    { id: '1', country: 'United Kingdom', flag: 'https://flagcdn.com/w80/gb.png', days: '12–18 working days', category: 'Tourist / Business', price: '৳18,500', iconName: 'FileText' },
-    { id: '2', country: 'Saudi Arabia', flag: 'https://flagcdn.com/w80/sa.png', days: '5–8 working days', category: 'Tourist / Visit', price: '৳14,500', iconName: 'FileCheck2' },
-    { id: '3', country: 'Japan', flag: 'https://flagcdn.com/w80/jp.png', days: '8–12 working days', category: 'Tourist / Business', price: '৳7,500', iconName: 'Send' },
-    { id: '4', country: 'Singapore', flag: 'https://flagcdn.com/w80/sg.png', days: '5–7 working days', category: 'Tourist / Business', price: '৳6,500', iconName: 'FileText' },
-    { id: '5', country: 'United Arab Emirates', flag: 'https://flagcdn.com/w80/ae.png', days: '4–6 working days', category: 'Visit / Transit', price: '৳15,500', iconName: 'FileCheck2' },
-    { id: '6', country: 'Malaysia', flag: 'https://flagcdn.com/w80/my.png', days: '6–7 working days', category: 'Tourist / Social', price: '৳6,800', iconName: 'Send' },
-    { id: '7', country: 'Canada', flag: 'https://flagcdn.com/w80/ca.png', days: '20–30 working days', category: 'Tourist / Business', price: '৳22,500', iconName: 'FileText' },
-    { id: '8', country: 'Thailand', flag: 'https://flagcdn.com/w80/th.png', days: '5–8 working days', category: 'Tourist / Visit', price: '৳5,500', iconName: 'Send' }
+    { id: '1', country: 'United Kingdom', flag: 'https://flagcdn.com/w80/gb.png', processingTime: '12–18 working days', type: 'Tourist / Business', fee: '৳18,500', iconName: 'FileText' },
+    { id: '2', country: 'Saudi Arabia', flag: 'https://flagcdn.com/w80/sa.png', processingTime: '5–8 working days', type: 'Tourist / Visit', fee: '৳14,500', iconName: 'FileCheck2' },
+    { id: '3', country: 'Japan', flag: 'https://flagcdn.com/w80/jp.png', processingTime: '8–12 working days', type: 'Tourist / Business', fee: '৳7,500', iconName: 'Send' },
+    { id: '4', country: 'Singapore', flag: 'https://flagcdn.com/w80/sg.png', processingTime: '5–7 working days', type: 'Tourist / Business', fee: '৳6,500', iconName: 'FileText' },
+    { id: '5', country: 'United Arab Emirates', flag: 'https://flagcdn.com/w80/ae.png', processingTime: '4–6 working days', type: 'Visit / Transit', fee: '৳15,500', iconName: 'FileCheck2' },
+    { id: '6', country: 'Malaysia', flag: 'https://flagcdn.com/w80/my.png', processingTime: '6–7 working days', type: 'Tourist / Social', fee: '৳6,800', iconName: 'Send' },
+    { id: '7', country: 'Canada', flag: 'https://flagcdn.com/w80/ca.png', processingTime: '20–30 working days', type: 'Tourist / Business', fee: '৳22,500', iconName: 'FileText' },
+    { id: '8', country: 'Thailand', flag: 'https://flagcdn.com/w80/th.png', processingTime: '5–8 working days', type: 'Tourist / Visit', fee: '৳5,500', iconName: 'Send' }
   ]
 };
 
@@ -750,7 +750,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       localStorage.setItem('visaSettings', JSON.stringify(next));
       if (updates.items) {
         syncArrayToCollection('visa_services', next.items, item => ({
-          country: item.country, flag: item.flag, days: item.days, category: item.category, price: item.price, iconName: item.iconName
+          country: item.country, flag: item.flag, days: item.processingTime, category: item.type, price: item.fee, iconName: item.iconName
         }));
       } else {
         syncCmsSettingToAppwrite('visaSettings_meta', { isEnabled: next.isEnabled, title: next.title, subtitle: next.subtitle });

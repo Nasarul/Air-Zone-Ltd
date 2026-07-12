@@ -120,10 +120,10 @@ export default function VisaServices() {
                   />
                   <div className="min-w-0">
                     <div className="font-extrabold text-slate-800 text-sm leading-tight truncate group-hover:text-primary transition-colors">{v.country}</div>
-                    <div className="text-slate-400 text-[10px] font-semibold mt-0.5 uppercase tracking-wide">{v.category}</div>
+                    <div className="text-slate-400 text-[10px] font-semibold mt-0.5 uppercase tracking-wide">{v.type}</div>
                     <div className="flex items-center gap-1 text-primary text-[10px] mt-1.5 font-bold uppercase tracking-wider">
                       <Clock size={10} />
-                      {v.days}
+                      {v.processingTime}
                     </div>
                   </div>
                 </div>
@@ -182,7 +182,7 @@ export default function VisaServices() {
                   {selectedVisa.country} Visa Requirements
                 </h3>
                 <p className="text-slate-400 text-xs font-semibold uppercase mt-0.5 tracking-wider">
-                  {selectedVisa.category} Category
+                  {selectedVisa.type} Category
                 </p>
               </div>
             </div>
@@ -203,11 +203,11 @@ export default function VisaServices() {
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                       <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Processing Time</div>
-                      <div className="font-extrabold text-slate-800 text-sm mt-1">{selectedVisa.days}</div>
+                      <div className="font-extrabold text-slate-800 text-sm mt-1">{selectedVisa.processingTime}</div>
                     </div>
                     <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                       <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Service Cost</div>
-                      <div className="font-extrabold text-primary text-sm mt-1">{selectedVisa.price}</div>
+                      <div className="font-extrabold text-primary text-sm mt-1">{selectedVisa.fee}</div>
                     </div>
                   </div>
 

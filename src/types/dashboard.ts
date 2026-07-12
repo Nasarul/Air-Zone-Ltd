@@ -125,9 +125,9 @@ export interface VisaServiceItem {
   id: string;
   country: string;
   flag: string;
-  days: string;
-  category: string;
-  price: string;
+  processingTime: string;
+  fee: string;
+  type: string;
   iconName: string;
 }
 

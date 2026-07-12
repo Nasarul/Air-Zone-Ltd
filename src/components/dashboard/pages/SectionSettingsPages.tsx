@@ -811,9 +811,9 @@ export const VisaSectionSettings: React.FC = () => {
       id: 'visa_' + Date.now(),
       country: 'Canada',
       flag: 'https://flagcdn.com/w80/ca.png',
-      days: '15-20 working days',
-      category: 'Tourist / Study',
-      price: '৳12,500',
+      processingTime: '15-20 working days',
+      type: 'Tourist / Study',
+      fee: '৳12,500',
       iconName: 'FileCheck2'
     };
     setActiveItem(defaultNew);
@@ -880,11 +880,11 @@ export const VisaSectionSettings: React.FC = () => {
                     <img src={visa.flag} className="w-8 h-6 rounded border object-cover flex-shrink-0" alt="Flag" />
                     <div className="min-w-0">
                       <h5 className="font-bold text-xs text-slate-805 dark:text-white truncate">{visa.country}</h5>
-                      <p className="text-[9px] text-slate-400 mt-0.5">{visa.category} | {visa.days}</p>
+                      <p className="text-[9px] text-slate-400 mt-0.5">{visa.type} | {visa.processingTime}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-extrabold text-primary dark:text-primary-light mr-1">{visa.price}</span>
+                    <span className="text-xs font-extrabold text-primary dark:text-primary-light mr-1">{visa.fee}</span>
                     <button 
                       type="button" 
                       disabled={idx === 0} 
@@ -998,20 +998,20 @@ const VisaItemForm: React.FC<VisaFormProps> = ({ item, isNew, onSave, onCancel, 
 
       <div className="grid grid-cols-2 gap-2">
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Processing Timeframe</label>
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Processing Timeframe</label>
           <input 
             type="text" 
-            value={draft.days} 
-            onChange={(e) => setDraft({ ...draft, days: e.target.value })} 
+            value={draft.processingTime} 
+            onChange={(e) => setDraft({ ...draft, processingTime: e.target.value })} 
             className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-205 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-705 dark:text-slate-355"
           />
         </div>
         <div className="space-y-1">
-          <label className="text-[10px] font-black uppercase text-slate-450 tracking-wider">Service Fee Rate</label>
+          <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Service Fee Rate</label>
           <input 
             type="text" 
-            value={draft.price} 
-            onChange={(e) => setDraft({ ...draft, price: e.target.value })} 
+            value={draft.fee} 
+            onChange={(e) => setDraft({ ...draft, fee: e.target.value })} 
             className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-205 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-705 dark:text-slate-355"
           />
         </div>
@@ -1022,8 +1022,8 @@ const VisaItemForm: React.FC<VisaFormProps> = ({ item, isNew, onSave, onCancel, 
           <label className="text-[10px] font-black uppercase text-slate-455 tracking-wider">Visa Type Categories</label>
           <input 
             type="text" 
-            value={draft.category} 
-            onChange={(e) => setDraft({ ...draft, category: e.target.value })} 
+            value={draft.type} 
+            onChange={(e) => setDraft({ ...draft, type: e.target.value })} 
             className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-205 dark:border-slate-800 rounded-xl px-4 py-2 text-xs focus:outline-none text-slate-750 dark:text-slate-300"
           />
         </div>

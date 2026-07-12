@@ -40,9 +40,9 @@ export const fetchAllAppwriteData = async () => {
       id: doc.$id,
       country: doc.country,
       flag: doc.flag,
-      days: doc.days,
-      price: doc.price,
-      category: doc.category,
+      processingTime: doc.days,
+      fee: doc.price,
+      type: doc.category,
       iconName: doc.iconName
     }));
 
