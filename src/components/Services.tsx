@@ -26,13 +26,13 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {servicesSettings.items.map((s, idx) => {
             const IconComponent = iconMap[s.iconName] || Compass;
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl p-8 border border-transparent hover:border-primary/30 transition-all duration-300 hover:shadow-lg group cursor-default"
+                className="bg-white rounded-2xl p-8 border border-transparent hover:border-primary/30 transition-all duration-300 hover:shadow-lg group cursor-default w-full md:w-[calc(33.333%-22px)] min-w-[280px] max-w-[380px]"
               >
                 <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-primary/5 text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
                   <IconComponent size={26} />

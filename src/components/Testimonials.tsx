@@ -14,11 +14,11 @@ export default function Testimonials() {
           <h2 className="text-4xl font-extrabold text-slate-800 mt-2">{testimonialsSettings.title}</h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {testimonialsSettings.items.map((t, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] min-w-[280px] max-w-[350px]"
             >
               <Quote size={28} className="text-primary/20 mb-4 flex-shrink-0" fill="currentColor" />
               <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">{t.text}</p>

@@ -19,9 +19,9 @@ export default function Team() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-12">
           {team.map((m) => (
-            <div key={m.id} className="group text-center">
+            <div key={m.id} className="group text-center w-full sm:w-[calc(50%-24px)] lg:w-[calc(25%-36px)] min-w-[200px] max-w-[260px]">
               <div className="relative mb-5 inline-block">
                 <img
                   src={m.avatar}

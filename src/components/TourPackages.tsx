@@ -105,7 +105,7 @@ export default function TourPackages() {
 
         {/* Packages Grid */}
         {filteredTours.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {filteredTours.map((t) => (
               <div
                 key={t.id}
@@ -113,7 +113,7 @@ export default function TourPackages() {
                   setActiveTour(t);
                   setPage('tour-details');
                 }}
-                className="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:border-slate-200/50 shadow-sm hover:shadow-2xl transition-all duration-300 group cursor-pointer flex flex-col h-full transform hover:-translate-y-1"
+                className="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:border-slate-200/50 shadow-sm hover:shadow-2xl transition-all duration-300 group cursor-pointer flex flex-col h-full transform hover:-translate-y-1 w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] min-w-[280px] max-w-[380px]"
               >
                 {/* Image */}
                 <div className="relative h-56 overflow-hidden flex-shrink-0">
